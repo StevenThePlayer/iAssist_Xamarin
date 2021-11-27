@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="iAssist_Xamarin.Views.ViewProfilePage"
+             xmlns:viewmodel="clr-namespace:iAssist_Xamarin.ViewModels" 
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+             Title="{Binding Subtitle}">
+    <ContentPage.BindingContext>
+        <viewmodel:ViewProfileViewModel/>
+    </ContentPage.BindingContext>
+    <ContentPage.Behaviors>
+        <xct:EventToCommandBehavior
+                EventName="Appearing"
+                Command="{Binding PageAppearingCommand}" />
+    </ContentPage.Behaviors>
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout Padding="20" MinimumHeightRequest="1000">
+                <ActivityIndicator Color="Green" IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}"/>
+                <Label FontSize="Title" HorizontalTextAlignment="Center" Text="{Binding Title}"></Label>
+                <Image Source="{Binding ProfilePicture}" WidthRequest="250"></Image>
+                <Button VerticalOptions="Center" Text="Upload Profile Picture" Command="{Binding UploadFileCommand}"/>
+                <Label>Email:</Label>
+                <Label Text="{Binding Email}"/>
+                <Label>First Name:</Label>
+                <Label Text="{Binding Firstname}"/>
+                <Label>Last Name:</Label>
+                <Label Text="{Binding Lastname}"/>
+                <Label>Contact Number:</Label>
+                <Label Text="{Binding Contactnumber}"/>
+                <Label>Address:</Label>
+                <Label Text="{Binding Address}"/>
+                <Label>Created At:</Label>
+                <Label Text="{Binding CreatedAt}"/>
+                <Label>Updated At:</Label>
+                <Label Text="{Binding UpdatedAt}"/>
+                <Label Text="{Binding Message}" TextColor="Red"/>
+                <Button VerticalOptions="Center" Text="Edit Profile" Command="{Binding EditCommand}"/>
+                <Button VerticalOptions="Center" Text="Change Password" Command="{Binding ChangePasswordCommand}"/>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

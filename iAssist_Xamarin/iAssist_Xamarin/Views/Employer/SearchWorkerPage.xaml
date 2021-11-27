@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="iAssist_Xamarin.Views.SearchWorkerPage"
+             xmlns:viewmodels="clr-namespace:iAssist_Xamarin.ViewModels" 
+             Title="{Binding Subtitle}">
+    <ContentPage.BindingContext>
+        <viewmodels:SearchWorkerViewModel/>
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <StackLayout Padding="20">
+            <Label Text="{Binding Title}" HorizontalOptions="CenterAndExpand"/>
+            <Label>Category:</Label>
+            <Entry Text="{Binding Category}"/>
+            <Label Text="Address"/>
+            <Entry Text="{Binding Address}"/>
+            <Button Text="Find a Skilled Worker" Command="{Binding SearchCommand}"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:viewmodel="clr-namespace:iAssist_Xamarin.ViewModels" 
+             xmlns:input="clr-namespace:Plugin.InputKit.Shared.Controls;assembly=Plugin.InputKit"
+             x:Class="iAssist_Xamarin.Views.EditTaskPage"
+             xmlns:behaviors="http://xamarin.com/schemas/2020/toolkit"
+             Title="{Binding Subtitle}">
+    <ContentPage.BindingContext>
+        <viewmodel:EditTaskViewModel/>
+    </ContentPage.BindingContext>
+
+    <ContentPage.Behaviors>
+        <behaviors:EventToCommandBehavior
+                EventName="Appearing"
+                Command="{Binding PageAppearingCommand}" />
+    </ContentPage.Behaviors>
+    <ContentPage.Content>
+        <StackLayout Padding="20" VerticalOptions="Start" MinimumHeightRequest="10000">
+            <Label FontSize="Title" HorizontalTextAlignment="Center" Text="Edit Task"></Label>
+<!--
+            <Picker
+                Title="Job Category"
+                ItemsSource="{Binding JobCategory}"
+                SelectedItem="{Binding SelectedJob}"
+                IsEnabled="false">
+            </Picker>-->
+
+            <Label>Task Title</Label>
+            <Entry Text="{Binding TaskTitle}"/>
+            <Label>Task Description</Label>
+            <Editor HeightRequest="100" Text="{Binding TaskDescription}"/>
+            <Label>Schedule</Label>
+            <DatePicker
+                    MinimumDate="{Binding CurrDate}"
+                    Date="{Binding SelectedDate}" />
+
+            <Label>Address:</Label>
+            <input:AutoCompleteEntry
+                    Text="{Binding Address, Mode=TwoWay}"
+                    Placeholder="Powered with Google Maps"
+                    TextColor="Black"
+                    ItemsSource="{Binding Addresses, Mode=OneWay}"
+                    MinimumHeightRequest="50">
+                <input:AutoCompleteEntry.Behaviors>
+                    <behaviors:EventToCommandBehavior
+                            EventName="TextChanged"
+                            Command="{Binding AddressChangedCommand}"/>
+                </input:AutoCompleteEntry.Behaviors>
+            </input:AutoCompleteEntry>
+
+            <Label Text="{Binding Picture}"></Label>
+            <Button VerticalOptions="Center" Text="Upload Picture" Command="{Binding UploadFileCommand}"/>
+
+
+            <Label>Services (Select at least one)</Label>
+            <CollectionView
+                            ItemsSource="{Binding ServiceLists}"
+                            SelectionMode="Multiple"
+                            SelectedItems="{Binding SelectedServices, Mode=TwoWay}"
+                            BackgroundColor="LightGray"
+                            VerticalScrollBarVisibility="Always">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Padding="10">
+                            <Label Grid.Column="0"
+                                   Text="{Binding ServiceName}" 
+                                   FontAttributes="Bold" />
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <Label Text="{Binding Message}" TextColor="Red"/>
+            <ActivityIndicator Color="Green" IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}"/>
+            <Button VerticalOptions="Center" Text="Edit Task" Command="{Binding EditTaskCommand}"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

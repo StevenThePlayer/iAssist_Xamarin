@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage 
+        x:Class="iAssist_Xamarin.Views.RateWorkerPage"
+        xmlns:viewmodel="clr-namespace:iAssist_Xamarin.ViewModels"
+        xmlns="http://xamarin.com/schemas/2014/forms"
+        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+        xmlns:lv="clr-namespace:LaavorRatingConception;assembly=RatingConception"
+        Title="{Binding Subtitle}">
+
+    <ContentPage.BindingContext>
+        <viewmodel:RateWorkerViewModel/>
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <ScrollView HeightRequest="1000">
+            <StackLayout Padding="20" MinimumHeightRequest="10000">
+                <Label FontSize="Title" HorizontalTextAlignment="Center" Text="{Binding Title}"></Label>
+                <Label>Worker Id</Label>
+                <Label  Text="{Binding WorkerId}"/>
+                <Label>Task Id</Label>
+                <Label Text="{Binding Taskid}"/>
+                <Label>Rating</Label>
+                <lv:RatingConception 
+                    DrawType="Star" 
+                    ColorUI="Orange" 
+                    DesignType="Standard" 
+                    ImageWidth="40" 
+                    ImageHeight="40" 
+                    ItemsNumber="5" 
+                    Margin="0,15,0,0"
+                    Voted="RatingConception_Voted">
+                </lv:RatingConception>
+                <Label>Description</Label>
+                <Entry 
+                    Text="{Binding Feedback}"/>
+
+                <Label Text="{Binding Message}" TextColor="Red"/>
+                <ActivityIndicator Color="Green" IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}"/>
+                <Button VerticalOptions="Center" Text="Submit Rating" Command="{Binding RateCommand}"/>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

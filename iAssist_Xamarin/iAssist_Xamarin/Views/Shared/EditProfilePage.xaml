@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="iAssist_Xamarin.Views.EditProfilePage"
+             xmlns:viewmodel="clr-namespace:iAssist_Xamarin.ViewModels"
+             Title="{Binding Subtitle}">
+    <ContentPage.BindingContext>
+        <viewmodel:EditProfileViewModel/>
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <StackLayout Padding="20" VerticalOptions="Center">
+            <ActivityIndicator Color="Green" IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}"/>
+            <Label FontSize="Title" HorizontalTextAlignment="Center" Text="{Binding Title}"></Label>
+            <Label>Email:</Label>
+            <Entry Keyboard="Email" IsReadOnly="True" Text="{Binding Email}"/>
+            <Label>First Name:</Label>
+            <Entry Text="{Binding Firstname}"/>
+            <Label>Last Name:</Label>
+            <Entry Text="{Binding Lastname}"/>
+            <Label>Contact Number:</Label>
+            <Entry Text="{Binding Contactnumber}"/>
+            <Label Text="{Binding Message}" TextColor="Red"/>
+            <Button VerticalOptions="Center" Text="Edit Profile" Command="{Binding EditCommand}"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

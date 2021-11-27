@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage 
+        x:Class="iAssist_Xamarin.Views.RegisterPage"
+        xmlns:viewmodel="clr-namespace:iAssist_Xamarin.ViewModels"
+        xmlns="http://xamarin.com/schemas/2014/forms"
+        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+        xmlns:input="clr-namespace:Plugin.InputKit.Shared.Controls;assembly=Plugin.InputKit">
+
+    <ContentPage.BindingContext>
+        <viewmodel:RegisterViewModel/>
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <ScrollView HeightRequest="1000">
+            <StackLayout Padding="20" VerticalOptions="Center" MinimumHeightRequest="10000">
+                <Label FontSize="Title" HorizontalTextAlignment="Center" Text="{Binding Title}"></Label>
+                <Label>Email:</Label>
+                <Entry Keyboard="Email" Text="{Binding Email}"/>
+                <Label>Address:</Label>
+                <input:AutoCompleteEntry
+                x:Name="EntryAddress"
+                IsRequired="True"
+                Placeholder="Powered with Google Maps"
+                TextColor="Black"
+                TextChanged="AutoCompleteEntry_TextChanged"/>
+                <Label>Password</Label>
+                <Entry Text="{Binding Password}" IsPassword="True"/>
+                <Label>Confirm Password</Label>
+                <Entry Text="{Binding ConfirmPassword}" IsPassword="True"/>
+                <Label>First Name:</Label>
+                <Entry Text="{Binding Firstname}"/>
+                <Label>Last Name:</Label>
+                <Entry Text="{Binding Lastname}"/>
+                <Label>Contact Number:</Label>
+                <Entry Keyboard="Telephone"  Text="{Binding Contactnumber}"/>
+                <Label Text="{Binding Message}" TextColor="Red"/>
+                <ActivityIndicator Color="Green" IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}"/>
+                <Button VerticalOptions="Center" Text="Create an Account" Command="{Binding RegisterCommand}"/>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

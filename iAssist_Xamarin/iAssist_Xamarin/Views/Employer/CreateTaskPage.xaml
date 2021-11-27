@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:viewmodel="clr-namespace:iAssist_Xamarin.ViewModels" 
+             xmlns:input="clr-namespace:Plugin.InputKit.Shared.Controls;assembly=Plugin.InputKit"
+             x:Class="iAssist_Xamarin.Views.CreateTaskPage"
+             xmlns:behaviors="http://xamarin.com/schemas/2020/toolkit"
+             Title="{Binding Subtitle}">
+    <ContentPage.BindingContext>
+        <viewmodel:CreateTaskViewModel/>
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <StackLayout Padding="20" VerticalOptions="Start" HeightRequest="1000">
+            <Label FontSize="Title" HorizontalTextAlignment="Center" Text="{Binding Title}"></Label>
+
+            <Picker
+                Title="Select a Job Category"
+                ItemsSource="{Binding JobCategory}"
+                SelectedItem="{Binding SelectedJob}"
+                IsEnabled="{Binding IsNotBusy}">
+                <Picker.Behaviors>
+                    <behaviors:EventToCommandBehavior
+                            EventName="SelectedIndexChanged"
+                            Command="{Binding JobSelectedCommand}"/>
+                </Picker.Behaviors>
+            </Picker>
+
+            <Label IsVisible="{Binding IsJobSelected}">Task Title</Label>
+            <Entry IsVisible="{Binding IsJobSelected}" Text="{Binding TaskTitle}"/>
+            <Label IsVisible="{Binding IsJobSelected}">Task Description</Label>
+            <Editor HeightRequest="60" IsVisible="{Binding IsJobSelected}" Text="{Binding TaskDescription}"/>
+            <Label IsVisible="{Binding IsJobSelected}">Schedule</Label>
+            <DatePicker  IsVisible="{Binding IsJobSelected}"
+                    MinimumDate="{Binding CurrDate}"
+                    Date="{Binding SelectedDate}" />
+
+            <Label  IsVisible="{Binding IsJobSelected}">Address:</Label>
+            <input:AutoCompleteEntry
+                    IsVisible="{Binding IsJobSelected}"
+                    Text="{Binding Address, Mode=TwoWay}"
+                    Placeholder="Powered with Google Maps"
+                    TextColor="Black"
+                    ItemsSource="{Binding Addresses, Mode=OneWay}"
+                    MinimumHeightRequest="200">
+                <input:AutoCompleteEntry.Behaviors>
+                    <behaviors:EventToCommandBehavior
+                            EventName="TextChanged"
+                            Command="{Binding AddressChangedCommand}"/>
+                </input:AutoCompleteEntry.Behaviors>
+            </input:AutoCompleteEntry>
+
+            <Label Text="{Binding ProfilePicture}"></Label>
+            <Button  IsVisible="{Binding IsJobSelected}"
+                VerticalOptions="Center" 
+                Text="Add Picture" 
+                Command="{Binding UploadFileCommand}"
+                     Style="{StaticResource ButtonStyle}"/>
+
+
+            <Label IsVisible="{Binding IsJobSelected}">Services (Select at least one)</Label>
+            <CollectionView IsVisible="{Binding IsJobSelected}"
+                            ItemsSource="{Binding ServiceLists}"
+                            SelectionMode="Multiple"
+                            SelectedItems="{Binding SelectedServices, Mode=TwoWay}"
+                            BackgroundColor="LightGray"
+                            VerticalScrollBarVisibility="Always"
+                            MinimumHeightRequest="50">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Padding="10">
+                            <Label Grid.Column="0"
+                                   Text="{Binding ServiceName}" 
+                                   FontAttributes="Bold" />
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <Label  IsVisible="{Binding IsJobSelected}" Text="{Binding Message}" TextColor="Red"/>
+            <ActivityIndicator Color="Green" IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}"/>
+            <Button  IsVisible="{Binding IsJobSelected}"
+                     Style="{StaticResource ButtonStyle}"
+                     VerticalOptions="Center" 
+                     Text="Create Task" 
+                     Command="{Binding CreateTaskCommand}"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

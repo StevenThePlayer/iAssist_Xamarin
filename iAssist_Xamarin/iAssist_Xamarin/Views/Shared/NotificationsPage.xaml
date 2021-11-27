@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage 
+        x:Class="iAssist_Xamarin.Views.NotificationsPage"
+        xmlns="http://xamarin.com/schemas/2014/forms"
+        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+        xmlns:viewmodels="clr-namespace:iAssist_Xamarin.ViewModels" 
+        xmlns:behaviors="http://xamarin.com/schemas/2020/toolkit"
+        Title="{Binding Subtitle}">
+    <ContentPage.BindingContext>
+        <viewmodels:NotificationsViewModel />
+    </ContentPage.BindingContext>
+    <ContentPage.Behaviors>
+        <behaviors:EventToCommandBehavior
+                EventName="Appearing"
+                Command="{Binding PageAppearing}" />
+    </ContentPage.Behaviors>
+    <ContentPage.Content>
+        <RefreshView
+        Command="{Binding RefreshCommand}"
+        IsRefreshing="{Binding IsBusy, Mode=OneWay}"
+        Style="{StaticResource BaseRefreshView}">
+
+            <CollectionView
+            BackgroundColor="Transparent"
+            IsGrouped="False"
+            ItemSizingStrategy="MeasureAllItems"
+            ItemsLayout="VerticalList"
+            ItemsSource="{Binding NotificationList}">
+                <CollectionView.EmptyView>
+                    <StackLayout Padding="12">
+                        <Label HorizontalOptions="Center" Text="No Notifications" />
+                    </StackLayout>
+                </CollectionView.EmptyView>
+                <CollectionView.GroupHeaderTemplate>
+                    <DataTemplate x:DataType="{x:Null}">
+                        <StackLayout Padding="12">
+                            <Label Style="{StaticResource LabelMedium}" Text="{Binding Key}" />
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.GroupHeaderTemplate>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Padding="10">
+                            <Frame Style="{StaticResource iAssistCard}">
+                                <StackLayout Orientation="Vertical">
+                                    <!--
+                                    <Label
+                                            Style="{StaticResource LabelLarge}"
+                                            Text="{Binding Title}"
+                                            VerticalOptions="Center" />-->
+                                    <Label
+                                        Style="{StaticResource LabelLarge}"
+                                        Text="{Binding Details}"
+                                        VerticalOptions="StartAndExpand" />
+                                    <Label
+                                        Style="{StaticResource LabelLarge}"
+                                        Text="{Binding Date}"
+                                        VerticalOptions="EndAndExpand" />
+                                </StackLayout>
+                            </Frame>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </RefreshView>
+    </ContentPage.Content>
+</ContentPage>

@@ -1,0 +1,107 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage 
+        x:Class="iAssist_Xamarin.Views.SchedulePage"
+        xmlns="http://xamarin.com/schemas/2014/forms"
+        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+        xmlns:viewmodels="clr-namespace:iAssist_Xamarin.ViewModels"
+        Title="{Binding Subtitle}">
+    <ContentPage.BindingContext>
+        <viewmodels:ScheduleViewModel />
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <RefreshView
+        Command="{Binding RefreshCommand}"
+        IsRefreshing="{Binding IsBusy, Mode=OneWay}"
+        Style="{StaticResource BaseRefreshView}">
+
+            <CollectionView
+            BackgroundColor="Transparent"
+            ItemSizingStrategy="MeasureAllItems"
+            ItemsLayout="VerticalList"
+            ItemsSource="{Binding TaskList}">
+                <CollectionView.EmptyView>
+                    <StackLayout Padding="12">
+                        <Label HorizontalOptions="Center" Text="No Task" />
+                    </StackLayout>
+                </CollectionView.EmptyView>
+                <CollectionView.GroupHeaderTemplate>
+                    <DataTemplate x:DataType="{x:Null}">
+                        <StackLayout Padding="12">
+                            <Label Style="{StaticResource LabelMedium}" Text="{Binding Key}" />
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.GroupHeaderTemplate>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Padding="10">
+                            <Frame Style="{StaticResource iAssistCard}">
+                                <StackLayout Orientation="Vertical" BackgroundColor="{Binding ThemeColor}">
+                                    <Label
+                                            Style="{StaticResource LabelLarge}"
+                                            Text="Task Id"
+                                            VerticalOptions="Center" />
+                                    <Label
+                                            Style="{StaticResource LabelLarge}"
+                                            Text="{Binding TaskId}"
+                                            VerticalOptions="Center" />
+                                    <Label
+                                            Style="{StaticResource LabelLarge}"
+                                            Text="Task Name"
+                                            VerticalOptions="Center" />
+                                    <Label
+                                            Style="{StaticResource LabelLarge}"
+                                            Text="{Binding Subject}"
+                                            VerticalOptions="Center" />
+                                    <Label
+                                            Style="{StaticResource LabelLarge}"
+                                            Text="Task Date"
+                                            VerticalOptions="Center" />
+                                    <Label
+                                            Style="{StaticResource LabelLarge}"
+                                            Text="{Binding Start}"
+                                            VerticalOptions="Center" /><!--
+                                    <Label
+                                            Style="{StaticResource LabelLarge}"
+                                            Text="Task End Date"
+                                            VerticalOptions="Center" />
+                                    <Label
+                                            Style="{StaticResource LabelLarge}"
+                                            Text="{Binding End}"
+                                            VerticalOptions="Center" />
+                                    <Label
+                                            Style="{StaticResource LabelLarge}"
+                                            Text="Bid Amount"
+                                            VerticalOptions="Center" />
+                                    <Label
+                                            Style="{StaticResource LabelLarge}"
+                                            Text="{Binding Bid_Amount}"
+                                            VerticalOptions="Center" />
+                                    <Label
+                                            Style="{StaticResource LabelLarge}"
+                                            Text="Bid Description"
+                                            VerticalOptions="Center" />
+                                    <Label
+                                            Style="{StaticResource LabelLarge}"
+                                            Text="{Binding Bid_Description}"
+                                            VerticalOptions="Center" />-->
+                                    <Button Text="Task Details"
+                                            Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:ScheduleViewModel}}, Path=DetailsCommand}"
+                                            CommandParameter="{Binding .}"/>
+                                </StackLayout>
+                            </Frame>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+
+                <CollectionView.Header>
+                    <StackLayout Orientation="Horizontal">
+                        <Label
+                        HorizontalOptions="Center"
+                        Style="{StaticResource LabelMedium}"
+                        Text="{Binding Title}" />
+                    </StackLayout>
+                </CollectionView.Header>
+            </CollectionView>
+        </RefreshView>
+    </ContentPage.Content>
+</ContentPage>

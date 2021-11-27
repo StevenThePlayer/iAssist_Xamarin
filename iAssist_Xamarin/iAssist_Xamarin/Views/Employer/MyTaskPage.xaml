@@ -1,0 +1,159 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage 
+        x:Class="iAssist_Xamarin.Views.MyTaskPage"
+        xmlns="http://xamarin.com/schemas/2014/forms"
+        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+        xmlns:viewmodels="clr-namespace:iAssist_Xamarin.ViewModels" 
+        xmlns:behaviors="http://xamarin.com/schemas/2020/toolkit"
+        Title="{Binding Subtitle}">
+    <ContentPage.Behaviors>
+        <behaviors:EventToCommandBehavior
+                EventName="Appearing"
+                Command="{Binding PageAppearing}" />
+    </ContentPage.Behaviors>
+    <ContentPage.BindingContext>
+        <viewmodels:MyTaskViewModel />
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <RefreshView
+        Command="{Binding RefreshCommand}"
+        IsRefreshing="{Binding IsBusy, Mode=OneWay}"
+        Style="{StaticResource BaseRefreshView}">
+
+            <CollectionView
+            BackgroundColor="Transparent"
+            IsGrouped="True"
+            ItemSizingStrategy="MeasureAllItems"
+            ItemsLayout="VerticalList"
+            ItemsSource="{Binding TaskListGroups}">
+                <CollectionView.EmptyView>
+                    <StackLayout Padding="12">
+                        <Label HorizontalOptions="Center" Text="No Task" />
+                    </StackLayout>
+                </CollectionView.EmptyView>
+                <CollectionView.GroupHeaderTemplate>
+                    <DataTemplate x:DataType="{x:Null}">
+                        <StackLayout Padding="12">
+                            <Label Style="{StaticResource LabelMedium}" Text="{Binding Key}" />
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.GroupHeaderTemplate>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Padding="10">
+                            <Frame Style="{StaticResource iAssistCard}">
+                                <StackLayout Orientation="Vertical">
+                                    <Image Source="{Binding TaskImage}" MinimumWidthRequest="200" />
+                                    <Label
+                                            Style="{StaticResource LabelLarge}"
+                                            Text="{Binding taskdet_name}"
+                                            VerticalOptions="Center" />
+                                    <Label
+                                        Style="{StaticResource LabelLarge}"
+                                        Text="{Binding StatusDisplay}"
+                                        VerticalOptions="Center" />
+                                    <Label
+                                        Style="{StaticResource LabelLarge}"
+                                        Text="{Binding Jobname}"
+                                        VerticalOptions="Center" />
+                                    <Label
+                                        Style="{StaticResource LabelLarge}"
+                                        Text="{Binding taskdet_sched}"
+                                        VerticalOptions="Center" />
+                                    <Label
+                                        Style="{StaticResource LabelLarge}"
+                                        Text="{Binding Loc_Address}"
+                                        VerticalOptions="Center" />
+                                    <Label
+                                        Style="{StaticResource LabelLarge}"
+                                        Text="{Binding taskdet_desc}"
+                                        VerticalOptions="Center" />
+                                    <Label
+                                        Style="{StaticResource LabelLarge}"
+                                        Text="{Binding ServicesCombined}"
+                                        VerticalOptions="Center" />
+
+                                        
+                                    <StackLayout Orientation="Horizontal" IsVisible="{Binding IsPending}">
+                                        <Button Text="Post the Task"
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:MyTaskViewModel}}, Path=PostTaskCommand}"
+                                        CommandParameter="{Binding .}"/>
+                                        <Button Text="Find a Worker"
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:MyTaskViewModel}}, Path=FindWorkerCommand}"
+                                        CommandParameter="{Binding .}"/>
+                                    </StackLayout>
+                                    <StackLayout Orientation="Horizontal" IsVisible="{Binding IsPending}">
+                                        <Button Text="Edit Task"
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:MyTaskViewModel}}, Path=EditTaskCommand}"
+                                        CommandParameter="{Binding .}"/>
+                                        <Button Text="Cancel Task"
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:MyTaskViewModel}}, Path=CancelTaskCommand}"
+                                        CommandParameter="{Binding .}"/>
+                                    </StackLayout>
+
+                                    <StackLayout Orientation="Horizontal" IsVisible="{Binding IsPosted}">
+                                        <Button Text="View Bidding"
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:MyTaskViewModel}}, Path=ViewBiddingCommand}"
+                                        CommandParameter="{Binding .}"/>
+                                        <Button Text="Cancel Task"
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:MyTaskViewModel}}, Path=CancelTaskCommand}"
+                                        CommandParameter="{Binding .}"/>
+                                    </StackLayout>
+
+                                    <!--
+                                    <StackLayout Orientation="Horizontal" IsVisible="{Binding IsOngoing}">
+                                        <Button Text="Cancel Task"
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:MyTaskViewModel}}, Path=CancelTaskCommand}"
+                                        CommandParameter="{Binding .}"/>
+                                    </StackLayout>-->
+
+
+                                    <StackLayout Orientation="Horizontal" IsVisible="{Binding IsToComplete}">
+                                        <Button Text="Mark as Completed"
+                                            Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:MyTaskViewModel}}, Path=MarkCompletedCommand}"
+                                            CommandParameter="{Binding .}"/>
+                                    </StackLayout>
+
+                                    <StackLayout Orientation="Horizontal" IsVisible="{Binding IsToRate}">
+                                        <Button Text="Rate Worker"
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:MyTaskViewModel}}, Path=RateWorkerCommand}"
+                                        CommandParameter="{Binding .}"/>
+                                        <Button Text="Do not Rate Worker"
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:MyTaskViewModel}}, Path=DoNotRateWorkerCommand}"
+                                        CommandParameter="{Binding .}"/>
+                                    </StackLayout> 
+
+                                </StackLayout>
+                            </Frame>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+
+                <CollectionView.Header>
+                    <StackLayout Orientation="Vertical">
+                        <Label
+                        HorizontalOptions="CenterAndExpand"
+                        Style="{StaticResource LabelMedium}"
+                        Text="{Binding Title}"
+                        />
+                        <Picker
+                            Title="Task Category"
+                            ItemsSource="{Binding Category}"
+                            SelectedItem="{Binding SelectedCategory}"
+                            SelectedIndex="{Binding CategoryIndex}"
+                            IsEnabled="{Binding IsNotBusy}"
+                            HorizontalOptions="CenterAndExpand"
+                            WidthRequest="200"
+                            HorizontalTextAlignment="Center">
+                            <Picker.Behaviors>
+                                <behaviors:EventToCommandBehavior
+                            EventName="SelectedIndexChanged"
+                            Command="{Binding CategorySelectedCommand}"/>
+                            </Picker.Behaviors>
+                        </Picker>
+                    </StackLayout>
+                </CollectionView.Header>
+            </CollectionView>
+        </RefreshView>
+    </ContentPage.Content>
+</ContentPage>

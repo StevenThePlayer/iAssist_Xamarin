@@ -1,0 +1,110 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage 
+        x:Class="iAssist_Xamarin.Views.FindWorkerPage"
+        xmlns="http://xamarin.com/schemas/2014/forms"
+        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+        xmlns:viewmodels="clr-namespace:iAssist_Xamarin.ViewModels" 
+        xmlns:behaviors="http://xamarin.com/schemas/2020/toolkit"
+        Title="{Binding Subtitle}">
+    <ContentPage.Behaviors>
+        <behaviors:EventToCommandBehavior
+                EventName="Appearing"
+                Command="{Binding PageAppearing}" />
+    </ContentPage.Behaviors>
+    <ContentPage.BindingContext>
+        <viewmodels:FindWorkerViewModel />
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <RefreshView
+        Command="{Binding RefreshCommand}"
+        IsRefreshing="{Binding IsBusy, Mode=OneWay}"
+        Style="{StaticResource BaseRefreshView}">
+
+            <CollectionView
+            BackgroundColor="Transparent"
+            IsGrouped="False"
+            ItemSizingStrategy="MeasureAllItems"
+            ItemsLayout="VerticalList"
+            ItemsSource="{Binding WorkerList}">
+                <CollectionView.EmptyView>
+                    <StackLayout Padding="12">
+                        <Label HorizontalOptions="Center" Text="No Workers bidded for your task yet." />
+                    </StackLayout>
+                </CollectionView.EmptyView>
+                <CollectionView.GroupHeaderTemplate>
+                    <DataTemplate x:DataType="{x:Null}">
+                        <StackLayout Padding="12">
+                            <Label Style="{StaticResource LabelMedium}" Text="{Binding Key}" />
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.GroupHeaderTemplate>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Padding="10">
+                            <Frame Style="{StaticResource iAssistCard}">
+                                <StackLayout Orientation="Vertical">
+                                    <Image Source="{Binding Profile}" WidthRequest="66" />
+                                    <Label
+                                            Style="{StaticResource LabelLarge}"
+                                            Text="{Binding Firstname}"
+                                            VerticalOptions="Center" />
+                                    <Label
+                                            Style="{StaticResource LabelLarge}"
+                                            Text="{Binding Lastname}"
+                                            VerticalOptions="Center" />
+                                    <Label
+                                            Style="{StaticResource LabelLarge}"
+                                            Text="{Binding Jobname}"
+                                            VerticalOptions="Center" />
+                                    <Label
+                                            Style="{StaticResource LabelLarge}"
+                                            Text="{Binding nearaddress}"
+                                            VerticalOptions="Center" />
+                                    <StackLayout Orientation="Horizontal">
+                                    <Label
+                                            Style="{StaticResource LabelLarge}"
+                                            Text="{Binding distance}"
+                                            VerticalOptions="Center" />
+                                        <Label
+                                            Style="{StaticResource LabelLarge}"
+                                            Text="meters"
+                                            VerticalOptions="Center" />
+                                    </StackLayout>
+                                    <Button Text="Request Now"
+                                            Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:FindWorkerViewModel}}, Path=RequestCommand}"
+                                            CommandParameter="{Binding .}"/>
+                                    
+                                    <Button Text="Worker Details"
+                                            Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:FindWorkerViewModel}}, Path=WorkerDetailsCommand}"
+                                            CommandParameter="{Binding .}"/>
+                                </StackLayout>
+                            </Frame>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+
+                <CollectionView.Header>
+                    <StackLayout Orientation="Vertical">
+                        <Label
+                        HorizontalOptions="Center"
+                        Style="{StaticResource LabelMedium}"
+                        Text="{Binding Title}" /><!--
+                        <Picker
+                            Title="All"
+                            ItemsSource="{Binding SortBy}"
+                            SelectedItem="{Binding SelectedSortBy}"
+                            SelectedIndex="{Binding SortByIndex}"
+                            IsEnabled="{Binding IsNotBusy}"
+                            VerticalTextAlignment="Center">
+                            <Picker.Behaviors>
+                                <behaviors:EventToCommandBehavior
+                            EventName="SelectedIndexChanged"
+                            Command="{Binding SortByCommand}"/>
+                            </Picker.Behaviors>
+                        </Picker>-->
+                    </StackLayout>
+                </CollectionView.Header>
+            </CollectionView>
+        </RefreshView>
+    </ContentPage.Content>
+</ContentPage>

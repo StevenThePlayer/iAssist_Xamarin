@@ -1,0 +1,100 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage 
+        x:Class="iAssist_Xamarin.Views.ViewBiddingWorkerPage"
+        xmlns="http://xamarin.com/schemas/2014/forms"
+        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+        xmlns:viewmodels="clr-namespace:iAssist_Xamarin.ViewModels"
+        Title="{Binding Subtitle}">
+    <ContentPage.BindingContext>
+        <viewmodels:ViewBiddingViewModel />
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <RefreshView
+        Command="{Binding RefreshCommand}"
+        IsRefreshing="{Binding IsBusy, Mode=OneWay}"
+        Style="{StaticResource BaseRefreshView}">
+
+            <CollectionView
+            BackgroundColor="Transparent"
+            ItemSizingStrategy="MeasureAllItems"
+            ItemsLayout="VerticalList"
+            ItemsSource="{Binding BidList}">
+                <CollectionView.EmptyView>
+                    <StackLayout Padding="12">
+                        <Label HorizontalOptions="Center" Text="No Bids" />
+                    </StackLayout>
+                </CollectionView.EmptyView>
+                <CollectionView.GroupHeaderTemplate>
+                    <DataTemplate x:DataType="{x:Null}">
+                        <StackLayout Padding="12">
+                            <Label Style="{StaticResource LabelMedium}" Text="{Binding Key}" />
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.GroupHeaderTemplate>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Padding="10">
+                            <Frame Style="{StaticResource iAssistCard}">
+                                <StackLayout Orientation="Horizontal">
+                                    <Image Source="{Binding ProfilePicture}" WidthRequest="66" />
+                                    <Label
+                                            Style="{StaticResource LabelLarge}"
+                                            Text="{Binding Firstname}"
+                                            VerticalOptions="Center" />
+                                    <Label
+                                            Style="{StaticResource LabelLarge}"
+                                            Text="{Binding Lastname}"
+                                            VerticalOptions="Center" />
+                                    <Label
+                                            Style="{StaticResource LabelLarge}"
+                                            Text="{Binding Rate}"
+                                            VerticalOptions="Center" />
+                                    <Label
+                                            Style="{StaticResource LabelLarge}"
+                                            Text="{Binding bookstatus}"
+                                            VerticalOptions="Center" />
+                                    <Label
+                                            Style="{StaticResource LabelLarge}"
+                                            Text="{Binding Bid_Amount}"
+                                            VerticalOptions="Center" />
+                                    <Label
+                                            Style="{StaticResource LabelLarge}"
+                                            Text="{Binding Bid_Description}"
+                                            VerticalOptions="Center" />
+                                    <Button Text="Accept Bid"
+                                            Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:ViewBiddingViewModel}}, Path=EditBidCommand}"
+                                            CommandParameter="{Binding .}"/>
+                                    <Button Text="Worker Details"
+                                            Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:ViewBiddingViewModel}}, Path=CancelBidCommand}"
+                                            CommandParameter="{Binding .}"/>
+                                </StackLayout>
+                            </Frame>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+
+                <CollectionView.Header>
+                    <StackLayout Orientation="Horizontal">
+                        <Label
+                        HorizontalOptions="Center"
+                        Style="{StaticResource LabelMedium}"
+                        Text="{Binding Title}" />
+                        <!--
+                        <Picker
+                            Title="All"
+                            ItemsSource="{Binding SortBy}"
+                            SelectedItem="{Binding SelectedSortBy}"
+                            SelectedIndex="{Binding SortByIndex}"
+                            IsEnabled="{Binding IsNotBusy}">
+                            <Picker.Behaviors>
+                                <behaviors:EventToCommandBehavior
+                            EventName="SelectedIndexChanged"
+                            Command="{Binding SortByCommand}"/>
+                            </Picker.Behaviors>
+                        </Picker>-->
+                    </StackLayout>
+                </CollectionView.Header>
+            </CollectionView>
+        </RefreshView>
+    </ContentPage.Content>
+</ContentPage>

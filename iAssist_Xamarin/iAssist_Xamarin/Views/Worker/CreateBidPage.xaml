@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage 
+        x:Class="iAssist_Xamarin.Views.CreateBidPage"
+        xmlns:viewmodel="clr-namespace:iAssist_Xamarin.ViewModels"
+        xmlns="http://xamarin.com/schemas/2014/forms"
+        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+        Title="{Binding Subtitle}">
+
+    <ContentPage.BindingContext>
+        <viewmodel:CreateBidViewModel/>
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <ScrollView HeightRequest="1000">
+            <StackLayout Padding="20" VerticalOptions="Center" MinimumHeightRequest="10000">
+                <Label FontSize="Title" HorizontalTextAlignment="Center" Text="{Binding Title}"></Label>
+                <Label>Task Id</Label>
+                <Entry IsEnabled="false"  Text="{Binding TaskId}"/>
+                <Label>Bid Amount</Label>
+                <Entry Keyboard="Numeric" Text="{Binding BidAmount}"/>
+                <Label>Bid Description</Label>
+                <Entry Text="{Binding BidDescription}"/>
+
+                <Label Text="{Binding Message}" TextColor="Red"/>
+                <ActivityIndicator Color="Green" IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}"/>
+                <Button 
+                    Style="{StaticResource ButtonStyle}"
+                    VerticalOptions="Center" Text="Submit Bid" Command="{Binding CreateBidCommand}"/>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>
