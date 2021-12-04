@@ -28,7 +28,7 @@
             ItemsSource="{Binding NotificationList}">
                 <CollectionView.EmptyView>
                     <StackLayout Padding="12">
-                        <Label HorizontalOptions="Center" Text="No Notifications" />
+                        <Label Style="{StaticResource LabelMedium}" HorizontalOptions="Center" Text="No Notifications" />
                     </StackLayout>
                 </CollectionView.EmptyView>
                 <CollectionView.GroupHeaderTemplate>
@@ -50,17 +50,25 @@
                                             VerticalOptions="Center" />-->
                                     <Label
                                         Style="{StaticResource LabelLarge}"
-                                        Text="{Binding Details}"
-                                        VerticalOptions="StartAndExpand" />
+                                        Text="{Binding Details}" />
                                     <Label
-                                        Style="{StaticResource LabelLarge}"
+                                        Style="{StaticResource LabelMedium}"
                                         Text="{Binding Date}"
-                                        VerticalOptions="EndAndExpand" />
+                                        HorizontalTextAlignment="End"/>
                                 </StackLayout>
                             </Frame>
                         </Grid>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
+                <CollectionView.Header>
+                    <StackLayout Orientation="Vertical">
+                        <Label
+                        HorizontalOptions="Center"  
+                        Style="{StaticResource LabelLarge}"
+                        FontAttributes="Bold"
+                        Text="{Binding Title}" />
+                    </StackLayout>
+                </CollectionView.Header>
             </CollectionView>
         </RefreshView>
     </ContentPage.Content>

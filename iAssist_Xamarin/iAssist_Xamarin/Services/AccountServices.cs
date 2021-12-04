@@ -83,7 +83,9 @@ namespace iAssist_Xamarin.Services
                     {
                         url = "api/Mobile/Account/Role?email=" + Settings.Email;
                     }
-                    Settings.Role = await GetAsync<string>(url, "getrole");
+                    UserRole data = await GetAsync<UserRole>(url, "getrole");
+                    Settings.Role = data.Role;
+                    Settings.WorkerId = data.WorkerId.ToString();
                     if (string.IsNullOrEmpty(Settings.Role))
                     {
                         SetMessage("");
@@ -280,6 +282,20 @@ namespace iAssist_Xamarin.Services
                 SetMessage("An Error has occurred when communicating with the server.");
                 Debug.WriteLine(ex);
                 return 0;
+            }
+        }
+
+        public async Task<List<UserAddress>> GetAddress()
+        {
+            try
+            {
+                return await GetAsync<List<UserAddress>>("api/Mobile/Account/Address", "getaddress");
+            }
+            catch (Exception ex)
+            {
+                SetMessage("An Error has occurred when communicating with the server.");
+                Debug.WriteLine(ex);
+                return new List<UserAddress>();
             }
         }
     }

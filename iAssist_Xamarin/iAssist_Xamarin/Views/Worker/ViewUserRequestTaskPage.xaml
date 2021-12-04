@@ -25,10 +25,10 @@
             ItemSizingStrategy="MeasureAllItems"
             IsGrouped="False"
             ItemsLayout="VerticalList"
-            ItemsSource="{Binding TaskList2}">
+            ItemsSource="{Binding TaskList}">
                 <CollectionView.EmptyView>
                     <StackLayout Padding="12">
-                        <Label HorizontalOptions="Center" Text="No Task" />
+                        <Label Style="{StaticResource LabelMedium}"  HorizontalOptions="Center" Text="No Task" />
                     </StackLayout>
                 </CollectionView.EmptyView>
                 <CollectionView.GroupHeaderTemplate>
@@ -43,13 +43,16 @@
                         <Grid Padding="10">
                             <Frame Style="{StaticResource iAssistCard}">
                                 <StackLayout Orientation="Vertical">
-                                    <Image Source="{Binding TaskImage}" WidthRequest="66" />
-                                    <Label
-                                            Style="{StaticResource LabelLarge}"
-                                            Text="{Binding taskdet_name}"
-                                            VerticalOptions="Center" />
+                                    <Image Source="{Binding TaskImage}" WidthRequest="200" />
                                     <Label
                                         Style="{StaticResource LabelLarge}"
+                                            FontAttributes="Bold"
+                                        Text="{Binding taskdet_name}"
+                                        VerticalOptions="Center"
+                                            FontFamily="Calibri"/>
+                                    <Label
+                                        Style="{StaticResource StatusStyle}"
+                                        Padding="20,0,0,0"
                                         Text="{Binding StatusDisplay}"
                                         VerticalOptions="Center" />
                                     <Label
@@ -65,25 +68,28 @@
                                         Text="{Binding Loc_Address}"
                                         VerticalOptions="Center" />
                                     <Label
-                                        Style="{StaticResource LabelLarge}"
+                                        Style="{StaticResource LabelMedium}"
                                         Text="{Binding taskdet_desc}"
                                         VerticalOptions="Center" />
                                     <Label
-                                        Style="{StaticResource LabelLarge}"
+                                        Style="{StaticResource LabelMedium}"
                                         Text="{Binding ServicesCombined}"
                                         VerticalOptions="Center" />
 
                                     <Button Text="Bid Task"
+                                            Style="{StaticResource PriotityButtonStyle}"
                                         Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:ViewUserRequestedTaskViewModel}}, Path=BidTaskCommand}"
                                         CommandParameter="{Binding .}"/>
-                                    
+                                    <!--
                                     <Button Text="Bid Details"
                                         IsVisible="{Binding IsBidded}"
-                                        Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:ViewUserRequestedTaskViewModel}}, Path=CancelTaskCommand}"
-                                        CommandParameter="{Binding .}"/>
+                                            Style="{StaticResource ButtonStyle}"
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:ViewUserRequestedTaskViewModel}}, Path=DetailsBidCommand}"
+                                        CommandParameter="{Binding .}"/>-->
 
                                     <Button Text="Cancel Bid"
-                                        IsVisible="{Binding IsBidded}"
+                                        IsVisible="True"
+                                            Style="{StaticResource ButtonStyle}"
                                         Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:ViewUserRequestedTaskViewModel}}, Path=CancelTaskCommand}"
                                         CommandParameter="{Binding .}"/>
 
@@ -97,8 +103,9 @@
                     <StackLayout Orientation="Vertical">
                         <Label
                         HorizontalOptions="CenterAndExpand"
-                        Style="{StaticResource LabelMedium}"
-                        Text="{Binding Title}"/>
+                        Style="{StaticResource LabelLarge}"
+                        Text="{Binding Title}"
+                            Padding="0,10,0,0"/>
                     </StackLayout>
                 </CollectionView.Header>
             </CollectionView>

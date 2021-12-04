@@ -44,7 +44,7 @@
                             <Frame Style="{StaticResource iAssistCard}">
                                 <StackLayout Orientation="Vertical">
                                     <Label
-                                            Style="{StaticResource LabelLarge}"
+                                            Style="{StaticResource LabelMedium}"
                                             Text="Transaction ID"
                                             VerticalOptions="Center" />
                                     <Label
@@ -52,7 +52,7 @@
                                             Text="{Binding Id}"
                                             VerticalOptions="Center" />
                                     <Label
-                                            Style="{StaticResource LabelLarge}"
+                                            Style="{StaticResource LabelMedium}"
                                             Text="Description"
                                             VerticalOptions="Center" />
                                     <Label
@@ -60,7 +60,7 @@
                                         Text="{Binding tasktitle}"
                                         VerticalOptions="StartAndExpand" />
                                     <Label
-                                            Style="{StaticResource LabelLarge}"
+                                            Style="{StaticResource LabelMedium}"
                                             Text="Payment"
                                             VerticalOptions="Center" />
                                     <Label
@@ -68,7 +68,7 @@
                                         Text="{Binding BidAmount}"
                                         VerticalOptions="EndAndExpand" />
                                     <Label
-                                            Style="{StaticResource LabelLarge}"
+                                            Style="{StaticResource LabelMedium}"
                                             Text="Total Amount"
                                             VerticalOptions="Center" />
                                     <Label
@@ -76,7 +76,7 @@
                                         Text="{Binding TotalAmount}"
                                         VerticalOptions="EndAndExpand" />
                                     <Label
-                                            Style="{StaticResource LabelLarge}"
+                                            Style="{StaticResource LabelMedium}"
                                             Text="Comission"
                                             VerticalOptions="Center" />
                                     <Label
@@ -84,7 +84,7 @@
                                         Text="{Binding Commission}"
                                         VerticalOptions="EndAndExpand" />
                                     <Label
-                                            Style="{StaticResource LabelLarge}"
+                                            Style="{StaticResource LabelMedium}"
                                             Text="Payer"
                                             VerticalOptions="Center" />
                                     <Label
@@ -92,7 +92,7 @@
                                         Text="{Binding Payer}"
                                         VerticalOptions="EndAndExpand" />
                                     <Label
-                                            Style="{StaticResource LabelLarge}"
+                                            Style="{StaticResource LabelMedium}"
                                             Text="Reciever"
                                             VerticalOptions="Center" />
                                     <Label
@@ -100,7 +100,7 @@
                                         Text="{Binding Reciever}"
                                         VerticalOptions="EndAndExpand" />
                                     <Label
-                                            Style="{StaticResource LabelLarge}"
+                                            Style="{StaticResource LabelMedium}"
                                             Text="Date"
                                             VerticalOptions="Center" />
                                     <Label
@@ -112,6 +112,15 @@
                         </Grid>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
+                <CollectionView.Header>
+                    <StackLayout Orientation="Vertical">
+                        <Label
+                        HorizontalOptions="Center"  
+                        Style="{StaticResource LabelLarge}"
+                        FontAttributes="Bold"
+                        Text="{Binding Title}" />
+                    </StackLayout>
+                </CollectionView.Header>
             </CollectionView>
         </RefreshView>
     </ContentPage.Content>

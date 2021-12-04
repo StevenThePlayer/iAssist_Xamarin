@@ -14,7 +14,7 @@ namespace iAssist_Xamarin.ViewModels
     public class EditBidViewModel : CreateBidViewModel
     {
         private BidModel bidData = new BidModel();
-        public Command EditBidCommand;
+        public Command EditBidCommand { get; }
         BidServices bidServices;
 
         public EditBidViewModel()
@@ -27,7 +27,7 @@ namespace iAssist_Xamarin.ViewModels
             bidServices = new BidServices();
             bidData = DataKeepServices.GetBidData();
 
-            EditBidCommand = new Command(OnCreateClicked);
+            EditBidCommand = new Command(OnEditClicked);
 
             GetBidData();
             GetBalance();
@@ -39,7 +39,6 @@ namespace iAssist_Xamarin.ViewModels
         public async void GetBidData()
         {
             bidData = await bidServices.GetEditBidding(bidData.Bidid);
-            TaskId = bidData.TaskdetId;
             BidDescription = bidData.Bid_Description;
             BidAmount = bidData.Bid_Amount;
         }

@@ -3,10 +3,10 @@
         x:Class="iAssist_Xamarin.Views.ViewBiddingWorkerPage"
         xmlns="http://xamarin.com/schemas/2014/forms"
         xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-        xmlns:viewmodels="clr-namespace:iAssist_Xamarin.ViewModels"
-        Title="{Binding Subtitle}">
+        xmlns:viewmodels="clr-namespace:iAssist_Xamarin.ViewModels" xmlns:lv="clr-namespace:LaavorRatingConception;assembly=RatingConception"
+    Title="{Binding Subtitle}">
     <ContentPage.BindingContext>
-        <viewmodels:ViewBiddingViewModel />
+        <viewmodels:ViewBiddingWorkerViewModel />
     </ContentPage.BindingContext>
     <ContentPage.Content>
         <RefreshView
@@ -35,37 +35,62 @@
                     <DataTemplate>
                         <Grid Padding="10">
                             <Frame Style="{StaticResource iAssistCard}">
-                                <StackLayout Orientation="Horizontal">
-                                    <Image Source="{Binding ProfilePicture}" WidthRequest="66" />
-                                    <Label
+                                <StackLayout Orientation="Vertical">
+                                    <Frame CornerRadius="100" 
+                                       HeightRequest="200"
+                                       WidthRequest="200"
+                                       HorizontalOptions="Center"
+                                       Padding="0"
+                                       IsClippedToBounds="True">
+                                        <Image Source="{Binding ProfilePicture}" 
+                                       HorizontalOptions="Center"
+                                       VerticalOptions="Center" />
+                                    </Frame>
+                                    <lv:RatingConception 
+                                        DrawType="Star" 
+                                        ColorUI="Orange" 
+                                        DesignType="Standard" 
+                                        ImageWidth="20" 
+                                        ImageHeight="20" 
+                                        ItemsNumber="5" 
+                                        Margin="0,15,0,0"
+                                        IsEnabled="false"
+                                        InitialValue="{Binding Rate}">
+                                    </lv:RatingConception>
+                                    <StackLayout Orientation="Horizontal">
+
+                                        <Label
                                             Style="{StaticResource LabelLarge}"
                                             Text="{Binding Firstname}"
                                             VerticalOptions="Center" />
-                                    <Label
+                                        <Label
                                             Style="{StaticResource LabelLarge}"
                                             Text="{Binding Lastname}"
                                             VerticalOptions="Center" />
-                                    <Label
+                                    </StackLayout>
+                                    <StackLayout Orientation="Horizontal">
+                                        <Label
                                             Style="{StaticResource LabelLarge}"
-                                            Text="{Binding Rate}"
+                                            Text="Bid Amount: "
                                             VerticalOptions="Center" />
-                                    <Label
-                                            Style="{StaticResource LabelLarge}"
-                                            Text="{Binding bookstatus}"
-                                            VerticalOptions="Center" />
-                                    <Label
+
+                                        <Label
                                             Style="{StaticResource LabelLarge}"
                                             Text="{Binding Bid_Amount}"
                                             VerticalOptions="Center" />
+                                        <Label
+                                            Style="{StaticResource LabelLarge}"
+                                            Text="Php"
+                                            VerticalOptions="Center" />
+                                    </StackLayout>
                                     <Label
                                             Style="{StaticResource LabelLarge}"
                                             Text="{Binding Bid_Description}"
                                             VerticalOptions="Center" />
-                                    <Button Text="Accept Bid"
-                                            Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:ViewBiddingViewModel}}, Path=EditBidCommand}"
-                                            CommandParameter="{Binding .}"/>
-                                    <Button Text="Worker Details"
-                                            Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:ViewBiddingViewModel}}, Path=CancelBidCommand}"
+
+                                    <Button Text="Edit Bid"
+                                            Style="{StaticResource PriotityButtonStyle}"
+                                            Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:ViewBiddingWorkerViewModel}}, Path=EditBidCommand}"
                                             CommandParameter="{Binding .}"/>
                                 </StackLayout>
                             </Frame>
@@ -74,11 +99,13 @@
                 </CollectionView.ItemTemplate>
 
                 <CollectionView.Header>
-                    <StackLayout Orientation="Horizontal">
+                    <StackLayout Orientation="Vertical">
                         <Label
-                        HorizontalOptions="Center"
-                        Style="{StaticResource LabelMedium}"
-                        Text="{Binding Title}" />
+                        HorizontalOptions="Center"  
+                        Style="{StaticResource LabelLarge}"
+                        FontAttributes="Bold"
+                        Text="{Binding Title}" 
+                         Padding="0,20,0,0"/>
                         <!--
                         <Picker
                             Title="All"

@@ -32,6 +32,7 @@ namespace iAssist_Xamarin.ViewModels
         {
             Message = "";
             await Login();
+            Message = "";
         }
 
         private async void OnLoginClicked(object obj)
@@ -47,15 +48,16 @@ namespace iAssist_Xamarin.ViewModels
             }
             else
             {
+                IsBusy = true;
                 Settings.Email = Email;
                 Settings.Password = Password;
-                Login();
+                await Login();
+                IsBusy = false;
             }
         }
 
         private async Task<bool> Login()
         {
-            IsBusy = true;
             if (string.IsNullOrWhiteSpace(Settings.Email) || string.IsNullOrWhiteSpace(Settings.Password))
                 return false;
 
@@ -67,11 +69,12 @@ namespace iAssist_Xamarin.ViewModels
                 await accountServices.GetRole(Email);
                 if(Settings.Role == "Worker")
                     Application.Current.MainPage = new AppShellWorker();
+                else
+                    Application.Current.MainPage = new AppShell();
 
                 await Shell.Current.GoToAsync($"//{nameof(MyTaskPage)}");
                 return true;
             }
-            IsBusy = false;
             return false;
         }
 

@@ -4,8 +4,8 @@
         xmlns="http://xamarin.com/schemas/2014/forms"
         xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
         xmlns:viewmodels="clr-namespace:iAssist_Xamarin.ViewModels" 
-        xmlns:behaviors="http://xamarin.com/schemas/2020/toolkit"
-        Title="{Binding Subtitle}">
+        xmlns:behaviors="http://xamarin.com/schemas/2020/toolkit" xmlns:lv="clr-namespace:LaavorRatingConception;assembly=RatingConception"
+    Title="{Binding Subtitle}">
     <ContentPage.Behaviors>
         <behaviors:EventToCommandBehavior
                 EventName="Appearing"
@@ -43,15 +43,37 @@
                         <Grid Padding="10">
                             <Frame Style="{StaticResource iAssistCard}">
                                 <StackLayout Orientation="Vertical">
-                                    <Image Source="{Binding Profile}" WidthRequest="66" />
-                                    <Label
+                                    <Frame CornerRadius="100" 
+                                       HeightRequest="200"
+                                       WidthRequest="200"
+                                       HorizontalOptions="Center"
+                                       Padding="0"
+                                       IsClippedToBounds="True">
+                                        <Image Source="{Binding Profile}"
+                                       HorizontalOptions="Center"
+                                       VerticalOptions="Center" />
+                                    </Frame>
+                                    <lv:RatingConception 
+                                        DrawType="Star" 
+                                        ColorUI="Orange" 
+                                        DesignType="Standard" 
+                                        ImageWidth="20" 
+                                        ImageHeight="20" 
+                                        ItemsNumber="5" 
+                                        Margin="0,5,0,0"
+                                        IsEnabled="false"
+                                        InitialValue="{Binding Rate}">
+                                    </lv:RatingConception>
+                                    <StackLayout Orientation="Horizontal">
+                                        <Label
                                             Style="{StaticResource LabelLarge}"
                                             Text="{Binding Firstname}"
-                                            VerticalOptions="Center" />
-                                    <Label
+                                            VerticalOptions="Start"/>
+                                        <Label
                                             Style="{StaticResource LabelLarge}"
                                             Text="{Binding Lastname}"
-                                            VerticalOptions="Center" />
+                                            VerticalOptions="Start"/>
+                                    </StackLayout>
                                     <Label
                                             Style="{StaticResource LabelLarge}"
                                             Text="{Binding Jobname}"
@@ -61,7 +83,7 @@
                                             Text="{Binding nearaddress}"
                                             VerticalOptions="Center" />
                                     <StackLayout Orientation="Horizontal">
-                                    <Label
+                                        <Label
                                             Style="{StaticResource LabelLarge}"
                                             Text="{Binding distance}"
                                             VerticalOptions="Center" />
@@ -70,13 +92,19 @@
                                             Text="meters"
                                             VerticalOptions="Center" />
                                     </StackLayout>
-                                    <Button Text="Request Now"
-                                            Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:FindWorkerViewModel}}, Path=RequestCommand}"
-                                            CommandParameter="{Binding .}"/>
-                                    
-                                    <Button Text="Worker Details"
+
+                                    <StackLayout Orientation="Horizontal" Padding="0,20,0,0">
+                                        <Button Text="Worker Details"
+                                            Style="{StaticResource SubButtonStyle}"
                                             Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:FindWorkerViewModel}}, Path=WorkerDetailsCommand}"
                                             CommandParameter="{Binding .}"/>
+                                        
+                                    <Button Text="Request Now"
+                                            Style="{StaticResource PrioritySubButtonStyle}"
+                                            Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:FindWorkerViewModel}}, Path=RequestCommand}"
+                                            CommandParameter="{Binding .}"/>
+
+                                    </StackLayout>
                                 </StackLayout>
                             </Frame>
                         </Grid>
@@ -87,8 +115,9 @@
                     <StackLayout Orientation="Vertical">
                         <Label
                         HorizontalOptions="Center"
-                        Style="{StaticResource LabelMedium}"
-                        Text="{Binding Title}" /><!--
+                        Style="{StaticResource LabelLarge}"
+                        Text="{Binding Title}" 
+                            Padding="0,20,0,0"/><!--
                         <Picker
                             Title="All"
                             ItemsSource="{Binding SortBy}"

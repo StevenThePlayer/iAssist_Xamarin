@@ -3,7 +3,7 @@
        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
        xmlns:local="clr-namespace:iAssist_Xamarin.Views" 
        xmlns:xct="http://xamarin.com/schemas/2020/toolkit" 
-       xmlns:iassist_xamarin="clr-namespace:iAssist_Xamarin" 
+       xmlns:fontAwesome="clr-namespace:FontAwesome"
        xmlns:viewmodels="clr-namespace:iAssist_Xamarin.ViewModels"
        Title="iAssist_Xamarin"
        x:Class="iAssist_Xamarin.AppShell">
@@ -96,27 +96,61 @@
         <ShellContent ContentTemplate="{DataTemplate local:LoginPage}"/>
     </ShellItem>
 
-    <FlyoutItem Title="Profile" Icon="icon_about.png">
+    <FlyoutItem Title="Profile">
+
+        <FlyoutItem.Icon>
+            <FontImageSource FontFamily="FAS"
+                             Color="Black"
+                             Glyph="{x:Static fontAwesome:FontAwesomeIcons.User}"/>
+        </FlyoutItem.Icon>
         <ShellContent Route="ProfilePage" ContentTemplate="{DataTemplate local:ViewProfilePage}" />
     </FlyoutItem>
-    <!--
-    <FlyoutItem Title="Search Skilled Worker" Icon="icon_feed.png">
-        <ShellContent Route="SearchWorkerPage" ContentTemplate="{DataTemplate local:SearchWorkerPage}" />
-    </FlyoutItem>-->
-    
-    <FlyoutItem Title="Create a Task" Icon="icon_about.png">
+
+    <FlyoutItem Title="Create a Task">
+
+        <FlyoutItem.Icon>
+            <FontImageSource FontFamily="FAS"
+                             Color="{AppThemeBinding 
+                                    Dark=White, 
+                                    Light={StaticResource SystemGray5Dark}}"
+                             Glyph="{x:Static fontAwesome:FontAwesomeIcons.Hammer}"/>
+        </FlyoutItem.Icon>
         <ShellContent Route="CreateTaskPage" ContentTemplate="{DataTemplate local:CreateTaskPage}" />
     </FlyoutItem>
 
-    <FlyoutItem Title="My Task" Icon="icon_about.png">
+    <FlyoutItem Title="My Task">
+
+        <FlyoutItem.Icon>
+            <FontImageSource FontFamily="FAS"
+                             Color="{AppThemeBinding 
+                                    Dark=White, 
+                                    Light={StaticResource SystemGray5Dark}}"
+                             Glyph="{x:Static fontAwesome:FontAwesomeIcons.Tasks}"/>
+        </FlyoutItem.Icon>
+        
         <ShellContent Route="MyTaskPage" ContentTemplate="{DataTemplate local:MyTaskPage}" />
     </FlyoutItem>
 
-    <FlyoutItem Title="Transactions" Icon="icon_about.png">
+    <FlyoutItem Title="Transactions">
+
+        <FlyoutItem.Icon>
+            <FontImageSource FontFamily="FAS"
+                             Color="{AppThemeBinding 
+                                    Dark=White, 
+                                    Light={StaticResource SystemGray5Dark}}"
+                             Glyph="{x:Static fontAwesome:FontAwesomeIcons.ListAlt}"/>
+        </FlyoutItem.Icon>
         <ShellContent Route="TransactionsPage" ContentTemplate="{DataTemplate local:TransactionsPage}" />
     </FlyoutItem>
-    
-    <FlyoutItem Title="Notifications" Icon="icon_about.png">
+
+    <FlyoutItem Title="Notifications">
+        <FlyoutItem.Icon>
+            <FontImageSource FontFamily="FAS"
+                             Color="{AppThemeBinding 
+                                    Dark=White, 
+                                    Light={StaticResource SystemGray5Dark}}"
+                             Glyph="{x:Static fontAwesome:FontAwesomeIcons.Bell}"/>
+        </FlyoutItem.Icon>
         <ShellContent Route="NotificationsPage" ContentTemplate="{DataTemplate local:NotificationsPage}" />
     </FlyoutItem>
 

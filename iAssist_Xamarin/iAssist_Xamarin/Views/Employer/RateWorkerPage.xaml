@@ -13,12 +13,22 @@
     <ContentPage.Content>
         <ScrollView HeightRequest="1000">
             <StackLayout Padding="20" MinimumHeightRequest="10000">
-                <Label FontSize="Title" HorizontalTextAlignment="Center" Text="{Binding Title}"></Label>
-                <Label>Worker Id</Label>
-                <Label  Text="{Binding WorkerId}"/>
-                <Label>Task Id</Label>
-                <Label Text="{Binding Taskid}"/>
-                <Label>Rating</Label>
+                <Label Style="{StaticResource LabelLarge}" 
+                       FontAttributes="Bold"
+                       HorizontalTextAlignment="Center" Text="{Binding Title}"></Label>
+                <StackLayout Orientation="Horizontal" Padding="0,20,0,0">
+                    <Label Style="{StaticResource LabelLarge}">Worker Id:</Label>
+                    <Label 
+                    Style="{StaticResource LabelLarge}"
+                    Text="{Binding WorkerId}"/>
+                </StackLayout>
+                <StackLayout Orientation="Horizontal">
+                    <Label Style="{StaticResource LabelLarge}">Task Id:</Label>
+                    <Label 
+                    Style="{StaticResource LabelLarge}"
+                    Text="{Binding Taskid}"/>
+                </StackLayout>
+                <Label Style="{StaticResource LabelLarge}">Rating:</Label>
                 <lv:RatingConception 
                     DrawType="Star" 
                     ColorUI="Orange" 
@@ -26,16 +36,20 @@
                     ImageWidth="40" 
                     ImageHeight="40" 
                     ItemsNumber="5" 
-                    Margin="0,15,0,0"
+                    Margin="0,0,0,0"
                     Voted="RatingConception_Voted">
                 </lv:RatingConception>
-                <Label>Description</Label>
-                <Entry 
-                    Text="{Binding Feedback}"/>
+                <Label Style="{StaticResource LabelLarge}">Description</Label>
+                <Editor 
+                    Style="{StaticResource LabelLarge}"
+                    Text="{Binding Feedback}"
+                    HeightRequest="150"/>
 
                 <Label Text="{Binding Message}" TextColor="Red"/>
                 <ActivityIndicator Color="Green" IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}"/>
-                <Button VerticalOptions="Center" Text="Submit Rating" Command="{Binding RateCommand}"/>
+                <Button 
+                    Style="{StaticResource PriotityButtonStyle}"
+                    VerticalOptions="Center" Text="Submit Rating" Command="{Binding RateCommand}"/>
             </StackLayout>
         </ScrollView>
     </ContentPage.Content>

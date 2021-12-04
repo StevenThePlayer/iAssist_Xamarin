@@ -31,8 +31,8 @@
             ItemsLayout="VerticalList"
             ItemsSource="{Binding RateList}">
                 <CollectionView.EmptyView>
-                    <StackLayout Padding="12">
-                        <Label HorizontalOptions="Center" Text="No Ratings" />
+                    <StackLayout Padding="20">
+                        <Label Style="{StaticResource LabelMedium}" HorizontalOptions="Center" Text="Worker has no Ratings" />
                     </StackLayout>
                 </CollectionView.EmptyView>
                 <CollectionView.GroupHeaderTemplate>
@@ -73,30 +73,47 @@
                 </CollectionView.ItemTemplate>
 
                 <CollectionView.Header>
-                    <StackLayout Orientation="Vertical">
+                    <StackLayout Orientation="Vertical" Padding="20">
                         <Label
                             HorizontalOptions="CenterAndExpand"
-                            Style="{StaticResource LabelMedium}"
-                            Text="{Binding Title}"/>
-                        <Image Source="{Binding ProfilePicture}"/>
-                        <Label
                             Style="{StaticResource LabelLarge}"
-                            Text="{Binding Lastname}"
-                            VerticalOptions="Center" />
-                        <Label
+                            Text="{Binding Title}"
+                            FontAttributes="Bold"/>
+                        <Frame CornerRadius="100" 
+                           HeightRequest="200"
+                           WidthRequest="200"
+                           HorizontalOptions="Center"
+                           Padding="0"
+                           IsClippedToBounds="True">
+                            <Image Source="{Binding ProfilePicture}"
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center" />
+                        </Frame>
+                        <StackLayout Orientation="Horizontal" Padding="0,20,0,0">
+                            <Label
                             Style="{StaticResource LabelLarge}"
                             Text="{Binding Firstname}"
                             VerticalOptions="Center" />
-                        <Label
+                            <Label
                             Style="{StaticResource LabelLarge}"
-                            Text="{Binding Jobname}"
+                            Text="{Binding Lastname}"
                             VerticalOptions="Center" />
+                        </StackLayout>
                         <Label
                             Style="{StaticResource LabelLarge}"
+                            Text="{Binding Jobname}"/>
+                        <Label
+                            Style="{StaticResource LabelLarge}"
+                            Text="Description:"
+                            VerticalOptions="Center" 
+                            Padding="0,20,0,0"/>
+                        <Label
+                            Style="{StaticResource LabelMedium}"
                             Text="{Binding Overview}"
-                            VerticalOptions="Center" />
+                            VerticalOptions="Center" 
+                            Padding="0,0,0,20"/>
                         <Button 
-                            Style="{StaticResource ButtonStyle}"
+                            Style="{StaticResource PriotityButtonStyle}"
                             Text="Request Now"
                             Command="{Binding RequestWorkerCommand}"/>
                         <Button 

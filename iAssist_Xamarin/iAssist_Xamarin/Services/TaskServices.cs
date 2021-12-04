@@ -153,7 +153,7 @@ namespace iAssist_Xamarin.Services
             }
         }
 
-        public async Task<bool> PostEditTask(
+        public async Task<bool> PostEditTask(int taskId,
             string taskTitle, string taskDescription, DateTime taskdet_sched, string address, string latitude, string longitude, string profilePicture, IEnumerable<string> selectServices, TaskDetailsModel input)
         {
             try
@@ -163,6 +163,7 @@ namespace iAssist_Xamarin.Services
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(
                     "Bearer", Settings.AccessToken);
 
+                input.Id = taskId;
                 input.TaskTitle = taskTitle;
                 input.TaskDesc = taskDescription;
                 input.taskdet_sched = taskdet_sched;

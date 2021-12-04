@@ -9,11 +9,11 @@ namespace iAssist_Xamarin.Services
 {
     public class SearchWorkerServices : GetWithCachingServices
     {
-        public async Task<List<SearchWorkerModel>> GetFindWorkerList(int id)
+        public async Task<List<SearchWorkerModel>> GetFindWorkerList(int id, string category = "")
         {
             try
             {
-                string url = "api/SearchWorker/FindWorkerList?id=" + id.ToString();
+                string url = "api/SearchWorker/FindWorkerList?id=" + id.ToString() + "&category" + category;
                 List<SearchWorkerModel> data = await GetAsync<List<SearchWorkerModel>>(url, "getfindworkerlist");
                 return data;
             }

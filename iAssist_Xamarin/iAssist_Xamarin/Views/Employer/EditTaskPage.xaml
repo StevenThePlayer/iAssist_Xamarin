@@ -16,8 +16,11 @@
                 Command="{Binding PageAppearingCommand}" />
     </ContentPage.Behaviors>
     <ContentPage.Content>
-        <StackLayout Padding="20" VerticalOptions="Start" MinimumHeightRequest="10000">
-            <Label FontSize="Title" HorizontalTextAlignment="Center" Text="Edit Task"></Label>
+        <ScrollView>
+        <StackLayout Padding="20" VerticalOptions="Start">
+            <Label Style="{StaticResource LabelLarge}"
+                   FontAttributes="Bold"
+                   HorizontalTextAlignment="Center" Text="Edit Task"></Label>
 <!--
             <Picker
                 Title="Job Category"
@@ -26,22 +29,21 @@
                 IsEnabled="false">
             </Picker>-->
 
-            <Label>Task Title</Label>
+            <Label Style="{StaticResource LabelLarge}">Task Title</Label>
             <Entry Text="{Binding TaskTitle}"/>
-            <Label>Task Description</Label>
+            <Label Style="{StaticResource LabelLarge}">Task Description</Label>
             <Editor HeightRequest="100" Text="{Binding TaskDescription}"/>
-            <Label>Schedule</Label>
+            <Label Style="{StaticResource LabelLarge}">Schedule</Label>
             <DatePicker
                     MinimumDate="{Binding CurrDate}"
                     Date="{Binding SelectedDate}" />
 
-            <Label>Address:</Label>
+            <Label Style="{StaticResource LabelLarge}">Address:</Label>
             <input:AutoCompleteEntry
                     Text="{Binding Address, Mode=TwoWay}"
                     Placeholder="Powered with Google Maps"
                     TextColor="Black"
-                    ItemsSource="{Binding Addresses, Mode=OneWay}"
-                    MinimumHeightRequest="50">
+                    ItemsSource="{Binding Addresses, Mode=OneWay}">
                 <input:AutoCompleteEntry.Behaviors>
                     <behaviors:EventToCommandBehavior
                             EventName="TextChanged"
@@ -49,31 +51,39 @@
                 </input:AutoCompleteEntry.Behaviors>
             </input:AutoCompleteEntry>
 
-            <Label Text="{Binding Picture}"></Label>
-            <Button VerticalOptions="Center" Text="Upload Picture" Command="{Binding UploadFileCommand}"/>
+            <Label Style="{StaticResource LabelLarge}"
+                   Text="{Binding Picture}"></Label>
+            <Button 
+                Style="{StaticResource ButtonStyle}"
+                VerticalOptions="Center" Text="Upload Picture" Command="{Binding UploadFileCommand}"/>
 
 
-            <Label>Services (Select at least one)</Label>
+            <Label Style="{StaticResource LabelLarge}">Services (Select at least one)</Label>
             <CollectionView
                             ItemsSource="{Binding ServiceLists}"
                             SelectionMode="Multiple"
                             SelectedItems="{Binding SelectedServices, Mode=TwoWay}"
                             BackgroundColor="LightGray"
-                            VerticalScrollBarVisibility="Always">
+                            VerticalScrollBarVisibility="Always"
+                HeightRequest="150">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <Grid Padding="10">
                             <Label Grid.Column="0"
-                                   Text="{Binding ServiceName}" 
-                                   FontAttributes="Bold" />
+                                   Style="{StaticResource LabelMedium}"
+                                   Text="{Binding ServiceName}"  />
                         </Grid>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
 
-            <Label Text="{Binding Message}" TextColor="Red"/>
+            <Label Style="{StaticResource LabelLarge}"
+                   Text="{Binding Message}" TextColor="Red"/>
             <ActivityIndicator Color="Green" IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}"/>
-            <Button VerticalOptions="Center" Text="Edit Task" Command="{Binding EditTaskCommand}"/>
-        </StackLayout>
+            <Button 
+                Style="{StaticResource PriotityButtonStyle}"
+                VerticalOptions="Center" Text="Edit Task" Command="{Binding EditTaskCommand}"/>
+            </StackLayout>
+            </ScrollView>
     </ContentPage.Content>
 </ContentPage>

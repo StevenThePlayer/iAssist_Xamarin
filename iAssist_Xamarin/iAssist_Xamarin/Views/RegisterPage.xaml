@@ -12,29 +12,37 @@
     <ContentPage.Content>
         <ScrollView HeightRequest="1000">
             <StackLayout Padding="20" VerticalOptions="Center" MinimumHeightRequest="10000">
-                <Label FontSize="Title" HorizontalTextAlignment="Center" Text="{Binding Title}"></Label>
-                <Label>Email:</Label>
+                <Label Style="{StaticResource LabelLarge}"  HorizontalTextAlignment="Center" Text="{Binding Title}"></Label>
+                <Label Style="{StaticResource LabelMedium}">Email:</Label>
                 <Entry Keyboard="Email" Text="{Binding Email}"/>
-                <Label>Address:</Label>
+                <Label Style="{StaticResource LabelMedium}">Address:</Label>
                 <input:AutoCompleteEntry
                 x:Name="EntryAddress"
                 IsRequired="True"
                 Placeholder="Powered with Google Maps"
                 TextColor="Black"
                 TextChanged="AutoCompleteEntry_TextChanged"/>
-                <Label>Password</Label>
+                <Label Style="{StaticResource LabelMedium}"
+                       Padding="10,0,0,0">Password</Label>
                 <Entry Text="{Binding Password}" IsPassword="True"/>
-                <Label>Confirm Password</Label>
+                <Label Style="{StaticResource LabelMedium}"
+                       Padding="10,0,0,0">Confirm Password</Label>
                 <Entry Text="{Binding ConfirmPassword}" IsPassword="True"/>
-                <Label>First Name:</Label>
+                <Label Style="{StaticResource LabelMedium}"
+                       Padding="10,0,0,0">First Name:</Label>
                 <Entry Text="{Binding Firstname}"/>
-                <Label>Last Name:</Label>
+                <Label Style="{StaticResource LabelMedium}"
+                       Padding="10,0,0,0">Last Name:</Label>
                 <Entry Text="{Binding Lastname}"/>
-                <Label>Contact Number:</Label>
+                <Label Style="{StaticResource LabelMedium}"
+                       Padding="10,0,0,0">Contact Number:</Label>
                 <Entry Keyboard="Telephone"  Text="{Binding Contactnumber}"/>
-                <Label Text="{Binding Message}" TextColor="Red"/>
+                <Label Style="{StaticResource LabelMedium}" Text="{Binding Message}" TextColor="Red"/>
                 <ActivityIndicator Color="Green" IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}"/>
-                <Button VerticalOptions="Center" Text="Create an Account" Command="{Binding RegisterCommand}"/>
+                <Button 
+                    Style="{StaticResource PriotityButtonStyle}"
+                    IsVisible="{Binding IsNotBusy}"
+                    VerticalOptions="Center" Text="Create an Account" Command="{Binding RegisterCommand}"/>
             </StackLayout>
         </ScrollView>
     </ContentPage.Content>

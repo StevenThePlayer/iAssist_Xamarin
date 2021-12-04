@@ -21,7 +21,7 @@
             ItemsSource="{Binding TaskList}">
                 <CollectionView.EmptyView>
                     <StackLayout Padding="12">
-                        <Label HorizontalOptions="Center" Text="No Task" />
+                        <Label HorizontalOptions="Center" Text="No Task in Schedule" />
                     </StackLayout>
                 </CollectionView.EmptyView>
                 <CollectionView.GroupHeaderTemplate>
@@ -35,29 +35,32 @@
                     <DataTemplate>
                         <Grid Padding="10">
                             <Frame Style="{StaticResource iAssistCard}">
-                                <StackLayout Orientation="Vertical" BackgroundColor="{Binding ThemeColor}">
+                                <StackLayout Orientation="Vertical">
                                     <Label
-                                            Style="{StaticResource LabelLarge}"
+                                            Style="{StaticResource LabelMedium}"
                                             Text="Task Id"
                                             VerticalOptions="Center" />
                                     <Label
                                             Style="{StaticResource LabelLarge}"
+                                            Padding="20,0,0,0"
                                             Text="{Binding TaskId}"
                                             VerticalOptions="Center" />
                                     <Label
-                                            Style="{StaticResource LabelLarge}"
+                                            Style="{StaticResource LabelMedium}"
                                             Text="Task Name"
                                             VerticalOptions="Center" />
                                     <Label
                                             Style="{StaticResource LabelLarge}"
+                                            Padding="20,0,0,0"
                                             Text="{Binding Subject}"
                                             VerticalOptions="Center" />
                                     <Label
-                                            Style="{StaticResource LabelLarge}"
+                                            Style="{StaticResource LabelMedium}"
                                             Text="Task Date"
                                             VerticalOptions="Center" />
                                     <Label
                                             Style="{StaticResource LabelLarge}"
+                                            Padding="20,0,0,0"
                                             Text="{Binding Start}"
                                             VerticalOptions="Center" /><!--
                                     <Label
@@ -83,10 +86,11 @@
                                     <Label
                                             Style="{StaticResource LabelLarge}"
                                             Text="{Binding Bid_Description}"
-                                            VerticalOptions="Center" />-->
+                                            VerticalOptions="Center" />
                                     <Button Text="Task Details"
+                                            Style="{StaticResource SubButtonStyle}"
                                             Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:ScheduleViewModel}}, Path=DetailsCommand}"
-                                            CommandParameter="{Binding .}"/>
+                                            CommandParameter="{Binding .}"/>-->
                                 </StackLayout>
                             </Frame>
                         </Grid>
@@ -94,11 +98,13 @@
                 </CollectionView.ItemTemplate>
 
                 <CollectionView.Header>
-                    <StackLayout Orientation="Horizontal">
+                    <StackLayout Orientation="Vertical">
                         <Label
                         HorizontalOptions="Center"
-                        Style="{StaticResource LabelMedium}"
-                        Text="{Binding Title}" />
+                        Style="{StaticResource LabelLarge}"
+                        Text="{Binding Title}" 
+                            HorizontalTextAlignment="Center"
+                            Padding="0,10,0,0"/>
                     </StackLayout>
                 </CollectionView.Header>
             </CollectionView>

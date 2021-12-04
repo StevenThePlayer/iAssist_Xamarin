@@ -113,11 +113,48 @@
 
             <Style x:Key="ButtonStyle" TargetType="Button">
                 <Setter Property="CornerRadius" Value="10"/>
-                <Setter Property="BackgroundColor"
-                        Value="#4099ff"/>
+                <Setter Property="BackgroundColor" Value="#4099ff"/>
+                <Setter Property="HorizontalOptions" Value="FillAndExpand"/>
             </Style>
 
-            <x:String x:Key="IconCoffee">&#xf0f4;</x:String>
+            <Style x:Key="PriotityButtonStyle" TargetType="Button">
+                <Setter Property="CornerRadius" Value="10"/>
+                <Setter Property="BackgroundColor" Value="Orange"/>
+                <Setter Property="HorizontalOptions" Value="FillAndExpand"/>
+            </Style>
+            
+            <Style x:Key="PrioritySubButtonStyle" TargetType="Button">
+                <Setter Property="CornerRadius" Value="10"/>
+                <Setter Property="HorizontalOptions" Value="CenterAndExpand"/>
+                <Setter Property="BackgroundColor" Value="Orange"/>
+                <Setter Property="WidthRequest" Value="150"/>
+            </Style>
+            
+            <Style x:Key="SubButtonStyle" TargetType="Button">
+                <Setter Property="CornerRadius" Value="10"/>
+                <Setter Property="HorizontalOptions" Value="CenterAndExpand"/>
+                <Setter Property="BackgroundColor" Value="#4099ff"/>
+                <Setter Property="WidthRequest" Value="150"/>
+            </Style>
+            
+            <Style x:Key="TitleStyle" TargetType="Label">
+                <Setter Property="VerticalOptions" Value="Center"/>
+                <Setter Property="FontSize" Value="Large"/>
+                <Setter Property="FontAttributes" Value="Bold"/>
+            </Style>
+
+            <Style x:Key="StatusStyle" TargetType="Label">
+                <Setter Property="VerticalOptions" Value="Center"/>
+                <Setter Property="FontSize" Value="Large"/>
+                <Setter Property="FontAttributes" Value="Italic"/>
+            </Style>
+
+            <Style x:Key="DescriptionStyle" TargetType="Label">
+                <Setter Property="VerticalOptions" Value="Center"/>
+                <Setter Property="FontSize" Value="Large"/>
+                <Setter Property="FontAttributes" Value="Italic"/>
+            </Style>
+
         </ResourceDictionary>
     </Application.Resources>
 </Application>

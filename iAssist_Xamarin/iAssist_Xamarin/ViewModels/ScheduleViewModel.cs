@@ -42,6 +42,7 @@ namespace iAssist_Xamarin.ViewModels
 
             DetailsCommand = new AsyncCommand<TaskScheduleModel>(OnDetailsClicked);
 
+            GetBalance();
             SortByBidInit();
             GetTask();
         }
@@ -78,9 +79,15 @@ namespace iAssist_Xamarin.ViewModels
             {
                 foreach (var data in taskList)
                 {
-                    if(data.Start.AddDays(28) >= DateTime.UtcNow)
+                    if(data != null)
                     {
-                        TaskList.Add(data);
+                        if(data.Start != null)
+                        {
+                            if (data.Start.AddDays(28) >= DateTime.UtcNow)
+                            {
+                                TaskList.Add(data);
+                            }
+                        }
                     }
                 }
             }

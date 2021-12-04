@@ -24,7 +24,7 @@ namespace iAssist_Xamarin.ViewModels
 
         private ObservableCollection<string> Category { get; set; }
 
-        private string servicesCombined, selectedCategory, statusdisplay;
+        private string servicesCombined, selectedCategory, statusdisplay, image;
         private int categoryIndex;
 
         public ContractTaskViewModel()
@@ -45,6 +45,7 @@ namespace iAssist_Xamarin.ViewModels
     
         public override ObservableRangeCollection<MyTaskModel> Load()
         {
+            UploadFileServices fileServices = new UploadFileServices();
             if (MyTaskViewModelData == null)
                 return new ObservableRangeCollection<MyTaskModel>();
 
@@ -84,19 +85,20 @@ namespace iAssist_Xamarin.ViewModels
                     statusdisplay = "Worker is done";
                 }
 
-                var services = MyTaskViewModelData.TaskViewPost.Where(x => x.Taskdet == data.Id);
+                var services = MyTaskViewModelData.TaskViewPost.Where(x => x.Taskdet == data.Id); 
+                servicesCombined = string.Empty;
                 foreach (var data2 in services)
                 {
                     servicesCombined += data2.Skillname + ", ";
                 }
                 if (servicesCombined.Length > 0)
                 {
-                    var length = servicesCombined.Length - 1;
-                    //servicesCombined.Remove(length, 2); //Removes ","
+                    var length = servicesCombined.Length - 2;
+                    servicesCombined.Remove(length, 2); //Removes ","
                 }
 
                 isBidded = data.workerid != null;
-
+                image = fileServices.ConvertImageUrl(data.TaskImage);
                 TaskList.Add(new MyTaskModel
                 {
                     Id = data.Id,
@@ -104,7 +106,7 @@ namespace iAssist_Xamarin.ViewModels
                     taskdet_name = data.taskdet_name,
                     taskdet_desc = data.taskdet_desc,
                     taskdet_sched = data.taskdet_sched,
-                    TaskImage = data.TaskImage,
+                    TaskImage = image,
                     Loc_Address = data.Loc_Address,
                     Jobname = data.Jobname,
                     jobid = data.jobid,
@@ -146,7 +148,7 @@ namespace iAssist_Xamarin.ViewModels
             
             SetTaskData(task);
 
-            DisplaySelect("Mark Task as dorking?", $"Mark Task as working: {task.taskdet_name}", "Task Marked as Working", "Action Failed", taskServices.MarkasWorking, (int)task.taskedid);
+            DisplaySelect("Mark Task as working?", $"Mark Task as working: {task.taskdet_name}", "Task Marked as Working", "Action Failed", taskServices.MarkasWorking, (int)task.taskedid);
         }
         public async Task OnMarkAsDone(MyTaskModel task)
         {

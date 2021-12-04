@@ -118,6 +118,7 @@ namespace iAssist_Xamarin.Models
         public bool IsCanceled { get; set; }
         public bool IsToRate { get; set; }
         public bool IsBidded { get; set; }
+        public bool IsNotBidded { get; set; }
         public string StatusDisplay { get; set; }
     }
 

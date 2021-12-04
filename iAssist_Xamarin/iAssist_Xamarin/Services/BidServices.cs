@@ -13,11 +13,11 @@ namespace iAssist_Xamarin.Services
 {
     public class BidServices : GetWithCachingServices
     {
-        public async Task<List<BidModel>> GetViewBidding(int id, int user = 1)// user = 1 employer, user = 2 worker, id = taskdet
+        public async Task<List<BidModel>> GetViewBidding(int id, string category = "", int user = 1)// user = 1 employer, user = 2 worker, id = taskdet
         {
             try
             {
-                string url = "api/Bid/ViewBidding?id=" + id.ToString() + "&user=" + user.ToString();
+                string url = "api/Bid/ViewBidding?id=" + id.ToString() + "&user=" + user.ToString() + "&category" + category;
                 var data = await GetAsync<List<BidModel>>(url, "getviewbidding");
                 return data;
             }
@@ -33,7 +33,9 @@ namespace iAssist_Xamarin.Services
             try
             {
                 string url = "api/Bid/AcceptBid?id=" + id.ToString() + "&taskid=" + taskid.ToString();
-                await GetAsync<string>(url, "acceptbid");
+                string temp = await GetAsync<string>(url, "acceptbid");
+                if (temp == "")
+                    return false;
                 return true;
             }
             catch (Exception ex)
@@ -49,6 +51,16 @@ namespace iAssist_Xamarin.Services
             try
             {
                 string url = "api/Bid/CancelBidding?id=" + id.ToString() + "&taskid=" + taskid.ToString();
+
+                HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Put, Constants.BaseApiAddress + url);
+
+                HttpClient client = new HttpClient();
+
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(
+                        "Bearer", Settings.AccessToken);
+
+                var response = await client.SendAsync(request);
+
                 await GetAsync<string>(url, "cancelbid");
                 return true;
             }

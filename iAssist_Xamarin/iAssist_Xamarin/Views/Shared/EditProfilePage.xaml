@@ -8,19 +8,35 @@
         <viewmodel:EditProfileViewModel/>
     </ContentPage.BindingContext>
     <ContentPage.Content>
-        <StackLayout Padding="20" VerticalOptions="Center">
+        <StackLayout Padding="20">
             <ActivityIndicator Color="Green" IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}"/>
-            <Label FontSize="Title" HorizontalTextAlignment="Center" Text="{Binding Title}"></Label>
-            <Label>Email:</Label>
-            <Entry Keyboard="Email" IsReadOnly="True" Text="{Binding Email}"/>
-            <Label>First Name:</Label>
-            <Entry Text="{Binding Firstname}"/>
-            <Label>Last Name:</Label>
-            <Entry Text="{Binding Lastname}"/>
-            <Label>Contact Number:</Label>
-            <Entry Text="{Binding Contactnumber}"/>
-            <Label Text="{Binding Message}" TextColor="Red"/>
-            <Button VerticalOptions="Center" Text="Edit Profile" Command="{Binding EditCommand}"/>
+            <Label 
+                Style="{StaticResource LabelLarge}"
+                FontAttributes="Bold"
+                HorizontalTextAlignment="Center" Text="{Binding Title}"></Label>
+            <Label
+                 Style="{StaticResource LabelMedium}">Email:</Label>
+            <Entry 
+                Style="{StaticResource LabelLarge}"
+                Keyboard="Email" IsReadOnly="True" Text="{Binding Email}"/>
+            <Label Style="{StaticResource LabelMedium}">First Name:</Label>
+            <Entry 
+                Style="{StaticResource LabelLarge}"
+                Text="{Binding Firstname}"/>
+            <Label Style="{StaticResource LabelMedium}">Last Name:</Label>
+            <Entry 
+                Style="{StaticResource LabelLarge}"
+                Text="{Binding Lastname}"/>
+            <Label Style="{StaticResource LabelMedium}">Contact Number:</Label>
+            <Entry 
+                Style="{StaticResource LabelLarge}"
+                Text="{Binding Contactnumber}"/>
+            <Label 
+                Style="{StaticResource LabelMedium}"
+                Text="{Binding Message}" TextColor="Red"/>
+            <Button 
+                Style="{StaticResource PriotityButtonStyle}"
+                VerticalOptions="Center" Text="Edit Profile" Command="{Binding EditCommand}"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

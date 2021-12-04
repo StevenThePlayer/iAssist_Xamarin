@@ -22,13 +22,13 @@
 
             <CollectionView
             BackgroundColor="Transparent"
-            IsGrouped="True"
+            IsGrouped="False"
             ItemSizingStrategy="MeasureAllItems"
             ItemsLayout="VerticalList"
-            ItemsSource="{Binding TaskListGroups}">
+            ItemsSource="{Binding TaskList}">
                 <CollectionView.EmptyView>
                     <StackLayout Padding="12">
-                        <Label HorizontalOptions="Center" Text="No Task" />
+                        <Label Style="{StaticResource LabelMedium}" HorizontalOptions="Center" Text="No Task" />
                     </StackLayout>
                 </CollectionView.EmptyView>
                 <CollectionView.GroupHeaderTemplate>
@@ -43,18 +43,17 @@
                         <Grid Padding="10">
                             <Frame Style="{StaticResource iAssistCard}">
                                 <StackLayout Orientation="Vertical">
-                                    <Image Source="{Binding TaskImage}" WidthRequest="66" />
-                                    <Label
-                                            Style="{StaticResource LabelLarge}"
-                                            Text="{Binding taskdet_name}"
-                                            VerticalOptions="Center" />
+                                    <Image Source="{Binding TaskImage}" WidthRequest="200" />
                                     <Label
                                         Style="{StaticResource LabelLarge}"
-                                        Text="{Binding Taskbook_Status}"
-                                        VerticalOptions="Center" />
+                                            FontAttributes="Bold"
+                                        Text="{Binding taskdet_name}"
+                                        VerticalOptions="Center"
+                                            FontFamily="Calibri"/>
                                     <Label
-                                        Style="{StaticResource LabelLarge}"
-                                        Text="{Binding taskedstatus}"
+                                        Style="{StaticResource StatusStyle}"
+                                        Padding="20,0,0,0"
+                                        Text="{Binding StatusDisplay}"
                                         VerticalOptions="Center" />
                                     <Label
                                         Style="{StaticResource LabelLarge}"
@@ -69,16 +68,16 @@
                                         Text="{Binding Loc_Address}"
                                         VerticalOptions="Center" />
                                     <Label
-                                        Style="{StaticResource LabelLarge}"
+                                        Style="{StaticResource LabelMedium}"
                                         Text="{Binding taskdet_desc}"
                                         VerticalOptions="Center" />
                                     <Label
-                                        Style="{StaticResource LabelLarge}"
+                                        Style="{StaticResource LabelMedium}"
                                         Text="{Binding ServicesCombined}"
                                         VerticalOptions="Center" />
-
-
+                                    
                                     <Button Text="View Bid Details"
+                                            Style="{StaticResource ButtonStyle}"
                                         Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:ViewBidRequestViewModel}},Path=BidDetailsCommand}"
                                         CommandParameter="{Binding .}"/>
 
@@ -92,9 +91,10 @@
                     <StackLayout Orientation="Vertical">
                         <Label
                         HorizontalOptions="CenterAndExpand"
-                        Style="{StaticResource LabelMedium}"
+                        Style="{StaticResource LabelLarge}"
                         Text="{Binding Title}"
-                        /><!--
+                            Padding="0,10,0,0"/>
+                        <!--
                         <Picker
                             Title="{Binding Title}"
                             ItemsSource="{Binding Category}"

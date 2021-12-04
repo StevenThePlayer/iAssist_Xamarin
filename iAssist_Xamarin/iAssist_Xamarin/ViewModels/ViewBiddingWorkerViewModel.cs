@@ -15,7 +15,7 @@ namespace iAssist_Xamarin.ViewModels
     public class ViewBiddingWorkerViewModel : ViewBiddingViewModel
     {
         private BidServices bidServices;
-        private List<BidModel> bidList;
+        //private List<BidModel> bidList;
 
         public AsyncCommand<BidModel> EditBidCommand { get; }
         public AsyncCommand<BidModel> CancelBidCommand { get; }
@@ -24,23 +24,28 @@ namespace iAssist_Xamarin.ViewModels
         public ViewBiddingWorkerViewModel()
         {
 
-            Title = "Task Bids from Workers";
+            Title = "Task Bids from You";
 
-            BidList = new ObservableRangeCollection<BidModel>();
-            SortBy = new ObservableCollection<string>();
+            //BidList = new ObservableRangeCollection<BidModel>();
+            //SortBy = new ObservableCollection<string>();
 
             bidServices = new BidServices();
 
             EditBidCommand = new AsyncCommand<BidModel>(OnEditBid);
             CancelBidCommand = new AsyncCommand<BidModel>(OnCancelBid);
 
-            SortByBidInit();
-            GetBids();
+            //SortByBidInit();
         }
 
         public override async void GetBids()
         {
-            bidList = await bidServices.GetViewBidding(DataKeepServices.GetMyTaskData().Id, 2);
+            int id = DataKeepServices.GetTaskId();
+                bidList = new List<BidModel>();
+
+                bidServices = new BidServices();
+
+            bidList = await bidServices.GetViewBidding(id, "", (int)2);
+
             Load();
         }
 

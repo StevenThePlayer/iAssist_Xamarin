@@ -32,7 +32,6 @@ namespace iAssist_Xamarin
             Routing.RegisterRoute(nameof(CreateBidPage), typeof(CreateBidPage));
             Routing.RegisterRoute(nameof(EditBidPage), typeof(EditBidPage));
             Routing.RegisterRoute(nameof(ViewBiddingWorkerPage), typeof(ViewBiddingWorkerPage));
-            Routing.RegisterRoute(nameof(ViewBidRequestPage), typeof(ViewBidRequestPage));
 
             Routing.RegisterRoute(nameof(LoginPage), typeof(LoginPage));
             Routing.RegisterRoute(nameof(RegisterPage), typeof(RegisterPage));
@@ -45,6 +44,7 @@ namespace iAssist_Xamarin
             Settings.AccessToken = null;
             Settings.Email = null;
             Settings.Password = null;
+            Settings.WorkerId = null;
             await Current.GoToAsync("//LoginPage");
         }
     }

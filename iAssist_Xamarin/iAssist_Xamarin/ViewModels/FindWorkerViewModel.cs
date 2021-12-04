@@ -1,4 +1,5 @@
-﻿using iAssist_Xamarin.Models;
+﻿using iAssist_Xamarin.Helpers;
+using iAssist_Xamarin.Models;
 using iAssist_Xamarin.Services;
 using iAssist_Xamarin.Views;
 using MvvmHelpers;
@@ -16,6 +17,7 @@ namespace iAssist_Xamarin.ViewModels
     public class FindWorkerViewModel : IWorkerLoader
     {
         private SearchWorkerServices searchWorkerServices;
+        private string selectedCategory;
 
         public Command SortByCommand { get; }
 
@@ -24,7 +26,9 @@ namespace iAssist_Xamarin.ViewModels
         public AsyncCommand<SearchWorkerModel> RequestCommand { get; }
         //public AsyncCommand<BidModel> CancelBiddingCommand { get; }
         public AsyncCommand<SearchWorkerModel> WorkerDetailsCommand { get; }
-        
+
+
+
 
         public FindWorkerViewModel()
         {
@@ -45,15 +49,43 @@ namespace iAssist_Xamarin.ViewModels
         public override async void GetWorkers()
         {
             workerList = await searchWorkerServices.GetFindWorkerList(DataKeepServices.GetTaskId());
-            var list = Load();
-            if (WorkerList != null)
-                WorkerList.Clear();
-            foreach(var data in list.ToList())
-            {
-                WorkerList.Add(data);
-            }
+
+            Load();
         }
 
+        public override ObservableRangeCollection<SearchWorkerModel> Load()
+        {
+            UploadFileServices fileServices = new UploadFileServices();
+
+            if (WorkerList != null)
+                WorkerList.Clear();
+
+
+            if (workerList != null)
+            {
+                if (SelectedCategory == "Rating")
+                {
+                    workerList.OrderByDescending(x => x.Rate);
+                }
+                foreach (SearchWorkerModel data in workerList)
+                {
+                    if (string.IsNullOrWhiteSpace(data.Profile))
+                    {
+                        data.Profile = Constants.BaseApiAddress + "image/defaultprofilepic.jpg";
+                    }
+                    else
+                    {
+                        data.Profile = fileServices.ConvertImageUrl(data.Profile);
+                    }
+                    if(data.UserId != Settings.Email)
+                    {
+                        WorkerList.Add(data);
+                    }
+                }
+            }
+
+            return WorkerList;
+        }
         public async Task OnRequestClicked(SearchWorkerModel worker)
         {
             if (worker == null)
@@ -73,5 +105,18 @@ namespace iAssist_Xamarin.ViewModels
 
             await Shell.Current.GoToAsync($"{nameof(WorkerDetailsPage)}");
         }
+        public void CategoryInit()
+        {
+            ObservableCollection<string> temp = new ObservableCollection<string>
+            {
+                "Distance",
+                "Rating",
+            };
+            Category = temp;
+            SelectedCategory = "Distance";
+        }
+
+        public ObservableCollection<string> Category { get; set; }
+        public string SelectedCategory { get => selectedCategory; set => SetProperty(ref selectedCategory, value); }
     }
 }

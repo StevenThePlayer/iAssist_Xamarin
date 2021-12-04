@@ -10,8 +10,11 @@
         <viewmodel:CreateTaskViewModel/>
     </ContentPage.BindingContext>
     <ContentPage.Content>
-        <StackLayout Padding="20" VerticalOptions="Start" HeightRequest="1000">
-            <Label FontSize="Title" HorizontalTextAlignment="Center" Text="{Binding Title}"></Label>
+        <ScrollView HeightRequest="100">
+            <StackLayout Padding="20" HeightRequest="900">
+            <Label Style="{StaticResource LabelLarge}"
+                   FontAttributes="Bold"
+                   HorizontalTextAlignment="Center" Text="{Binding Title}"></Label>
 
             <Picker
                 Title="Select a Job Category"
@@ -25,23 +28,26 @@
                 </Picker.Behaviors>
             </Picker>
 
-            <Label IsVisible="{Binding IsJobSelected}">Task Title</Label>
+            <Label Style="{StaticResource LabelMedium}"
+                   IsVisible="{Binding IsJobSelected}">Task Title</Label>
             <Entry IsVisible="{Binding IsJobSelected}" Text="{Binding TaskTitle}"/>
-            <Label IsVisible="{Binding IsJobSelected}">Task Description</Label>
-            <Editor HeightRequest="60" IsVisible="{Binding IsJobSelected}" Text="{Binding TaskDescription}"/>
-            <Label IsVisible="{Binding IsJobSelected}">Schedule</Label>
+            <Label Style="{StaticResource LabelMedium}"
+                   IsVisible="{Binding IsJobSelected}">Task Description</Label>
+            <Editor HeightRequest="100" IsVisible="{Binding IsJobSelected}" Text="{Binding TaskDescription}"/>
+            <Label Style="{StaticResource LabelMedium}"
+                   IsVisible="{Binding IsJobSelected}">Schedule</Label>
             <DatePicker  IsVisible="{Binding IsJobSelected}"
                     MinimumDate="{Binding CurrDate}"
                     Date="{Binding SelectedDate}" />
 
-            <Label  IsVisible="{Binding IsJobSelected}">Address:</Label>
+            <Label  Style="{StaticResource LabelMedium}"
+                    IsVisible="{Binding IsJobSelected}">Address:</Label>
             <input:AutoCompleteEntry
                     IsVisible="{Binding IsJobSelected}"
                     Text="{Binding Address, Mode=TwoWay}"
                     Placeholder="Powered with Google Maps"
                     TextColor="Black"
-                    ItemsSource="{Binding Addresses, Mode=OneWay}"
-                    MinimumHeightRequest="200">
+                    ItemsSource="{Binding Addresses, Mode=OneWay}">
                 <input:AutoCompleteEntry.Behaviors>
                     <behaviors:EventToCommandBehavior
                             EventName="TextChanged"
@@ -49,7 +55,8 @@
                 </input:AutoCompleteEntry.Behaviors>
             </input:AutoCompleteEntry>
 
-            <Label Text="{Binding ProfilePicture}"></Label>
+            <Label  Style="{StaticResource LabelMedium}"
+                    Text="{Binding ProfilePicture}"></Label>
             <Button  IsVisible="{Binding IsJobSelected}"
                 VerticalOptions="Center" 
                 Text="Add Picture" 
@@ -57,32 +64,34 @@
                      Style="{StaticResource ButtonStyle}"/>
 
 
-            <Label IsVisible="{Binding IsJobSelected}">Services (Select at least one)</Label>
-            <CollectionView IsVisible="{Binding IsJobSelected}"
+            <Label Style="{StaticResource LabelMedium}"
+                   IsVisible="{Binding IsJobSelected}">Services (Select at least one)</Label>
+                <CollectionView IsVisible="{Binding IsJobSelected}"
                             ItemsSource="{Binding ServiceLists}"
                             SelectionMode="Multiple"
                             SelectedItems="{Binding SelectedServices, Mode=TwoWay}"
-                            BackgroundColor="LightGray"
                             VerticalScrollBarVisibility="Always"
-                            MinimumHeightRequest="50">
-                <CollectionView.ItemTemplate>
-                    <DataTemplate>
-                        <Grid Padding="10">
-                            <Label Grid.Column="0"
-                                   Text="{Binding ServiceName}" 
-                                   FontAttributes="Bold" />
-                        </Grid>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
-
-            <Label  IsVisible="{Binding IsJobSelected}" Text="{Binding Message}" TextColor="Red"/>
+                            BackgroundColor="#eee"
+                            HeightRequest="150">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Padding="10">
+                                <Label Grid.Column="0"
+                                   Style="{StaticResource LabelMedium}"
+                                   Text="{Binding ServiceName}"/>
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+                <Label  Style="{StaticResource LabelMedium}"
+                    IsVisible="{Binding IsJobSelected}" Text="{Binding Message}" TextColor="Red"/>
             <ActivityIndicator Color="Green" IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}"/>
             <Button  IsVisible="{Binding IsJobSelected}"
-                     Style="{StaticResource ButtonStyle}"
+                     Style="{StaticResource PriotityButtonStyle}"
                      VerticalOptions="Center" 
                      Text="Create Task" 
                      Command="{Binding CreateTaskCommand}"/>
-        </StackLayout>
+            </StackLayout>
+        </ScrollView>
     </ContentPage.Content>
 </ContentPage>

@@ -15,7 +15,8 @@ namespace iAssist_Xamarin.ViewModels
     public class ViewBiddingViewModel : ViewModelBase
     {
         private BidServices bidServices;
-        private List<BidModel> bidList;
+        public List<BidModel> bidList;
+        private string selectedCategory;
 
         public ObservableRangeCollection<BidModel> BidList { get; set; }
 
@@ -28,6 +29,8 @@ namespace iAssist_Xamarin.ViewModels
         public AsyncCommand<BidModel> AcceptBidCommand { get; }
         public AsyncCommand<BidModel> CancelBiddingCommand { get; }
         public AsyncCommand<BidModel> WorkerDetailsCommand { get; }
+        
+        private int categorySelected;
 
         public ViewBiddingViewModel()
         {
@@ -48,6 +51,7 @@ namespace iAssist_Xamarin.ViewModels
 
             SortByBidInit();
             GetBids();
+            //CategoryInit();
         }
 
         public void OnAppearing()
@@ -75,10 +79,10 @@ namespace iAssist_Xamarin.ViewModels
         {
             UploadFileServices fileServices = new UploadFileServices();
 
-            if(BidList != null)
+            if (BidList != null)
                 BidList.Clear();
-            
-            if(bidList != null)
+
+            if (bidList != null)
             {
                 foreach (var data in bidList)
                 {
@@ -101,6 +105,54 @@ namespace iAssist_Xamarin.ViewModels
                     });
                 }
             }
+            /*
+            if (SelectedCategory == "5 Stars")
+            {
+                categorySelected = 5;
+            }
+            else if (SelectedCategory == "4 Stars and Up")
+            {
+                categorySelected = 4;
+            }
+            else if (SelectedCategory == "3 Stars and Up")
+            {
+                categorySelected = 3;
+            }
+            else if (SelectedCategory == "2 Stars and Up")
+            {
+                categorySelected = 2;
+            }
+            else if (SelectedCategory == "All")
+            {
+                categorySelected = 0;
+            }
+
+            if (bidList != null)
+            {
+                foreach (var data in bidList)
+                {
+                    data.ProfilePicture = fileServices.ConvertImageUrl(data.ProfilePicture);
+                    if((int)data.Rate >= categorySelected)
+                    {
+                        BidList.Add(new BidModel
+                        {
+                            Bidid = data.Bidid,
+                            Bid_Amount = data.Bid_Amount,
+                            Bid_Description = data.Bid_Description,
+                            TaskdetId = data.TaskdetId,
+                            Firstname = data.Firstname,
+                            Lastname = data.Lastname,
+                            ProfilePicture = data.ProfilePicture,
+                            Tasktitle = data.Tasktitle,
+                            user = data.user,
+                            workerid = data.workerid,
+                            Username = data.Username,
+                            bookstatus = data.bookstatus,
+                            //Rate = data.Rate
+                        });
+                    }
+                }
+            }*/
         }
         public virtual async Task OnAcceptBid(BidModel bid)
         {
@@ -137,5 +189,22 @@ namespace iAssist_Xamarin.ViewModels
 
             await Shell.Current.GoToAsync($"{nameof(WorkerDetailsPage)}");
         }
+
+        public void CategoryInit()
+        {
+            ObservableCollection<string> temp = new ObservableCollection<string>
+            {
+                "5 Stars",
+                "4 Stars and Up",
+                "3 Stars and Up",
+                "2 Stars and Up",
+                "All",
+            };
+            Category = temp;
+            SelectedCategory = "All";
+        }
+
+        public ObservableCollection<string> Category { get; set; }
+        public string SelectedCategory { get => selectedCategory; set => SetProperty(ref selectedCategory, value); }
     }
 }

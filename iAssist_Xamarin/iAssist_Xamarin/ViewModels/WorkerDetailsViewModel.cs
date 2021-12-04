@@ -35,7 +35,6 @@ namespace iAssist_Xamarin.ViewModels
             searchWorkerServices = new SearchWorkerServices();
             RateList = new ObservableRangeCollection<RateModel>();
 
-            GetWorkers();
 
             RequestWorkerCommand = new Command(OnRequestWorker);
             ReportWorkerCommand = new Command(OnReportWorker);
@@ -48,6 +47,19 @@ namespace iAssist_Xamarin.ViewModels
             findWorkerData = await searchWorkerServices.GetFindWorkerDetails(data.WorkerId, data.Taskdet);
 
             UploadFileServices uploadFileServices = new UploadFileServices();
+
+            if(findWorkerData == null)
+            {
+                await Shell.Current.DisplayAlert("Error", "An Error has occurred when processing data.", "Ok");
+                await Shell.Current.GoToAsync($"//{nameof(MyTaskPage)}");
+                return;
+            }
+            if (findWorkerData.viewprofile == null)
+            {
+                await Shell.Current.DisplayAlert("Error", "An Error has occurred when processing data.", "Ok");
+                await Shell.Current.GoToAsync($"//{nameof(MyTaskPage)}");
+                return;
+            }
 
             var workerdata = findWorkerData.viewprofile;
 

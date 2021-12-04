@@ -43,13 +43,16 @@
                         <Grid Padding="10">
                             <Frame Style="{StaticResource iAssistCard}">
                                 <StackLayout Orientation="Vertical">
-                                    <Image Source="{Binding TaskImage}" WidthRequest="66" />
+                                    <Image Source="{Binding TaskImage}" WidthRequest="200" />
                                     <Label
                                         Style="{StaticResource LabelLarge}"
+                                            FontAttributes="Bold"
                                         Text="{Binding taskdet_name}"
-                                        VerticalOptions="Center" />
+                                        VerticalOptions="Center"
+                                            FontFamily="Calibri"/>
                                     <Label
-                                        Style="{StaticResource LabelLarge}"
+                                        Style="{StaticResource StatusStyle}"
+                                        Padding="20,0,0,0"
                                         Text="{Binding StatusDisplay}"
                                         VerticalOptions="Center" />
                                     <Label
@@ -65,27 +68,29 @@
                                         Text="{Binding Loc_Address}"
                                         VerticalOptions="Center" />
                                     <Label
-                                        Style="{StaticResource LabelLarge}"
+                                        Style="{StaticResource LabelMedium}"
                                         Text="{Binding taskdet_desc}"
                                         VerticalOptions="Center" />
                                     <Label
-                                        Style="{StaticResource LabelLarge}"
+                                        Style="{StaticResource LabelMedium}"
                                         Text="{Binding ServicesCombined}"
                                         VerticalOptions="Center" />
 
 
                                     <StackLayout Orientation="Horizontal" IsVisible="{Binding IsOngoing}">
                                         <Button Text="Mark As Working"
+                                                Style="{StaticResource PrioritySubButtonStyle}"
                                         Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:ContractTaskViewModel}}, Path=MarkAsWorkingCommand}"
                                         CommandParameter="{Binding .}"/>
                                         <Button Text="Cancel Task"
+                                                Style="{StaticResource SubButtonStyle}"
                                         Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:ContractTaskViewModel}}, Path=CancelTaskCommand}"
                                         CommandParameter="{Binding .}"/>
                                     </StackLayout>
 
                                     <StackLayout Orientation="Horizontal" IsVisible="{Binding IsToComplete}">
                                         <Button Text="Mark As Done"
-                                        Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:ContractTaskViewModel}}, Path=MarkAsDoneCommand}"
+                                        Style="{StaticResource PriotityButtonStyle}" Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:ContractTaskViewModel}}, Path=MarkAsDoneCommand}"
                                         CommandParameter="{Binding .}"/>
                                     </StackLayout>
                                     
@@ -97,11 +102,12 @@
 
                 <CollectionView.Header>
                     <StackLayout Orientation="Vertical">
+                        
                         <Label
                         HorizontalOptions="CenterAndExpand"
-                        Style="{StaticResource LabelMedium}"
-                        Text="{Binding Title}"
-                        /><!--
+                        Style="{StaticResource LabelLarge}"
+                        Text="{Binding Title}" 
+                            Padding="0,10,0,0"/><!--
                         <Picker
                             Title="All"
                             ItemsSource="{Binding Category}"

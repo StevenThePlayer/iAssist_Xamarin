@@ -1,4 +1,5 @@
-﻿using iAssist_Xamarin.Models;
+﻿using iAssist_Xamarin.Helpers;
+using iAssist_Xamarin.Models;
 using iAssist_Xamarin.Services;
 using MvvmHelpers;
 using MvvmHelpers.Commands;
@@ -22,7 +23,7 @@ namespace iAssist_Xamarin.ViewModels
         private ObservableRangeCollection<MyTaskModel> TaskList { get; set; }
         private ObservableRangeCollection<Grouping<string, MyTaskModel>> TaskListGroups { get; set; }
 
-        private bool isPending, isPosted, isCompleted, isOngoing, isToComplete ,isCanceled, isToRate, isBidded;
+        private bool isPending, isPosted, isCompleted, isOngoing, isToComplete ,isCanceled, isToRate, isBidded, isNotBidded;
 
         private ObservableCollection<string> Category { get; set; }
 
@@ -173,10 +174,14 @@ namespace iAssist_Xamarin.ViewModels
                 {
                     servicesCombined += data2.Skillname + ", ";
                 }
-                if (servicesCombined.Length > 0)
+                if(string.IsNullOrWhiteSpace(servicesCombined) == false)
                 {
-                    var length = servicesCombined.Length - 1;
-                    //servicesCombined.Remove(length, 2); //Removes ","
+                    if (servicesCombined.Length > 2)
+                    {
+                        string temp = servicesCombined;
+                        servicesCombined = temp.Remove(temp.Length - 2, 2);
+                        //servicesCombined.Remove(length, 2); //Removes ","
+                    }
                 }
                 string picture = fileServices.ConvertImageUrl(data.TaskImage);
 
@@ -327,17 +332,24 @@ namespace iAssist_Xamarin.ViewModels
                 }
 
                 var services = MyTaskViewModelData.TaskViewPost.Where(x => x.Taskdet == data.Id);
+
+                servicesCombined = string.Empty;
+
                 foreach (var data2 in services)
                 {
                     servicesCombined += data2.Skillname + ", ";
                 }
-                if (servicesCombined.Length > 0)
+                if(string.IsNullOrWhiteSpace(servicesCombined) == false)
                 {
-                    var length = servicesCombined.Length - 1;
-                    //servicesCombined.Remove(length, 2); //Removes ","
+                    if (servicesCombined.Length > 2)
+                    {
+                        string temp = servicesCombined;
+                        servicesCombined = temp.Remove(temp.Length - 2, 2);
+                        //servicesCombined.Remove(length, 2); //Removes ","
+                    }
                 }
-
-                isBidded = data.workerid != null;
+                isBidded = data.workerid == int.Parse(Settings.WorkerId);
+                isNotBidded = !isBidded;
 
                 data.TaskImage = fileServices.ConvertImageUrl(data.TaskImage);
 
@@ -365,6 +377,7 @@ namespace iAssist_Xamarin.ViewModels
                     specificworkerid = data.specificworkerid,
                     ServicesCombined = servicesCombined,
                     IsBidded = isBidded,
+                    IsNotBidded = isNotBidded,
                     StatusDisplay = statusdisplay,
                 });
             }

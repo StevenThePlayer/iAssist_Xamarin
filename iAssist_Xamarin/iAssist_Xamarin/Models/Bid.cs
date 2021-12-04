@@ -18,6 +18,6 @@ namespace iAssist_Xamarin.Models
         public int? workerid { get; set; }
         public string Username { get; set; }
         public int? bookstatus { get; set; }
-        public int? Rate { get; set; }
+        public double? Rate { get; set; }
     }
 }

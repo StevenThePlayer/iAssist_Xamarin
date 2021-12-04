@@ -19,7 +19,7 @@ namespace iAssist_Xamarin.Models
         public int WorkerId { get; set; }
         public string distance { get; set; }
         public int Taskdet { get; set; }
-        //public double? Rate { get; set; }
+        public double? Rate { get; set; }
     }
 
     public class ProfileViewSkilledWorker

@@ -18,7 +18,6 @@ namespace iAssist_Xamarin.ViewModels
         private MyTaskModel taskData = new MyTaskModel();
         private List<SkillServiceTask> serviceData = new List<SkillServiceTask>();
         private UploadFileServices fileServices = new UploadFileServices();
-
         public Command CreateTaskCommand { get; }
         public Command JobSelectedCommand { get; }
         public Command UploadFileCommand { get; }
@@ -125,7 +124,7 @@ namespace iAssist_Xamarin.ViewModels
                 TaskServices taskServices = new TaskServices();
                 string address = Constants.BaseApiAddress + "api/Upload";
                 string pictureName = await uploadFileServices.UploadFile(address, false);
-                bool success = await taskServices.PostEditTask(TaskTitle, TaskDescription, SelectedDate, TempAddress.Address, latitude, longitude, pictureName, services, createTaskViewModel);
+                bool success = await taskServices.PostEditTask(DataKeepServices.GetTaskId(), TaskTitle, TaskDescription, SelectedDate, TempAddress.Address, latitude, longitude, pictureName, services, createTaskViewModel);
 
                 Message = taskServices.Message;
                 IsBusy = false;

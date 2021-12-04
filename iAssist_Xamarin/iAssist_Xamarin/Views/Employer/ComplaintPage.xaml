@@ -12,13 +12,18 @@
     <ContentPage.Content>
         <ScrollView HeightRequest="1000">
             <StackLayout Padding="20">
-                <Label FontSize="Title" HorizontalTextAlignment="Center" Text="{Binding Title}"></Label>
-                <Label>Worker Id</Label>
+                <Label Style="{StaticResource LabelLarge}" FontAttributes="Bold" HorizontalTextAlignment="Center" Text="{Binding Title}"></Label>
+                <Label Style="{StaticResource LabelLarge}">Worker Id</Label>
                 <Entry IsEnabled="false" Text="{Binding WorkerId}"/>
-                <Label>Complaint Type</Label>
-                <Entry Text="{Binding ComplaintType}"/>
-                <Label>Description</Label>
-                <Entry Text="{Binding Description}"/>
+                <Label Style="{StaticResource LabelLarge}">Complaint Type/Title</Label>
+                <Entry 
+                    Style="{StaticResource LabelLarge}"
+                    Text="{Binding ComplaintType}"/>
+                <Label Style="{StaticResource LabelLarge}">Description</Label>
+                <Editor 
+                    Style="{StaticResource LabelLarge}"
+                    HeightRequest="100"
+                    Text="{Binding Description}"/>
                 <Button 
                     Style="{StaticResource ButtonStyle}"
                     Text="Add Image" Command="{Binding AddImageCommand}"/>
@@ -26,7 +31,7 @@
                 <Label Text="{Binding Message}" TextColor="Red"/>
                 <ActivityIndicator Color="Green" IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}"/>
                 <Button 
-                    Style="{StaticResource ButtonStyle}"
+                    Style="{StaticResource PriotityButtonStyle}"
                     VerticalOptions="Center" Text="Report Worker" Command="{Binding ReportCommand}"/>
             </StackLayout>
         </ScrollView>

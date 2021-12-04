@@ -63,6 +63,18 @@ namespace iAssist_Xamarin.Helpers
                 AppSettings.AddOrUpdateValue("Role", value);
             }
         }
+        public static string WorkerId
+        {
+            get
+            {
+                return AppSettings.GetValueOrDefault("WorkerId", "");
+            }
+            set
+            {
+                AppSettings.AddOrUpdateValue("WorkerId", value);
+            }
+        }
+        
 
         public static string AccessToken
         {

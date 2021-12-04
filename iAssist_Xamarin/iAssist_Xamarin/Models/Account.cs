@@ -45,4 +45,20 @@ namespace iAssist_Xamarin.Models
         public string NewPassword { get; set; }
         public string ConfirmPassword { get; set; }
     }
+
+
+    //Get Address
+    public class UserAddress
+    {
+        public string Address { get; set; }
+        public string Longitude { get; set; }
+        public string Latitude { get; set; }
+    }
+
+
+    public class UserRole
+    {
+        public string Role { get; set; }
+        public int WorkerId { get; set; }
+    }
 }

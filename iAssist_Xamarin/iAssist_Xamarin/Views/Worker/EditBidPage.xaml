@@ -11,18 +11,34 @@
     </ContentPage.BindingContext>
     <ContentPage.Content>
         <ScrollView HeightRequest="1000">
-            <StackLayout Padding="20" VerticalOptions="Center" MinimumHeightRequest="10000">
-                <Label FontSize="Title" HorizontalTextAlignment="Center" Text="{Binding Title}"></Label>
-                <Label>Task Id</Label>
-                <Entry IsEnabled="false"  Text="{Binding TaskId}"/>
-                <Label>Bid Amount</Label>
-                <Entry Keyboard="Numeric" Text="{Binding BidAmount}"/>
-                <Label>Bid Description</Label>
-                <Entry Text="{Binding BidDescription}"/>
+            <StackLayout Padding="20" VerticalOptions="StartAndExpand" MinimumHeightRequest="10000">
+                <Label 
+                    Style="{StaticResource LabelLarge}"
+                    HorizontalTextAlignment="Center" Text="{Binding Title}"></Label>
+                <Label
+                    Style="{StaticResource LabelMedium}">Task Id</Label>
+                <Entry 
+                    Style="{StaticResource LabelLarge}"
+                    IsEnabled="false"  Text="{Binding TaskId}"/>
+                <Label
+                    Style="{StaticResource LabelMedium}">Bid Amount</Label>
+                <Entry 
+                    Style="{StaticResource LabelLarge}"
+                    Keyboard="Numeric" Text="{Binding BidAmount}"/>
+                <Label
+                    Style="{StaticResource LabelMedium}">Bid Description</Label>
+                <Editor 
+                    Style="{StaticResource LabelLarge}"
+                    Text="{Binding BidDescription}"
+                    HeightRequest="100"/>
 
-                <Label Text="{Binding Message}" TextColor="Red"/>
+                <Label 
+                    Style="{StaticResource LabelMedium}"
+                    Text="{Binding Message}" TextColor="Red"/>
                 <ActivityIndicator Color="Green" IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}"/>
-                <Button VerticalOptions="Center" Text="Submit Rating" Command="{Binding EditBidCommand}"/>
+                <Button 
+                    Style="{StaticResource PriotityButtonStyle}"
+                    VerticalOptions="Center" Text="Edit Bid" Command="{Binding EditBidCommand}"/>
             </StackLayout>
         </ScrollView>
     </ContentPage.Content>

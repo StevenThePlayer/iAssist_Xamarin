@@ -50,7 +50,7 @@ namespace iAssist_Xamarin.ViewModels
             MarkCompletedCommand = new AsyncCommand<MyTaskModel>(OnMarkComplete);
             RateWorkerCommand = new AsyncCommand<MyTaskModel>(OnRateWorker);
             DoNotRateWorkerCommand = new AsyncCommand<MyTaskModel>(OnNotRateWorker);
-
+            SelectedCategory = "All";
         }
 
         public override void LoadGroupAdapter()
