@@ -33,7 +33,7 @@ namespace iAssist_Xamarin.Services
             output = Regex.Replace(output, "[,\"]", string.Empty).Trim();
             if (string.Compare(output, "no files") != 0 && AddBaseAddress)
             {
-                url = Constants.BaseApiAddress + "image/" + output;
+                url = Constants.BaseApiAddress + output;
             }
             else
             {

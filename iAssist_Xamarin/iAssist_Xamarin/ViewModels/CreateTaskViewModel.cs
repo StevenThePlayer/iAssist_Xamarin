@@ -147,6 +147,12 @@ namespace iAssist_Xamarin.ViewModels
                         services.Add(service);
                     }
                 }
+                if(services.Count == 0)
+                {
+                    Message = "Please select a service.";
+                    IsBusy = false;
+                    return;
+                }
                 TaskServices taskServices = new TaskServices();
                 string address = Constants.BaseApiAddress + "api/Upload";
                 string pictureName = await uploadFileServices.UploadFile(address, false);
