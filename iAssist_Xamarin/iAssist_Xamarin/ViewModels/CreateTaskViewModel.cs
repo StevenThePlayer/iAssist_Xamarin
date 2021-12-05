@@ -50,14 +50,14 @@ namespace iAssist_Xamarin.ViewModels
             ServiceLists = new ObservableCollection<ServiceList>();
             JobCategory = new ObservableCollection<string>();
 
-            GetJob();
+            GetData();
             GetBalance();
             IsBusy = false;
             IsNotBusy = !IsBusy;
         }
 
 
-        public async void GetJob()
+        public async void GetData()
         {
             TaskServices taskServices = new TaskServices();
             IEnumerable<JobListModel> jobs = await taskServices.GetJobList();
@@ -67,6 +67,16 @@ namespace iAssist_Xamarin.ViewModels
                 {
                     JobCategory.Add(data.JobName);
                 }
+            }
+
+            AccountServices accountServices = new AccountServices();
+            List<UserAddress> userAddress = new List<UserAddress>();
+            userAddress = await accountServices.GetAddress();
+            foreach(var data in userAddress)
+            {
+                Address = data.Address;
+                longitude = data.Longitude;
+                latitude = data.Latitude;
             }
         }
 
@@ -85,9 +95,9 @@ namespace iAssist_Xamarin.ViewModels
                 }
             }
             TempAddress.Address = createTaskViewModel.Address;
-            Address = createTaskViewModel.Address;
-            latitude = createTaskViewModel.Latitude;
-            longitude = createTaskViewModel.Longitude;
+            //Address = createTaskViewModel.Address;
+            //latitude = createTaskViewModel.Latitude;
+            //longitude = createTaskViewModel.Longitude;
 
             LocationServices locationServices = new LocationServices();
             Addresses = await locationServices.GetAddressOnly(Address, Addresses);
@@ -95,7 +105,7 @@ namespace iAssist_Xamarin.ViewModels
             IsJobSelected = true;
             IsBusy = false;
             IsNotBusy = !IsBusy;
-            Xamarin.Forms.Shell.Current.ForceLayout();
+            Shell.Current.ForceLayout();
         }
 
         public async void OnCreateClicked(object obj)
@@ -113,11 +123,7 @@ namespace iAssist_Xamarin.ViewModels
             {
                 Message = "Task Description must be atleast 30 characters.";
             }
-            else if (String.IsNullOrWhiteSpace(TempJobCategory.JobName))
-            {
-                Message = "Enter a Job Category.";
-            }
-            else if (String.IsNullOrWhiteSpace(TempAddress.Address))
+            else if (String.IsNullOrWhiteSpace(Address))
             {
                 Message = "Enter an Address.";
             }
@@ -144,7 +150,7 @@ namespace iAssist_Xamarin.ViewModels
                 TaskServices taskServices = new TaskServices();
                 string address = Constants.BaseApiAddress + "api/Upload";
                 string pictureName = await uploadFileServices.UploadFile(address, false);
-                bool success = await taskServices.PostCreateTask(TaskTitle, TaskDescription, SelectedDate, TempAddress.Address, latitude, longitude, pictureName, services, createTaskViewModel);
+                bool success = await taskServices.PostCreateTask(TaskTitle, TaskDescription, SelectedDate, Address, latitude, longitude, pictureName, services, createTaskViewModel);
 
                 if(success)
                 {

@@ -69,16 +69,16 @@ namespace iAssist_Xamarin.ViewModels
                 }
                 foreach (SearchWorkerModel data in workerList)
                 {
-                    if (string.IsNullOrWhiteSpace(data.Profile))
-                    {
-                        data.Profile = Constants.BaseApiAddress + "image/defaultprofilepic.jpg";
-                    }
-                    else
-                    {
-                        data.Profile = fileServices.ConvertImageUrl(data.Profile);
-                    }
                     if(data.UserId != Settings.Email)
                     {
+                        if (string.IsNullOrWhiteSpace(data.Profile))
+                        {
+                            data.Profile = "defaultprofilepic.jpg";
+                        }
+                        else
+                        {
+                            data.Profile = fileServices.ConvertImageUrl(data.Profile);
+                        }
                         WorkerList.Add(data);
                     }
                 }
@@ -91,7 +91,7 @@ namespace iAssist_Xamarin.ViewModels
             if (worker == null)
                 return;
 
-            DisplaySelect("Request Worker?", $"Request {worker.Lastname}, {worker.Firstname}?", "Request Sent", "Action Failed", searchWorkerServices.FindWorkerRequestBooking, worker.WorkerId, DataKeepServices.GetTaskId());
+            DisplaySelect("Request Worker?", $"Request {worker.Lastname}, {worker.Firstname}?", "Request Sent", "Request Failed", searchWorkerServices.FindWorkerRequestBooking, worker.WorkerId, DataKeepServices.GetTaskId());
 
             await Shell.Current.GoToAsync($"//{nameof(MyTaskPage)}");
         }

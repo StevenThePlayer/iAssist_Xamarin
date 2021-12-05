@@ -17,7 +17,7 @@
         <ScrollView HeightRequest="10">
             <StackLayout Padding="20" HeightRequest="1000">
                 <ActivityIndicator Color="Green" IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}"/>
-                <Label FontSize="Title" HorizontalTextAlignment="Center" Text="{Binding Title}"></Label>
+                <Label Style="{StaticResource LabelLarge}" HorizontalTextAlignment="Center" Text="{Binding Title}"></Label>
              
 
                 <Frame CornerRadius="100" 

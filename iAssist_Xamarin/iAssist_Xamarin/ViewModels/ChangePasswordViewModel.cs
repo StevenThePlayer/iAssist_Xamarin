@@ -22,19 +22,19 @@ namespace iAssist_Xamarin.ViewModels
         private async void OnEditClicked(object obj)
         {
             // Prefixing with `//` switches to a different navigation stack instead of pushing to the active one
-            if (String.IsNullOrWhiteSpace(OldPassword))
+            if (string.IsNullOrWhiteSpace(OldPassword))
             {
                 Message = "Enter Old Password.";
             }
-            else if (String.IsNullOrWhiteSpace(NewPassword))
+            else if (string.IsNullOrWhiteSpace(NewPassword))
             {
                 Message = "Enter New Password.";
             }
-            else if (String.IsNullOrWhiteSpace(ConfirmNewPassword))
+            else if (string.IsNullOrWhiteSpace(ConfirmNewPassword))
             {
                 Message = "Confirm New Password is required.";
             }
-            else if (String.Equals(NewPassword, ConfirmNewPassword) == false)
+            else if (string.Equals(NewPassword, ConfirmNewPassword) == false)
             {
                 Message = "Password and Confirm Password is not the same.";
             }

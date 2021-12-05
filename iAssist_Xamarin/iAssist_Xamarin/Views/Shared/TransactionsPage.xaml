@@ -28,7 +28,9 @@
             ItemsSource="{Binding TransactionList}">
                 <CollectionView.EmptyView>
                     <StackLayout Padding="12">
-                        <Label HorizontalOptions="Center" Text="No Transactions" />
+                        <Label 
+                            Style="{StaticResource LabelLarge}"
+                            HorizontalOptions="Center" Text="No Transactions" />
                     </StackLayout>
                 </CollectionView.EmptyView>
                 <CollectionView.GroupHeaderTemplate>
@@ -115,10 +117,11 @@
                 <CollectionView.Header>
                     <StackLayout Orientation="Vertical">
                         <Label
-                        HorizontalOptions="Center"  
-                        Style="{StaticResource LabelLarge}"
+                        HorizontalOptions="CenterAndExpand"
                         FontAttributes="Bold"
-                        Text="{Binding Title}" />
+                        Style="{StaticResource LabelLarge}"
+                        Text="{Binding Title}"
+                        Padding="0,20,0,0"/>
                     </StackLayout>
                 </CollectionView.Header>
             </CollectionView>

@@ -33,10 +33,8 @@ namespace iAssist_Xamarin.Services
             try
             {
                 string url = "api/Bid/AcceptBid?id=" + id.ToString() + "&taskid=" + taskid.ToString();
-                string temp = await GetAsync<string>(url, "acceptbid");
-                if (temp == "")
-                    return false;
-                return true;
+                bool result = await PutAsync(url);
+                return result;
             }
             catch (Exception ex)
             {

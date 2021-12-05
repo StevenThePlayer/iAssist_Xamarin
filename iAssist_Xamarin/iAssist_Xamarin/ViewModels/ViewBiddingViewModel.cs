@@ -159,7 +159,13 @@ namespace iAssist_Xamarin.ViewModels
             if (bid == null)
                 return;
 
-            DisplaySelect("Accept Bid", $"Accept Bid: {bid.Bid_Amount} from worker {bid.Lastname}, {bid.Firstname}", "Bid Accepted", "Action Failed", bidServices.AcceptBid, bid.Bidid, bid.TaskdetId);
+            if (bid.Bid_Amount > Balance)
+            {
+                await Shell.Current.DisplayAlert("Insufficient Balance", $"Not enough balance, Current balance: {Balance} Php, Required Amount: {bid.Bid_Amount} Php", "Ok");
+                return;
+            }
+
+            DisplaySelect("Accept Bid", $"Accept Bid: {bid.Bid_Amount} from worker {bid.Lastname}, {bid.Firstname}", "Bid Accepted", "Bid Failed", bidServices.AcceptBid, bid.Bidid, bid.TaskdetId);
 
             await Shell.Current.GoToAsync($"//{nameof(MyTaskPage)}");
         }
@@ -169,7 +175,7 @@ namespace iAssist_Xamarin.ViewModels
             if (bid == null)
                 return;
 
-            DisplaySelect("Cancel Bid?", $"Cancel Bid for Task {bid.Tasktitle}", "Task Bid Canceled", "Action Failed", bidServices.CancelBid, bid.Bidid, bid.TaskdetId);
+            DisplaySelect("Cancel Bid?", $"Cancel Bid for Task {bid.Tasktitle}", "Task Bid Canceled", "Cancel Failed", bidServices.CancelBid, bid.Bidid, bid.TaskdetId);
 
             await Shell.Current.GoToAsync($"//{nameof(MyTaskPage)}");
         }

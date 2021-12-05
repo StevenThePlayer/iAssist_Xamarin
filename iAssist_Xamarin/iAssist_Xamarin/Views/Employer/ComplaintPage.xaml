@@ -24,6 +24,14 @@
                     Style="{StaticResource LabelLarge}"
                     HeightRequest="100"
                     Text="{Binding Description}"/>
+                
+                <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                    <Label Style="{StaticResource LabelMedium}"
+                   Text="Filename:"/>
+                    <Label Style="{StaticResource LabelMedium}"
+                   Text="{Binding Image}"/>
+                </StackLayout>
+
                 <Button 
                     Style="{StaticResource ButtonStyle}"
                     Text="Add Image" Command="{Binding AddImageCommand}"/>

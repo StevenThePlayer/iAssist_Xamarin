@@ -73,8 +73,8 @@ namespace iAssist_Xamarin.Services
             try
             {
                 string url = "api/Feedback/DontRate?taskid=" + taskid.ToString();
-                string data = await GetAsync<string>(url, "dontrate");
-                return true;
+                bool result = await PutAsync(url);
+                return result;
             }
             catch (Exception ex)
             {

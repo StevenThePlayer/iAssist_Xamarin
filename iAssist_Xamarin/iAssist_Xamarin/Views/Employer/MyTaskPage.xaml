@@ -30,7 +30,9 @@
                 >
                 <CollectionView.EmptyView>
                     <StackLayout Padding="12">
-                        <Label HorizontalOptions="Center" Text="No Task" />
+                        <Label 
+                            Style="{StaticResource LabelLarge}"
+                            HorizontalOptions="Center" Text="No Task" />
                     </StackLayout>
                 </CollectionView.EmptyView>
                 <CollectionView.GroupHeaderTemplate>
@@ -152,11 +154,11 @@
                 <CollectionView.Header>
                     <StackLayout Orientation="Vertical">
                         <Label
-                            Padding="10"
                         HorizontalOptions="CenterAndExpand"
-                        Style="{StaticResource LabelLarge}"
                         FontAttributes="Bold"
-                        Text="{Binding Title}"/>
+                        Style="{StaticResource LabelLarge}"
+                        Text="{Binding Title}"
+                        Padding="0,20,0,0"/>
                         <Picker
                             Title="Task Category"
                             ItemsSource="{Binding Category}"

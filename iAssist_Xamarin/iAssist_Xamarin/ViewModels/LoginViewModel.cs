@@ -75,6 +75,10 @@ namespace iAssist_Xamarin.ViewModels
                 await Shell.Current.GoToAsync($"//{nameof(MyTaskPage)}");
                 return true;
             }
+            Settings.Email = "";
+            Settings.Password = "";
+            Settings.Role = "";
+            Settings.AccessToken = "";
             return false;
         }
 

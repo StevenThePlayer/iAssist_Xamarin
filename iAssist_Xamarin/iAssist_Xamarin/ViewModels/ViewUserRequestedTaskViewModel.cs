@@ -20,7 +20,7 @@ namespace iAssist_Xamarin.ViewModels
         public ObservableCollection<string> Category { get; set; }
 
         public AsyncCommand<MyTaskModel> BidTaskCommand { get; }
-        public AsyncCommand<MyTaskModel> DetailsBidCommand { get; }
+        public AsyncCommand<MyTaskModel> RejectTaskCommand { get; }
 
         public ViewUserRequestedTaskViewModel()
         {
@@ -36,7 +36,7 @@ namespace iAssist_Xamarin.ViewModels
             GetBalance();
 
             BidTaskCommand = new AsyncCommand<MyTaskModel>(OnBidTask);
-            DetailsBidCommand = new AsyncCommand<MyTaskModel>(OnDetailsBid);
+            RejectTaskCommand = new AsyncCommand<MyTaskModel>(OnRejectTask);
 
         }
 
@@ -55,6 +55,7 @@ namespace iAssist_Xamarin.ViewModels
             }
             foreach (var data in list.ToList())
             {
+                
                 TaskList.Add(data);
             }
         }
@@ -179,12 +180,12 @@ namespace iAssist_Xamarin.ViewModels
             await Shell.Current.GoToAsync($"{nameof(ViewBiddingWorkerPage)}");
         }
 
-        public async Task OnCancelTask(MyTaskModel task)
+        public async Task OnRejectTask(MyTaskModel task)
         {
             if (task == null)
                 return;
 
-            DisplaySelect("Cancel Task?", $"Cancel Task: {task.taskdet_name}", "Task Cancelled", "Action Failed", taskServices.CancelPostTask, (int)task.taskedid, 1);
+            DisplaySelect("Reject Task?", $"Reject Task: {task.taskdet_name}", "Task Rejected", "Task Rejection Failed", taskServices.CancelPostTask, task.Id, 1);
         }
     }
 }

@@ -15,9 +15,8 @@ namespace iAssist_Xamarin.ViewModels
 {
     public class EditTaskViewModel : IAddressAutoComplete
     {
-        private MyTaskModel taskData = new MyTaskModel();
-        private List<SkillServiceTask> serviceData = new List<SkillServiceTask>();
-        private UploadFileServices fileServices = new UploadFileServices();
+        private MyTaskModel taskData;
+        private List<SkillServiceTask> serviceData;
         public Command CreateTaskCommand { get; }
         public Command JobSelectedCommand { get; }
         public Command UploadFileCommand { get; }
@@ -47,7 +46,11 @@ namespace iAssist_Xamarin.ViewModels
 
             uploadFileServices = new UploadFileServices();
 
-            UploadFileCommand = new Command(OnUploadFileClicked);
+
+            taskData = new MyTaskModel();
+            serviceData = new List<SkillServiceTask>();
+
+        UploadFileCommand = new Command(OnUploadFileClicked);
 
             ServiceLists = new ObservableCollection<ServiceList>();
             JobCategory = new ObservableCollection<string>();
@@ -63,7 +66,7 @@ namespace iAssist_Xamarin.ViewModels
             taskData = DataKeepServices.GetMyTaskData();
             serviceData = DataKeepServices.GetServiceskData();
 
-            Picture = fileServices.ConvertImageUrl(taskData.TaskImage);
+            Picture = taskData.TaskImage;
             TaskTitle = taskData.taskdet_name;
             TaskDescription = taskData.taskdet_desc;
             Address = taskData.Loc_Address;
@@ -97,7 +100,7 @@ namespace iAssist_Xamarin.ViewModels
             {
                 Message = "Task Description cannot be empty.";
             }
-            else if (string.IsNullOrWhiteSpace(TempAddress.Address))
+            else if (string.IsNullOrWhiteSpace(Address))
             {
                 Message = "Address cannot be empty.";
             }
@@ -124,7 +127,7 @@ namespace iAssist_Xamarin.ViewModels
                 TaskServices taskServices = new TaskServices();
                 string address = Constants.BaseApiAddress + "api/Upload";
                 string pictureName = await uploadFileServices.UploadFile(address, false);
-                bool success = await taskServices.PostEditTask(DataKeepServices.GetTaskId(), TaskTitle, TaskDescription, SelectedDate, TempAddress.Address, latitude, longitude, pictureName, services, createTaskViewModel);
+                bool success = await taskServices.PostEditTask(DataKeepServices.GetTaskId(), TaskTitle, TaskDescription, SelectedDate, Address, latitude, longitude, pictureName, services, createTaskViewModel);
 
                 Message = taskServices.Message;
                 IsBusy = false;

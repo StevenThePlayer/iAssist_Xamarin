@@ -65,7 +65,7 @@ namespace iAssist_Xamarin.ViewModels
             if (bid == null)
                 return;
 
-            DisplaySelect("Cancel Bid?", $"Cancel Bid for Task: {bid.Tasktitle}", "Task Bid Canceled", "Action Failed", bidServices.CancelBid, bid.Bidid, bid.TaskdetId);
+            DisplaySelect("Cancel Bid?", $"Cancel Bid for Task: {bid.Tasktitle}", "Task Bid Canceled", "Cancel Failed", bidServices.CancelBid, bid.Bidid, bid.TaskdetId);
 
             await Shell.Current.GoToAsync($"{nameof(ViewUserRequestTaskPage)}");
         }

@@ -55,6 +55,10 @@ namespace iAssist_Xamarin.ViewModels
             {
                 Message = "Enter Bid Amount.";
             }
+            else if (BidAmount < 100)
+            {
+                Message = "Bid Amount must be greater than or equal to 100";
+            }
             else
             {
                 IsBusy = true;
@@ -66,7 +70,7 @@ namespace iAssist_Xamarin.ViewModels
                 IsNotBusy = !IsBusy;
                 if (results)
                 {
-                    await Shell.Current.GoToAsync($"//{nameof(MyTaskPage)}");
+                    await Shell.Current.GoToAsync($"//{nameof(ViewBidRequestPage)}");
                     await Shell.Current.DisplayAlert("Action Result", $"Bid for task {TaskId} successfully edited.", "Ok");
                 }
                 else

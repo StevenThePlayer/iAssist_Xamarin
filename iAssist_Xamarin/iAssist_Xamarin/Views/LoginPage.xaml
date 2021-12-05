@@ -25,7 +25,10 @@
                 Style="{StaticResource LabelMedium}"
                 Padding="10,0,0,0">Password:</Label>
             <Entry Text="{Binding Password}" IsPassword="True"/>
-            <Label Text="{Binding Message}"/>
+            <Label 
+                Style="{StaticResource LabelMedium}"
+                HorizontalOptions="Center"
+                Text="{Binding Message}"/>
             <ActivityIndicator Color="Green" IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}"/>
             <Button VerticalOptions="Center" 
                     Style="{StaticResource ButtonStyle}"

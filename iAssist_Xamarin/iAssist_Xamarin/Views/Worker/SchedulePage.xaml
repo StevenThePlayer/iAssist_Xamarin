@@ -21,7 +21,9 @@
             ItemsSource="{Binding TaskList}">
                 <CollectionView.EmptyView>
                     <StackLayout Padding="12">
-                        <Label HorizontalOptions="Center" Text="No Task in Schedule" />
+                        <Label 
+                            Style="{StaticResource LabelLarge}"
+                            HorizontalOptions="Center" Text="No Task in Schedule" />
                     </StackLayout>
                 </CollectionView.EmptyView>
                 <CollectionView.GroupHeaderTemplate>
@@ -100,11 +102,11 @@
                 <CollectionView.Header>
                     <StackLayout Orientation="Vertical">
                         <Label
-                        HorizontalOptions="Center"
+                        HorizontalOptions="CenterAndExpand"
+                        FontAttributes="Bold"
                         Style="{StaticResource LabelLarge}"
-                        Text="{Binding Title}" 
-                            HorizontalTextAlignment="Center"
-                            Padding="0,10,0,0"/>
+                        Text="{Binding Title}"
+                        Padding="0,20,0,0"/>
                     </StackLayout>
                 </CollectionView.Header>
             </CollectionView>

@@ -59,6 +59,7 @@ namespace iAssist_Xamarin.ViewModels
             {
                 isOngoing = false;
                 isToComplete = false;
+                servicesCombined = "";
                 if(data.Taskbook_Status != 4 && data.Taskbook_Status != 5 && data.Taskbook_Status != 3 && data.taskedstatus == 1)
                 {
                     isOngoing = true;
@@ -87,14 +88,17 @@ namespace iAssist_Xamarin.ViewModels
 
                 var services = MyTaskViewModelData.TaskViewPost.Where(x => x.Taskdet == data.Id); 
                 servicesCombined = string.Empty;
-                foreach (var data2 in services)
+                if(servicesCombined != null)
                 {
-                    servicesCombined += data2.Skillname + ", ";
-                }
-                if (servicesCombined.Length > 0)
-                {
-                    var length = servicesCombined.Length - 2;
-                    servicesCombined.Remove(length, 2); //Removes ","
+                    foreach (var data2 in services)
+                    {
+                        servicesCombined += data2.Skillname + ", ";
+                    }
+                    if (servicesCombined.Length > 0)
+                    {
+                        var length = servicesCombined.Length - 2;
+                        servicesCombined.Remove(length, 2); //Removes ","
+                    }
                 }
 
                 isBidded = data.workerid != null;
@@ -157,7 +161,7 @@ namespace iAssist_Xamarin.ViewModels
 
             SetTaskData(task);
 
-            DisplaySelect("Mark Task as done?", $"Mark Task as done: {task.taskdet_name}", "Task Marked as Done", "Action Failed", taskServices.MarkasDone, (int)task.taskedid);
+            DisplaySelect("Mark Task as done?", $"Mark Task as done: {task.taskdet_name}", "Task Marked as Done", "Marking Task as done Failed", taskServices.MarkasDone, (int)task.taskedid);
         }
 
         public async Task OnCancelTask(MyTaskModel task)

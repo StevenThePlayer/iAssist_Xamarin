@@ -58,7 +58,7 @@ namespace iAssist_Xamarin.ViewModels
 
             if(string.IsNullOrWhiteSpace(data.ProfilePicture))
             {
-                ProfilePicture = Constants.BaseApiAddress + "image/defaultprofilepic.jpg";
+                ProfilePicture = "defaultprofilepic.jpg";
             }
             else
             {
@@ -75,7 +75,6 @@ namespace iAssist_Xamarin.ViewModels
         private async void OnUploadFileClicked(object sender)
         {
             string url;
-            await uploadFileServices.SelectFile();
             string address = Constants.BaseApiAddress + "api/Manage/UploadProfilePicture";
             _ = await uploadFileServices.SelectFile();
             url = await uploadFileServices.UploadFile(address);

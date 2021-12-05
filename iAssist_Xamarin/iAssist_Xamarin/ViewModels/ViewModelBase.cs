@@ -11,6 +11,7 @@ namespace iAssist_Xamarin.ViewModels
     {
         public ObservableCollection<string> SortBy { get; set; }
 
+        public decimal Balance;
         public string selectedSortBy;
         public int sortByIndex;
 
@@ -19,8 +20,8 @@ namespace iAssist_Xamarin.ViewModels
         public virtual async void GetBalance()
         {
             AccountServices accountServices = new AccountServices();
-            decimal bal = await accountServices.GetBalance();
-            Subtitle = "Balance: " + bal.ToString() + "Php";
+            Balance = await accountServices.GetBalance();
+            Subtitle = "Balance: " + Balance.ToString() + "Php";
         }
 
         public async void DisplaySelect(string title, string question, string success, string fail, Func<int,int,Task<bool>> function, int input1, int input2)

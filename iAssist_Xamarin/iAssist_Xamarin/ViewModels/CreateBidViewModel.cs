@@ -38,13 +38,16 @@ namespace iAssist_Xamarin.ViewModels
             }
             else if(BidDescription.Length < 30)
             {
-                Message = "Description must be atleast 30 characters.";
+                Message = "Description must be at least 30 characters.";
             }
             else if (BidAmount == 0)
             {
                 Message = "Enter Bid Amount.";
             }
-
+            else if (BidAmount < 100)
+            {
+                Message = "Bid Amount must be greater than or equal to 100";
+            }
             else
             {
                 IsBusy = true;
@@ -57,7 +60,7 @@ namespace iAssist_Xamarin.ViewModels
                 IsNotBusy = !IsBusy;
                 if (results)
                 {
-                    await Shell.Current.GoToAsync($"//{nameof(ViewUserRequestTaskPage)}");
+                    await Shell.Current.GoToAsync($"//{nameof(ViewBidRequestPage)}");
                     await Shell.Current.DisplayAlert("Action Result", $"Task {TaskId} successfully bidded.", "Ok");
                 }
                 else

@@ -63,7 +63,14 @@ namespace iAssist_Xamarin.ViewModels
             {
                 foreach (SearchWorkerModel data in workerList)
                 {
-                    data.Profile = fileServices.ConvertImageUrl(data.Profile);
+                    if (string.IsNullOrWhiteSpace(data.Profile))
+                    {
+                        data.Profile = "defaultprofilepic.jpg";
+                    }
+                    else
+                    {
+                        data.Profile = fileServices.ConvertImageUrl(data.Profile);
+                    }
                     WorkerList.Add(data);
                 }
             }

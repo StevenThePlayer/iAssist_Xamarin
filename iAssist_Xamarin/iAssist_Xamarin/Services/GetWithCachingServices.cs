@@ -99,5 +99,37 @@ namespace iAssist_Xamarin.Services
                 throw ex;
             }
         }
+
+
+        public async Task<bool> PutAsync(string url)
+        {
+            try
+            {
+                HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, Constants.BaseApiAddress + url);
+
+                HttpClient client = new HttpClient();
+
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(
+                    "Bearer", Settings.AccessToken);
+
+                var response = await client.SendAsync(request);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                SetMessage("Somethine went wrong, please try again.");
+
+                Debug.WriteLine($"Unable to get information from server {ex}");
+                return false;
+            }
+        }
     }
 }

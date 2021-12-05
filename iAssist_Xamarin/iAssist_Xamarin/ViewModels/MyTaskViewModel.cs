@@ -151,7 +151,7 @@ namespace iAssist_Xamarin.ViewModels
 
             RateServices rateServices = new RateServices();
 
-            DisplaySelect("Do Not Rate Worker?", $"Do Not Rate Worker: {task.taskedWorkerlname}, {task.taskedWorkerfname}", "Worker not rated.", "Action Failed.", rateServices.DontRateWorker, task.Id);
+            DisplaySelect("Do Not Rate Worker?", $"Do Not Rate Worker: {task.taskedWorkerlname}, {task.taskedWorkerfname}", "Worker not rated.", "Marking to not rate the Worker has Failed.", rateServices.DontRateWorker, task.Id);
         }
 
     }

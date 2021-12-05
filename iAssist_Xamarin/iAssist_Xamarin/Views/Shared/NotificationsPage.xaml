@@ -28,7 +28,7 @@
             ItemsSource="{Binding NotificationList}">
                 <CollectionView.EmptyView>
                     <StackLayout Padding="12">
-                        <Label Style="{StaticResource LabelMedium}" HorizontalOptions="Center" Text="No Notifications" />
+                        <Label Style="{StaticResource LabelLarge}" HorizontalOptions="Center" Text="No Notifications" />
                     </StackLayout>
                 </CollectionView.EmptyView>
                 <CollectionView.GroupHeaderTemplate>
@@ -63,10 +63,11 @@
                 <CollectionView.Header>
                     <StackLayout Orientation="Vertical">
                         <Label
-                        HorizontalOptions="Center"  
-                        Style="{StaticResource LabelLarge}"
+                        HorizontalOptions="CenterAndExpand"
                         FontAttributes="Bold"
-                        Text="{Binding Title}" />
+                        Style="{StaticResource LabelLarge}"
+                        Text="{Binding Title}"
+                        Padding="0,20,0,0"/>
                     </StackLayout>
                 </CollectionView.Header>
             </CollectionView>

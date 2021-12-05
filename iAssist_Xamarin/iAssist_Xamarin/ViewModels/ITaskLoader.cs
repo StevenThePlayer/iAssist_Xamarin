@@ -348,8 +348,8 @@ namespace iAssist_Xamarin.ViewModels
                         //servicesCombined.Remove(length, 2); //Removes ","
                     }
                 }
-                isBidded = data.workerid == int.Parse(Settings.WorkerId);
-                isNotBidded = !isBidded;
+                isNotBidded = data.workerid != null;
+                isBidded = !isNotBidded;
 
                 data.TaskImage = fileServices.ConvertImageUrl(data.TaskImage);
 

@@ -14,10 +14,10 @@ namespace iAssist_Xamarin.Services
 {
     public class UploadFileServices
     {
-        FileResult file;
+        public FileResult file;
         public async Task<string> UploadFile(string uploadAddress, bool AddBaseAddress = true)
         {
-            string url = String.Empty;
+            string url = string.Empty;
 
             if (file == null)
                 return null;
@@ -35,6 +35,10 @@ namespace iAssist_Xamarin.Services
             {
                 url = Constants.BaseApiAddress + "image/" + output;
             }
+            else
+            {
+                url = output;
+            }
             return url;
         }
 
@@ -43,7 +47,10 @@ namespace iAssist_Xamarin.Services
             try
             {
                 file = await MediaPicker.PickPhotoAsync();
-                return file.FileName;
+                if(file != null)
+                    return file.FileName;
+
+                return "";
             }
             catch(Exception ex)
             {

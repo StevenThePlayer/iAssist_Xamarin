@@ -21,7 +21,9 @@
             ItemsSource="{Binding BidList}">
                 <CollectionView.EmptyView>
                     <StackLayout Padding="12">
-                        <Label HorizontalOptions="Center" Text="No Bids" />
+                        <Label 
+                            Style="{StaticResource LabelLarge}"
+                            HorizontalOptions="Center" Text="No Bids" />
                     </StackLayout>
                 </CollectionView.EmptyView>
                 <CollectionView.GroupHeaderTemplate>
@@ -101,11 +103,11 @@
                 <CollectionView.Header>
                     <StackLayout Orientation="Vertical">
                         <Label
-                        HorizontalOptions="Center"  
-                        Style="{StaticResource LabelLarge}"
+                        HorizontalOptions="CenterAndExpand"
                         FontAttributes="Bold"
-                        Text="{Binding Title}" 
-                         Padding="0,20,0,0"/>
+                        Style="{StaticResource LabelLarge}"
+                        Text="{Binding Title}"
+                        Padding="0,20,0,0"/>
                         <!--
                         <Picker
                             Title="All"

@@ -16,6 +16,7 @@ namespace iAssist_Xamarin.ViewModels
     public class WorkerDetailsViewModel : IWorkerLoader
     {
         private SearchWorkerServices searchWorkerServices;
+        private UploadFileServices fileServices;
 
         public FindWorkerModel findWorkerData;
 
@@ -34,7 +35,7 @@ namespace iAssist_Xamarin.ViewModels
 
             searchWorkerServices = new SearchWorkerServices();
             RateList = new ObservableRangeCollection<RateModel>();
-
+            fileServices = new UploadFileServices();
 
             RequestWorkerCommand = new Command(OnRequestWorker);
             ReportWorkerCommand = new Command(OnReportWorker);
@@ -46,7 +47,6 @@ namespace iAssist_Xamarin.ViewModels
             var data = DataKeepServices.GetWorkerData();
             findWorkerData = await searchWorkerServices.GetFindWorkerDetails(data.WorkerId, data.Taskdet);
 
-            UploadFileServices uploadFileServices = new UploadFileServices();
 
             if(findWorkerData == null)
             {
@@ -63,7 +63,14 @@ namespace iAssist_Xamarin.ViewModels
 
             var workerdata = findWorkerData.viewprofile;
 
-            ProfilePicture = uploadFileServices.ConvertImageUrl(workerdata.ProfilePicture);
+            if (string.IsNullOrWhiteSpace(data.Profile))
+            {
+                data.Profile = "defaultprofilepic.jpg";
+            }
+            else
+            {
+                data.Profile = fileServices.ConvertImageUrl(data.Profile);
+            }
             Lastname = workerdata.Lastname;
             Firstname = workerdata.Firstname;
             Jobname = workerdata.Jobname;
@@ -88,7 +95,7 @@ namespace iAssist_Xamarin.ViewModels
             if (findWorkerData == null)
                 return;
 
-            DisplaySelect("Request Worker?", $"Request {findWorkerData.viewprofile.Lastname}, {findWorkerData.viewprofile.Lastname}?", "Request Sent", "Action Failed", searchWorkerServices.FindWorkerRequestBooking, findWorkerData.viewprofile.WorkerId, DataKeepServices.GetTaskId());
+            DisplaySelect("Request Worker?", $"Request {findWorkerData.viewprofile.Lastname}, {findWorkerData.viewprofile.Lastname}?", "Request Sent", "Request Failed", searchWorkerServices.FindWorkerRequestBooking, findWorkerData.viewprofile.WorkerId, DataKeepServices.GetTaskId());
         }
 
        public async void OnReportWorker()

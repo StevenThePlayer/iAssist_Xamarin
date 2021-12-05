@@ -55,9 +55,14 @@
                 </input:AutoCompleteEntry.Behaviors>
             </input:AutoCompleteEntry>
 
-            <Label  Style="{StaticResource LabelMedium}"
-                    Text="{Binding ProfilePicture}"></Label>
-            <Button  IsVisible="{Binding IsJobSelected}"
+                <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                    <Label Style="{StaticResource LabelMedium}"
+                   Text="Filename:"/>
+                    <Label Style="{StaticResource LabelMedium}"
+                   Text="{Binding Picture}"/>
+                </StackLayout>
+                
+                <Button  IsVisible="{Binding IsJobSelected}"
                 VerticalOptions="Center" 
                 Text="Add Picture" 
                 Command="{Binding UploadFileCommand}"

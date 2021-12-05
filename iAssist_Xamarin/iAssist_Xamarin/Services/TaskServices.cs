@@ -75,7 +75,7 @@ namespace iAssist_Xamarin.Services
 
 
         public async Task<bool> PostCreateTask(
-            string taskTitle, string taskDescription, DateTime taskdet_sched, string address, string latitude, string longitude, string profilePicture, IEnumerable<string> selectServices, TaskDetailsModel input)
+            string taskTitle, string taskDescription, DateTime taskdet_sched, string address, string latitude, string longitude, string image, IEnumerable<string> selectServices, TaskDetailsModel input)
         {
             try
             {
@@ -90,7 +90,7 @@ namespace iAssist_Xamarin.Services
                 input.Address = address;
                 input.Latitude = latitude;
                 input.Longitude = longitude;
-                input.TaskImage = profilePicture;
+                input.TaskImage = image;
                 input.SelectedSkills = selectServices;
 
                 var json = JsonConvert.SerializeObject(input);
@@ -205,8 +205,8 @@ namespace iAssist_Xamarin.Services
             try
             {
                 string url = "api/Task/CancelMyPostTask?id=" + id.ToString() + "&cancel=" + cancelType.ToString();
-                string data = await GetAsync<string>(url, "cancelposttask");
-                return true;
+                bool result = await PutAsync(url);
+                return result;
             }
             catch (Exception ex)
             {
@@ -271,8 +271,8 @@ namespace iAssist_Xamarin.Services
             try
             {
                 string url = "api/Task/FindWorkerRequestBooking?id=" + id.ToString() + "&task=" + task.ToString();
-                string data = await GetAsync<string>(url, "findworkerrequestbooking");
-                return true;
+                bool result = await PutAsync(url);
+                return result;
             }
             catch (Exception ex)
             {
@@ -335,8 +335,8 @@ namespace iAssist_Xamarin.Services
             try
             {
                 string url = "api/Task/MarkasWorking?id=" + id.ToString();
-                string data = await GetAsync<string>(url, "markasworking");
-                return true;
+                bool result = await PutAsync(url);
+                return result;
             }
             catch (Exception ex)
             {
@@ -351,8 +351,8 @@ namespace iAssist_Xamarin.Services
             try
             {
                 string url = "api/Task/MarkasDone?id=" + id.ToString();
-                string data = await GetAsync<string>(url, "maskasdone");
-                return true;
+                bool result = await PutAsync(url);
+                return result;
             }
             catch (Exception ex)
             {
@@ -367,8 +367,8 @@ namespace iAssist_Xamarin.Services
             try
             {
                 string url = "api/Task/MarkasCompleteTask?id=" + id.ToString();
-                string data = await GetAsync<string>(url, "markascomplete");
-                return true;
+                bool result = await PutAsync(url);
+                return result;
             }
             catch (Exception ex)
             {
