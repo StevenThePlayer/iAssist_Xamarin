@@ -98,10 +98,11 @@
                                             Style="{StaticResource PriotityButtonStyle}"
                                             Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:ViewBiddingViewModel}}, Path=AcceptBidCommand}"
                                             CommandParameter="{Binding .}"/>
+                                    <!--
                                     <Button Text="Worker Details"
                                             Style="{StaticResource ButtonStyle}"
                                             Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:ViewBiddingViewModel}}, Path=WorkerDetailsCommand}"
-                                            CommandParameter="{Binding .}"/>
+                                            CommandParameter="{Binding .}"/>-->
                                 </StackLayout>
                             </Frame>
                         </Grid>

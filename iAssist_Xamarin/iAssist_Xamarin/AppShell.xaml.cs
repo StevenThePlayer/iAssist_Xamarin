@@ -24,6 +24,7 @@ namespace iAssist_Xamarin
             //Routing.RegisterRoute(nameof(SearchWorkerPage), typeof(SearchWorkerPage));
             Routing.RegisterRoute(nameof(ViewBiddingPage), typeof(ViewBiddingPage));
             Routing.RegisterRoute(nameof(WorkerDetailsPage), typeof(WorkerDetailsPage));
+            Routing.RegisterRoute(nameof(WorkerDetailsPage2), typeof(WorkerDetailsPage2));
 
             Routing.RegisterRoute(nameof(EditProfilePage), typeof(EditProfilePage));
             Routing.RegisterRoute(nameof(ChangePasswordPage), typeof(ChangePasswordPage));

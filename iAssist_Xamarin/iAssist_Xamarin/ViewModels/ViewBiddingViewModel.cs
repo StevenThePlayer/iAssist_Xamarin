@@ -86,7 +86,14 @@ namespace iAssist_Xamarin.ViewModels
             {
                 foreach (var data in bidList)
                 {
-                    data.ProfilePicture = fileServices.ConvertImageUrl(data.ProfilePicture);
+                    if (string.IsNullOrWhiteSpace(data.ProfilePicture))
+                    {
+                        data.ProfilePicture = "defaultprofilepic.jpg";
+                    }
+                    else
+                    {
+                        data.ProfilePicture = fileServices.ConvertImageUrl(data.ProfilePicture);
+                    }
                     BidList.Add(new BidModel
                     {
                         Bidid = data.Bidid,
@@ -193,7 +200,7 @@ namespace iAssist_Xamarin.ViewModels
 
             DataKeepServices.SetWorkerData(data);
 
-            await Shell.Current.GoToAsync($"{nameof(WorkerDetailsPage)}");
+            await Shell.Current.GoToAsync($"{nameof(WorkerDetailsPage2)}");
         }
 
         public void CategoryInit()

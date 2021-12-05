@@ -3,6 +3,7 @@ using iAssist_Xamarin.Services;
 using MvvmHelpers;
 using MvvmHelpers.Commands;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Command = MvvmHelpers.Commands.Command;
 
@@ -60,7 +61,9 @@ namespace iAssist_Xamarin.ViewModels
             if (TransactionList != null)
                 TransactionList.Clear();
 
-            foreach (var data in transactionData)
+            var list = transactionData.OrderByDescending(x => x.Id);
+
+            foreach (var data in list)
             {
                 TransactionList.Add(data);
             }

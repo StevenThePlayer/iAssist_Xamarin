@@ -13,7 +13,7 @@ using Command = MvvmHelpers.Commands.Command;
 
 namespace iAssist_Xamarin.ViewModels
 {
-    public class WorkerDetailsViewModel : IWorkerLoader
+    public class WorkerDetailsViewModel2 : IWorkerLoader
     {
         private SearchWorkerServices searchWorkerServices;
         private UploadFileServices fileServices;
@@ -28,7 +28,7 @@ namespace iAssist_Xamarin.ViewModels
 
         string profilePicture, lastname, firstname, jobname, overview;
 
-        public WorkerDetailsViewModel()
+        public WorkerDetailsViewModel2()
         {
 
             Title = "Worker Details";
@@ -65,11 +65,11 @@ namespace iAssist_Xamarin.ViewModels
 
             if (string.IsNullOrWhiteSpace(data.Profile))
             {
-                ProfilePicture = "defaultprofilepic.jpg";
+                data.Profile = "defaultprofilepic.jpg";
             }
             else
             {
-                ProfilePicture = fileServices.ConvertImageUrl(data.Profile);
+                data.Profile = fileServices.ConvertImageUrl(data.Profile);
             }
             Lastname = workerdata.Lastname;
             Firstname = workerdata.Firstname;
@@ -95,8 +95,7 @@ namespace iAssist_Xamarin.ViewModels
             if (findWorkerData == null)
                 return;
 
-            DisplaySelect("Request Worker?", $"Request {findWorkerData.viewprofile.Lastname}, {findWorkerData.viewprofile.Firstname}?", "Request Sent", "Request Failed", searchWorkerServices.FindWorkerRequestBooking, findWorkerData.viewprofile.WorkerId, DataKeepServices.GetTaskId());
-            await Shell.Current.GoToAsync($"//{nameof(MyTaskPage)}");
+            DisplaySelect("Request Worker?", $"Request {findWorkerData.viewprofile.Lastname}, {findWorkerData.viewprofile.Lastname}?", "Request Sent", "Request Failed", searchWorkerServices.FindWorkerRequestBooking, findWorkerData.viewprofile.WorkerId, DataKeepServices.GetTaskId());
         }
 
        public async void OnReportWorker()

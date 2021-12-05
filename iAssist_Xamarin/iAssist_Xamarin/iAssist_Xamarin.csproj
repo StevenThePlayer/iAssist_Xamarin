@@ -44,6 +44,9 @@
     <Compile Update="Views\Employer\FindWorkerPage.xaml.cs">
       <DependentUpon>FindWorkerPage.xaml</DependentUpon>
     </Compile>
+    <Compile Update="Views\Employer\WorkerDetailsPage2.xaml.cs">
+      <DependentUpon>WorkerDetailsPage2.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Views\Worker\ViewCompletedTaskPage.xaml.cs">
       <DependentUpon>ViewCompletedTaskPage.xaml</DependentUpon>
     </Compile>

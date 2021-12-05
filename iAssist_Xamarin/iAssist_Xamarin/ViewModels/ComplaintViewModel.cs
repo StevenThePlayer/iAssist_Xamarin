@@ -65,7 +65,7 @@ namespace iAssist_Xamarin.ViewModels
                 IsBusy = true;
                 ComplaintServices complaintServices = new ComplaintServices();
 
-                string address = Constants.BaseApiAddress + "api/Upload/UploadFile";
+                string address = Constants.BaseApiAddress + "api/Upload/";
 
                 string url = await fileServices.UploadFile(address, false);
 

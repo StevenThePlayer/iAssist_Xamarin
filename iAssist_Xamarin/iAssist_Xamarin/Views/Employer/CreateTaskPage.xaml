@@ -55,7 +55,7 @@
                 </input:AutoCompleteEntry.Behaviors>
             </input:AutoCompleteEntry>
 
-                <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                <StackLayout Orientation="Horizontal" HorizontalOptions="Center" IsVisible="{Binding IsJobSelected}">
                     <Label Style="{StaticResource LabelMedium}"
                    Text="Filename:"/>
                     <Label Style="{StaticResource LabelMedium}"
