@@ -21,7 +21,7 @@ namespace iAssist_Xamarin.ViewModels
         public Command JobSelectedCommand { get; }
         public Command UploadFileCommand { get; }
 
-        private List<ServiceList> serviceLists = new List<ServiceList>();
+        private List<ServiceList> serviceLists;
         public IList<object> selectedServices;
         private List<string> jobCategory = new List<string>();
 
@@ -36,7 +36,7 @@ namespace iAssist_Xamarin.ViewModels
         public Command EditTaskCommand { get; }
         public EditTaskViewModel()
         {
-            Title = "Create Task";
+            Title = "Edit Task";
             Message = "";
             IsBusy = true;
             IsNotBusy = !IsBusy;
@@ -45,7 +45,7 @@ namespace iAssist_Xamarin.ViewModels
             CurrDate = DateTime.Now;
 
             uploadFileServices = new UploadFileServices();
-
+            serviceLists = new List<ServiceList>();
 
             taskData = new MyTaskModel();
             serviceData = new List<SkillServiceTask>();
@@ -74,6 +74,7 @@ namespace iAssist_Xamarin.ViewModels
             SelectedDate = taskData.taskdet_sched;
             TaskServices taskServices = new TaskServices();
             createTaskViewModel = await taskServices.GetCreateTask(taskData.jobid.ToString());
+
             if (createTaskViewModel.SkillList != null)
             {
                 ServiceLists.Clear();
@@ -82,9 +83,23 @@ namespace iAssist_Xamarin.ViewModels
                     ServiceLists.Add(new ServiceList { ServiceName = data.Skillname });
                 }
             }
+            SelectedServices.Clear();
+            ObservableCollection<ServiceList> ServicesData = new ObservableCollection<ServiceList>();
+
             foreach (var data in serviceData)
             {
-                SelectedServices.Add(new ServiceList { ServiceName = data.Skillname });
+                ServicesData.Add(new ServiceList { ServiceName = data.Skillname });
+            }
+
+            foreach(var inlist in ServiceLists)
+            {
+                foreach(var selected in ServicesData)
+                {
+                    if (inlist.ServiceName == selected.ServiceName)
+                    {
+                        SelectedServices.Add(inlist);
+                    }
+                }
             }
             GetBalance();
         }
