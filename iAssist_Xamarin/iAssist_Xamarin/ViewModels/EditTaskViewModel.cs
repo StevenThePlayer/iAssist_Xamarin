@@ -29,8 +29,9 @@ namespace iAssist_Xamarin.ViewModels
 
         public TaskDetailsModel createTaskViewModel = new TaskDetailsModel();
 
-        private string taskTitle, taskDescription, message, selectedJob, picture;
+        private string taskTitle, taskDescription, message, selectedJob, picture, taskBudget;
         private DateTime selectedDate, currDate;
+        private TimeSpan selectedTime;
         private bool isJobSelected;
         public Command PageAppearingCommand { get; }
         public Command EditTaskCommand { get; }
@@ -72,6 +73,7 @@ namespace iAssist_Xamarin.ViewModels
             Address = taskData.Loc_Address;
             SelectedJob = taskData.Jobname;
             SelectedDate = taskData.taskdet_sched;
+            SelectedTime = taskData.taskdet_time.TimeOfDay;
             TaskServices taskServices = new TaskServices();
             createTaskViewModel = await taskServices.GetCreateTask(taskData.jobid.ToString());
 
@@ -148,7 +150,8 @@ namespace iAssist_Xamarin.ViewModels
                 TaskServices taskServices = new TaskServices();
                 string address = Constants.BaseApiAddress + "api/Upload";
                 string pictureName = await uploadFileServices.UploadFile(address, false);
-                bool success = await taskServices.PostEditTask(DataKeepServices.GetTaskId(), TaskTitle, TaskDescription, SelectedDate, Address, latitude, longitude, pictureName, services, createTaskViewModel);
+                var time = SelectedDate.Date + SelectedTime;
+                bool success = await taskServices.PostEditTask(DataKeepServices.GetTaskId(), TaskTitle, TaskDescription, SelectedDate, time, TaskBudget, Address, latitude, longitude, pictureName, services, createTaskViewModel);
 
                 Message = taskServices.Message;
                 IsBusy = false;
@@ -188,8 +191,10 @@ namespace iAssist_Xamarin.ViewModels
 
         public string TaskTitle { get => taskTitle; set => SetProperty(ref taskTitle, value); }
         public string TaskDescription { get => taskDescription; set => SetProperty(ref taskDescription, value); }
+        public string TaskBudget { get => taskBudget; set => SetProperty(ref taskBudget, value); }
 
         public DateTime SelectedDate { get => selectedDate; set => SetProperty(ref selectedDate, value); }
+        public TimeSpan SelectedTime { get => selectedTime; set => SetProperty(ref selectedTime, value); }
         public DateTime CurrDate { get => currDate; set => SetProperty(ref currDate, value); }
     }
 }

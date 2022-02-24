@@ -25,11 +25,12 @@
             ItemSizingStrategy="MeasureAllItems"
             ItemsLayout="VerticalList"
             ItemsSource="{Binding BidList}">
+                <!--
                 <CollectionView.EmptyView>
                     <StackLayout Padding="12">
                         <Label Style="{StaticResource LabelLarge}" HorizontalOptions="Center" Text="No Bids" />
                     </StackLayout>
-                </CollectionView.EmptyView>
+                </CollectionView.EmptyView>-->
                 <CollectionView.GroupHeaderTemplate>
                     <DataTemplate x:DataType="{x:Null}">
                         <StackLayout Padding="12">
@@ -116,19 +117,41 @@
                         FontAttributes="Bold"
                         Style="{StaticResource LabelLarge}"
                         Text="{Binding Title}"
-                        Padding="0,20,0,0"/><!--
-                        <Picker
-                            Title="All"
-                            ItemsSource="{Binding Category}"
-                            SelectedItem="{Binding SelectedCategory}"
-                            IsEnabled="{Binding IsNotBusy}"
-                            HorizontalTextAlignment="Center">
-                            <Picker.Behaviors>
-                                <behaviors:EventToCommandBehavior
-                            EventName="SelectedIndexChanged"
-                            Command="{Binding SortByCommand}"/>
-                            </Picker.Behaviors>
-                        </Picker>-->
+                        Padding="0,20,0,0"/>
+                        <StackLayout Orientation="Horizontal"
+                                     HorizontalOptions="CenterAndExpand"
+                                     Spacing="30">
+                            <StackLayout Orientation="Vertical"
+                                         HorizontalOptions="CenterAndExpand">
+                                <Label Style="{StaticResource LabelLarge}">Rating</Label>
+                                <Picker
+                                        Title="All"
+                                        ItemsSource="{Binding Category}"
+                                        SelectedItem="{Binding SelectedCategory}"
+                                        IsEnabled="{Binding IsNotBusy}"
+                                        HorizontalTextAlignment="Center">
+                                </Picker>
+                            </StackLayout>
+                            <StackLayout Orientation="Vertical"
+                                         HorizontalOptions="CenterAndExpand">
+                                <Label Style="{StaticResource LabelLarge}">Minimum</Label>
+                                <Entry Text="{Binding Minimum}"
+                                       HorizontalTextAlignment="Center"
+                                       Keyboard="Numeric"/>
+                            </StackLayout>
+                            <StackLayout Orientation="Vertical"
+                                         HorizontalOptions="CenterAndExpand">
+                                <Label Style="{StaticResource LabelLarge}">Maximum</Label>
+                                <Entry Text="{Binding Maximum}"
+                                       HorizontalTextAlignment="Center"
+                                       Keyboard="Numeric"/>
+                            </StackLayout>
+                        </StackLayout>
+                        <Button
+                         Style="{StaticResource PrioritySubButtonStyle}"
+                         VerticalOptions="Center" 
+                         Text="Filter" 
+                         Command="{Binding FilterCommand}"/>
                     </StackLayout>
                 </CollectionView.Header>
             </CollectionView>

@@ -17,6 +17,7 @@ namespace iAssist_Xamarin.ViewModels
         public Command EditBidCommand { get; }
         BidServices bidServices;
 
+        private DateTime selectedDate, currDate;
         public EditBidViewModel()
         {
             Title = "Edit Bid";
@@ -41,6 +42,8 @@ namespace iAssist_Xamarin.ViewModels
             bidData = await bidServices.GetEditBidding(bidData.Bidid);
             BidDescription = bidData.Bid_Description;
             BidAmount = bidData.Bid_Amount;
+            SelectedDate = bidData.BidTimeExp;
+            CurrDate = DateTime.Now.AddDays(1);
         }
 
         public async void OnEditClicked()
@@ -81,5 +84,8 @@ namespace iAssist_Xamarin.ViewModels
                 IsNotBusy = !IsBusy;
             }
         }
+
+        public DateTime SelectedDate { get => selectedDate; set => SetProperty(ref selectedDate, value); }
+        public DateTime CurrDate { get => currDate; set => SetProperty(ref currDate, value); }
     }
 }

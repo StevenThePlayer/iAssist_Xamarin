@@ -25,12 +25,14 @@ namespace iAssist_Xamarin.ViewModels
 
         public Command SortByCommand { get; }
         public Command PageAppearing { get; }
+        public Command FilterCommand { get; }
 
         public AsyncCommand<BidModel> AcceptBidCommand { get; }
         public AsyncCommand<BidModel> CancelBiddingCommand { get; }
         public AsyncCommand<BidModel> WorkerDetailsCommand { get; }
         
         private int categorySelected;
+        private decimal minimum, maximum;
 
         public ViewBiddingViewModel()
         {
@@ -44,6 +46,7 @@ namespace iAssist_Xamarin.ViewModels
             RefreshCommand = new AsyncCommand(Refresh);
             SortByCommand = new Command(Load);
             PageAppearing = new Command(OnAppearing);
+            FilterCommand = new Command(OnFilter);
 
             AcceptBidCommand = new AsyncCommand<BidModel>(OnAcceptBid);
             CancelBiddingCommand = new AsyncCommand<BidModel>(OnCancelBid);
@@ -51,7 +54,7 @@ namespace iAssist_Xamarin.ViewModels
 
             SortByBidInit();
             GetBids();
-            //CategoryInit();
+            CategoryInit();
         }
 
         public void OnAppearing()
@@ -73,6 +76,18 @@ namespace iAssist_Xamarin.ViewModels
         {
             bidList = await bidServices.GetViewBidding(DataKeepServices.GetMyTaskData().Id);
             Load();
+        }
+
+        public async void OnFilter()
+        {
+            if (Maximum >= Minimum)
+            {
+                if (SelectedCategory != "All")
+                    bidList = await bidServices.GetViewBidding(DataKeepServices.GetMyTaskData().Id, SelectedCategory, 1, minimum, maximum);
+                else
+                    bidList = await bidServices.GetViewBidding(DataKeepServices.GetMyTaskData().Id, "", 1, minimum, maximum);
+                Load();
+            }
         }
 
         public void Load()
@@ -208,9 +223,10 @@ namespace iAssist_Xamarin.ViewModels
             ObservableCollection<string> temp = new ObservableCollection<string>
             {
                 "5 Stars",
-                "4 Stars and Up",
-                "3 Stars and Up",
-                "2 Stars and Up",
+                "4 Stars",
+                "3 Stars",
+                "2 Stars",
+                "1 Stars",
                 "All",
             };
             Category = temp;
@@ -219,5 +235,7 @@ namespace iAssist_Xamarin.ViewModels
 
         public ObservableCollection<string> Category { get; set; }
         public string SelectedCategory { get => selectedCategory; set => SetProperty(ref selectedCategory, value); }
+        public decimal Minimum { get => minimum; set => SetProperty(ref minimum, value); }
+        public decimal Maximum { get => maximum; set => SetProperty(ref maximum, value); }
     }
 }

@@ -53,17 +53,12 @@
                                         VerticalOptions="Center"
                                             FontFamily="Calibri"/>
                                     <Label
-                                        Style="{StaticResource StatusStyle}"
-                                        Padding="20,0,0,0"
-                                        Text="{Binding StatusDisplay}"
-                                        VerticalOptions="Center" />
-                                    <Label
                                         Style="{StaticResource LabelLarge}"
                                         Text="{Binding Jobname}"
                                         VerticalOptions="Center" />
                                     <Label
                                         Style="{StaticResource LabelLarge}"
-                                        Text="{Binding taskdet_sched}"
+                                        Text="{Binding taskdet_time}"
                                         VerticalOptions="Center" />
                                     <Label
                                         Style="{StaticResource LabelLarge}"

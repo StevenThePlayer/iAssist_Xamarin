@@ -23,7 +23,7 @@ namespace iAssist_Xamarin.ViewModels
         private ObservableRangeCollection<MyTaskModel> TaskList { get; set; }
         private ObservableRangeCollection<Grouping<string, MyTaskModel>> TaskListGroups { get; set; }
 
-        private bool isPending, isPosted, isCompleted, isOngoing, isToComplete ,isCanceled, isToRate, isBidded, isNotBidded;
+        private bool isPending, isPosted, isCompleted, isOngoing, isToComplete ,isCanceled, isToRate, isBidded, isNotBidded, isWorkedOn;
 
         private ObservableCollection<string> Category { get; set; }
 
@@ -102,6 +102,7 @@ namespace iAssist_Xamarin.ViewModels
             //"Employer Cancelled", Id = 4
             //"Worker Cancelled", Id = 5
             //"Bid Cancelled", Id = 6
+            //Expired = 9
 
             foreach (var data in MyTaskViewModelData.Taskpostlistview)
             {
@@ -112,6 +113,7 @@ namespace iAssist_Xamarin.ViewModels
                 isCanceled = false;
                 isToRate = false;
                 isToComplete = false;
+                isWorkedOn = false;
                 servicesCombined = "";
 
                 if (data.Taskbook_Status == 0 || data.Taskbook_Status == 5)
@@ -138,7 +140,7 @@ namespace iAssist_Xamarin.ViewModels
                 {
                     isCompleted = true;
                 }
-                if (data.Taskbook_Status == 4)
+                if (data.Taskbook_Status == 4 || data.Taskbook_Status == 9)
                 {
                     isCanceled = true;
                 }
@@ -167,6 +169,23 @@ namespace iAssist_Xamarin.ViewModels
                 {
                     statusdisplay = "You cancelled this Task";
                 }
+                if (data.Taskbook_Status == 9)// 
+                {
+                    statusdisplay = "Task has expired";
+                }
+                if(data.taskedstatus != null)
+                {
+                    if(data.taskedstatus == 3)
+                    {
+                        statusdisplay += " - Worker is working the Task";
+                    }
+                    else if (data.taskedstatus == 4)
+                    {
+                        statusdisplay += " - Worker is working the Task";
+                    }
+                }
+                if (string.IsNullOrWhiteSpace(data.taskedWorkerlname) == false)
+                    isWorkedOn = true;
 
                 //if (data.Taskbook_Status != 4 && data.Taskbook_Status != 3 && data.taskedstatus != 2 && data.taskedstatus != 3 && data.taskedstatus != 4 && isPending == false && isPosted == false) //taskedstatus 2 means working and 3 completed
 
@@ -192,6 +211,8 @@ namespace iAssist_Xamarin.ViewModels
                     taskdet_name = data.taskdet_name,
                     taskdet_desc = data.taskdet_desc,
                     taskdet_sched = data.taskdet_sched,
+                    taskdet_time = data.taskdet_time,
+                    Budget = data.Budget,
                     TaskImage = picture,
                     Loc_Address = data.Loc_Address,
                     Jobname = data.Jobname,
@@ -204,6 +225,8 @@ namespace iAssist_Xamarin.ViewModels
                     taskedTaskPayable = data.taskedTaskPayable,
                     taskedWorkerfname = data.taskedWorkerfname,
                     taskedWorkerlname = data.taskedWorkerlname,
+                    workerFullName = data.taskedWorkerfname + " " + data.taskedWorkerlname,
+                    workerContact = data.workerphone,
                     taskedid = data.taskedid,
                     Tasktype = data.Tasktype,
                     specificworkerid = data.specificworkerid,
@@ -215,6 +238,7 @@ namespace iAssist_Xamarin.ViewModels
                     IsCompleted = isCompleted,
                     IsCanceled = isCanceled,
                     IsToRate = isToRate,
+                    IsWorkedOn = isWorkedOn,
                     StatusDisplay = statusdisplay
                 });
             }
@@ -330,6 +354,22 @@ namespace iAssist_Xamarin.ViewModels
                 {
                     statusdisplay = "You cancelled this Task";
                 }
+                if (data.Taskbook_Status == 9)
+                {
+                    statusdisplay = "Task has expired";
+                }
+
+                if (data.taskedstatus != null)
+                {
+                    if (data.taskedstatus == 3)
+                    {
+                        statusdisplay += " - Worker is working the Task";
+                    }
+                    else if (data.taskedstatus == 4)
+                    {
+                        statusdisplay += " - Worker is working the Task";
+                    }
+                }
 
                 var services = MyTaskViewModelData.TaskViewPost.Where(x => x.Taskdet == data.Id);
 
@@ -360,6 +400,8 @@ namespace iAssist_Xamarin.ViewModels
                     taskdet_name = data.taskdet_name,
                     taskdet_desc = data.taskdet_desc,
                     taskdet_sched = data.taskdet_sched,
+                    taskdet_time = data.taskdet_time,
+                    Budget = data.Budget,
                     TaskImage = data.TaskImage,
                     Loc_Address = data.Loc_Address,
                     Jobname = data.Jobname,
@@ -372,6 +414,8 @@ namespace iAssist_Xamarin.ViewModels
                     taskedTaskPayable = data.taskedTaskPayable,
                     taskedWorkerfname = data.taskedWorkerfname,
                     taskedWorkerlname = data.taskedWorkerlname,
+                    workerFullName = data.taskedWorkerfname + " " + data.taskedWorkerlname,
+                    workerContact = data.workerphone,
                     taskedid = data.taskedid,
                     Tasktype = data.Tasktype,
                     specificworkerid = data.specificworkerid,

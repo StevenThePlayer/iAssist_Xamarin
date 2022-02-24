@@ -6,6 +6,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Models\Monkey.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="Resources\Fonts\CustomFont.ttf" />
     <None Remove="Resources\Fonts\fa-brands-400.ttf" />
     <None Remove="Resources\Fonts\fa-regular-400.ttf" />

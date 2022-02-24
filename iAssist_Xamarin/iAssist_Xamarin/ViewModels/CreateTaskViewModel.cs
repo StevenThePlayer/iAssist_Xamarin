@@ -18,16 +18,17 @@ namespace iAssist_Xamarin.ViewModels
         public Command JobSelectedCommand { get; }
         public Command UploadFileCommand { get; }
 
-        private List<ServiceList> serviceLists = new List<ServiceList>();
+        private List<ServiceList> serviceLists;
         public IList<object> selectedServices;
-        private List<string> jobCategory = new List<string>();
+        private List<string> jobCategory;
 
         public UploadFileServices uploadFileServices;
 
-        public TaskDetailsModel createTaskViewModel = new TaskDetailsModel();
+        public TaskDetailsModel createTaskViewModel;
 
-        private string taskTitle, taskDescription, message, selectedJob, picture;
+        private string taskTitle, taskDescription, message, selectedJob, picture, taskBudget;
         private DateTime selectedDate, currDate;
+        private TimeSpan selectedTime;
         private bool isJobSelected;
 
         public CreateTaskViewModel()
@@ -41,6 +42,10 @@ namespace iAssist_Xamarin.ViewModels
             CurrDate = DateTime.Now;
             SelectedDate = CurrDate;
 
+            createTaskViewModel = new TaskDetailsModel();
+            jobCategory = new List<string>();
+            serviceLists = new List<ServiceList>();
+
             uploadFileServices = new UploadFileServices();
 
             CreateTaskCommand = new Command(OnCreateClicked);
@@ -49,6 +54,8 @@ namespace iAssist_Xamarin.ViewModels
 
             ServiceLists = new ObservableCollection<ServiceList>();
             JobCategory = new ObservableCollection<string>();
+
+            SelectedTime = new TimeSpan(12, 0, 0);
 
             GetData();
             GetBalance();
@@ -86,15 +93,18 @@ namespace iAssist_Xamarin.ViewModels
             TaskServices taskServices = new TaskServices();
             await taskServices.SetJob(SelectedJob);
             createTaskViewModel = await taskServices.GetCreateTask(TempJobCategory.id.ToString());
-            if(createTaskViewModel.SkillList != null)
+            if(createTaskViewModel != null)
             {
-                ServiceLists.Clear();
-                foreach (var data in createTaskViewModel.SkillList)
+                if (createTaskViewModel.SkillList != null)
                 {
-                    ServiceLists.Add(new ServiceList { ServiceName = data.Skillname });
+                    ServiceLists.Clear();
+                    foreach (var data in createTaskViewModel.SkillList)
+                    {
+                        ServiceLists.Add(new ServiceList { ServiceName = data.Skillname });
+                    }
                 }
+                TempAddress.Address = createTaskViewModel.Address;
             }
-            TempAddress.Address = createTaskViewModel.Address;
             //Address = createTaskViewModel.Address;
             //latitude = createTaskViewModel.Latitude;
             //longitude = createTaskViewModel.Longitude;
@@ -156,7 +166,8 @@ namespace iAssist_Xamarin.ViewModels
                 TaskServices taskServices = new TaskServices();
                 string address = Constants.BaseApiAddress + "api/Upload";
                 string pictureName = await uploadFileServices.UploadFile(address, false);
-                bool success = await taskServices.PostCreateTask(TaskTitle, TaskDescription, SelectedDate, Address, latitude, longitude, pictureName, services, createTaskViewModel);
+                var time = SelectedDate.Date + SelectedTime;
+                bool success = await taskServices.PostCreateTask(TaskTitle, TaskDescription, SelectedDate, time, TaskBudget, Address, latitude, longitude, pictureName, services, createTaskViewModel);
 
                 if(success)
                 {
@@ -196,9 +207,11 @@ namespace iAssist_Xamarin.ViewModels
         public string SelectedJob{get => selectedJob;set => SetProperty(ref selectedJob, value);}
 
         public string TaskTitle { get => taskTitle; set => SetProperty(ref taskTitle, value); }
-        public string TaskDescription{get => taskDescription;set => SetProperty(ref taskDescription, value);}
+        public string TaskDescription{ get => taskDescription;set => SetProperty(ref taskDescription, value); }
+        public string TaskBudget { get => taskBudget; set => SetProperty(ref taskBudget, value); }
 
-        public DateTime SelectedDate{get => selectedDate;set => SetProperty(ref selectedDate, value);}
+        public DateTime SelectedDate{ get => selectedDate;set => SetProperty(ref selectedDate, value);}
+        public TimeSpan SelectedTime { get => selectedTime; set => SetProperty(ref selectedTime, value); }
         public DateTime CurrDate { get => currDate; set => SetProperty(ref currDate, value); }
     }
 }

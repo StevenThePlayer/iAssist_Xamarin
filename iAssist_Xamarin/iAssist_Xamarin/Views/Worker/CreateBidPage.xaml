@@ -32,6 +32,12 @@
                     Style="{StaticResource LabelLarge}"
                     Text="{Binding BidDescription}"
                     HeightRequest="100"/>
+                <Label
+                    Style="{StaticResource LabelMedium}">Bid Expiration Date</Label>
+                
+                <DatePicker
+                    MinimumDate="{Binding CurrDate}"
+                    Date="{Binding SelectedDate}" />
 
                 <Label 
                     Style="{StaticResource LabelMedium}"

@@ -11,7 +11,7 @@
     </ContentPage.BindingContext>
     <ContentPage.Content>
         <ScrollView HeightRequest="100">
-            <StackLayout Padding="20" HeightRequest="900">
+            <StackLayout Padding="20" HeightRequest="1000">
             <Label Style="{StaticResource LabelLarge}"
                    FontAttributes="Bold"
                    HorizontalTextAlignment="Center" Text="{Binding Title}"></Label>
@@ -40,7 +40,20 @@
                     MinimumDate="{Binding CurrDate}"
                     Date="{Binding SelectedDate}" />
 
-            <Label  Style="{StaticResource LabelMedium}"
+            <TimePicker
+                
+                Time="{Binding SelectedTime}"
+                IsVisible="{Binding IsJobSelected}"
+                Format="T">
+            </TimePicker>
+
+            <Label Style="{StaticResource LabelMedium}"
+                IsVisible="{Binding IsJobSelected}">Budget</Label>
+            <Entry 
+                Keyboard="Numeric"
+                IsVisible="{Binding IsJobSelected}" Text="{Binding TaskBudget}"/>
+
+                <Label  Style="{StaticResource LabelMedium}"
                     IsVisible="{Binding IsJobSelected}">Address:</Label>
             <input:AutoCompleteEntry
                     IsVisible="{Binding IsJobSelected}"

@@ -27,14 +27,14 @@
             ItemSizingStrategy="MeasureAllItems"
             ItemsLayout="VerticalList"
             ItemsSource="{Binding TaskListGroups}"
-                >
+                ><!--
                 <CollectionView.EmptyView>
                     <StackLayout Padding="12">
                         <Label 
                             Style="{StaticResource LabelLarge}"
                             HorizontalOptions="Center" Text="No Task" />
                     </StackLayout>
-                </CollectionView.EmptyView>
+                </CollectionView.EmptyView>-->
                 <CollectionView.GroupHeaderTemplate>
                     <DataTemplate x:DataType="{x:Null}">
                         <StackLayout Padding="12">
@@ -52,6 +52,32 @@
                             <Frame Margin="0"
                                    CornerRadius="10">
                                 <StackLayout Orientation="Vertical">
+
+                                    <Button Text="Report Worker" IsVisible="{Binding IsToRate}"
+                                                Style="{StaticResource ButtonOutline}"
+                                            FontSize="Small"
+                                            WidthRequest="140"
+                                            HorizontalOptions="End"
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:MyTaskViewModel}}, Path=ReportWorkerCommand}"
+                                        CommandParameter="{Binding .}"/>
+
+                                    <!--
+                                    <Button Text="Report Worker" IsVisible="{Binding IsOngoing}"
+                                                Style="{StaticResource ButtonOutline}"
+                                            FontSize="Small"
+                                            WidthRequest="140"
+                                            HorizontalOptions="End"
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:MyTaskViewModel}}, Path=ReportWorkerCommand}"
+                                        CommandParameter="{Binding .}"/>
+                                    
+                                    <Button Text="Report Worker" IsVisible="{Binding IsCompleted}"
+                                                Style="{StaticResource ButtonOutline}"
+                                            FontSize="Small"
+                                            WidthRequest="140"
+                                            HorizontalOptions="End"
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:MyTaskViewModel}}, Path=ReportWorkerCommand}"
+                                        CommandParameter="{Binding .}"/>
+                                    -->
                                     <Image Source="{Binding TaskImage}" WidthRequest="200" />
                                     <Label
                                         Style="{StaticResource LabelLarge}"
@@ -70,7 +96,7 @@
                                         VerticalOptions="Center" />
                                     <Label
                                         Style="{StaticResource LabelLarge}"
-                                        Text="{Binding taskdet_sched}"
+                                        Text="{Binding taskdet_time}"
                                         VerticalOptions="Center" />
                                     <Label
                                         Style="{StaticResource LabelLarge}"
@@ -83,10 +109,30 @@
                                     <Label
                                         Style="{StaticResource LabelMedium}"
                                         Text="{Binding ServicesCombined}"
+                                        VerticalOptions="Center"/>
+                                    <StackLayout IsVisible="{Binding IsWorkedOn}">
+                                        <Label
+                                        IsVisible="{Binding IsWorkedOn}"
+                                        Padding="0,10,0,0"
+                                        Style="{StaticResource LabelMedium}"
+                                        Text="Worker Details"
+                                        HorizontalTextAlignment="End"/>
+                                        <Label
+                                            IsVisible="{Binding IsWorkedOn}"
+                                        Style="{StaticResource LabelMedium}"
+                                        Text="{Binding workerFullName}"
+                                        VerticalOptions="Center"
+                                        HorizontalTextAlignment="End"/>
+                                        <Label
+                                            IsVisible="{Binding IsWorkedOn}"
+                                        Style="{StaticResource LabelMedium}"
+                                        Text="{Binding workerContact}"
                                         VerticalOptions="Center" 
+                                        HorizontalTextAlignment="End"
                                         Padding="0,0,0,20"/>
+                                    </StackLayout>
 
-                                        
+
                                     <StackLayout Orientation="Horizontal" IsVisible="{Binding IsPending}">
                                         <Button Text="Post the Task"
                                                 Style="{StaticResource PrioritySubButtonStyle}"
@@ -97,6 +143,7 @@
                                         Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:MyTaskViewModel}}, Path=FindWorkerCommand}"
                                         CommandParameter="{Binding .}"/>
                                     </StackLayout>
+                                    
                                     <StackLayout Orientation="Horizontal" IsVisible="{Binding IsPending}">
                                         <Button Text="Edit Task"
                                                 Style="{StaticResource SubButtonStyle}"
@@ -117,17 +164,18 @@
                                                 Style="{StaticResource SubButtonStyle}"
                                         Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:MyTaskViewModel}}, Path=CancelTaskCommand}"
                                         CommandParameter="{Binding .}"/>
+
                                     </StackLayout>
 
-                                    <!--
-                                    <StackLayout Orientation="Horizontal" IsVisible="{Binding IsOngoing}">
+                                    <!--<StackLayout Orientation="Horizontal" IsVisible="{Binding IsOngoing}">
                                         <Button Text="Cancel Task"
+                                                Style="{StaticResource SubButtonStyle}"
                                         Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:MyTaskViewModel}}, Path=CancelTaskCommand}"
                                         CommandParameter="{Binding .}"/>
                                     </StackLayout>-->
 
 
-                                    <StackLayout Orientation="Horizontal" IsVisible="{Binding IsToComplete}">
+                                <StackLayout Orientation="Horizontal" IsVisible="{Binding IsToComplete}">
                                         <Button Text="Mark as Completed"
                                                 Style="{StaticResource PriotityButtonStyle}"
                                             Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:MyTaskViewModel}}, Path=MarkCompletedCommand}"
@@ -143,8 +191,9 @@
                                                 Style="{StaticResource SubButtonStyle}"
                                         Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:MyTaskViewModel}}, Path=DoNotRateWorkerCommand}"
                                         CommandParameter="{Binding .}"/>
-                                    </StackLayout> 
 
+                                    </StackLayout>
+                                    
                                 </StackLayout>
                             </Frame>
                         </Grid>

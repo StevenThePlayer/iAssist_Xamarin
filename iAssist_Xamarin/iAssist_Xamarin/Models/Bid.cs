@@ -9,6 +9,7 @@ namespace iAssist_Xamarin.Models
         public int Bidid { get; set; }
         public decimal Bid_Amount { get; set; }
         public string Bid_Description { get; set; }
+        public DateTime BidTimeExp { get; set; }
         public int TaskdetId { get; set; }
         public string Firstname { get; set; }
         public string Lastname { get; set; }
@@ -19,5 +20,7 @@ namespace iAssist_Xamarin.Models
         public string Username { get; set; }
         public int? bookstatus { get; set; }
         public double? Rate { get; set; }
+
+
     }
 }

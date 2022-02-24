@@ -18,10 +18,13 @@ namespace iAssist_Xamarin.ViewModels
         public ObservableRangeCollection<MyTaskModel> TaskList { get; set; }
 
         public AsyncCommand<MyTaskModel> BidDetailsCommand { get; }
+        public AsyncCommand<MyTaskModel> BidTaskCommand { get; }
+        
         public ViewBidRequestViewModel()
         {
             Title = "Bidded / Request Task";
             BidDetailsCommand = new AsyncCommand<MyTaskModel>(OnBidDetails);
+            BidTaskCommand = new AsyncCommand<MyTaskModel>(OnBidTask);
             taskServices = new TaskServices();
             TaskList = new ObservableRangeCollection<MyTaskModel>();
         }
@@ -43,6 +46,19 @@ namespace iAssist_Xamarin.ViewModels
             {
                 TaskList.Add(data);
             }
+        }
+
+        public async Task OnBidTask(MyTaskModel task)
+        {
+            if (task == null)
+                return;
+
+            DataKeepServices.SetMyTaskData(task);
+            DataKeepServices.SetTaskRawData(MyTaskViewModelData.Taskpostlistview.FirstOrDefault(x => x.Id == task.Id));
+            DataKeepServices.SetServicesData(MyTaskViewModelData.TaskViewPost.Where(x => x.Taskdet == task.Id).ToList());
+            DataKeepServices.SetTaskId(task.Id);
+
+            await Shell.Current.GoToAsync($"{nameof(CreateBidPage)}");
         }
 
         public async Task OnBidDetails(MyTaskModel task)

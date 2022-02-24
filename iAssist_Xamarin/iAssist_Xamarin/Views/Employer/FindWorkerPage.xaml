@@ -30,7 +30,7 @@
                     <StackLayout Padding="12">
                         <Label 
                             Style="{StaticResource LabelLarge}"
-                            HorizontalOptions="Center" Text="No Workers bidded for your task yet." />
+                            HorizontalOptions="Center" Text="No Workers for your task." />
                     </StackLayout>
                 </CollectionView.EmptyView>
                 <CollectionView.GroupHeaderTemplate>

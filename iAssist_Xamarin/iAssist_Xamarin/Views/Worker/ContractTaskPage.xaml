@@ -63,7 +63,7 @@
                                         VerticalOptions="Center" />
                                     <Label
                                         Style="{StaticResource LabelLarge}"
-                                        Text="{Binding taskdet_sched}"
+                                        Text="{Binding taskdet_time}"
                                         VerticalOptions="Center" />
                                     <Label
                                         Style="{StaticResource LabelLarge}"

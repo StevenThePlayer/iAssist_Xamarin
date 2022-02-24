@@ -40,9 +40,9 @@ namespace iAssist_Xamarin.ViewModels
         public override async void GetBids()
         {
             int id = DataKeepServices.GetTaskId();
-                bidList = new List<BidModel>();
+            bidList = new List<BidModel>();
 
-                bidServices = new BidServices();
+            bidServices = new BidServices();
 
             bidList = await bidServices.GetViewBidding(id, "", (int)2);
 

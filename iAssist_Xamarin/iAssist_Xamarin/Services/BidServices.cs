@@ -13,11 +13,11 @@ namespace iAssist_Xamarin.Services
 {
     public class BidServices : GetWithCachingServices
     {
-        public async Task<List<BidModel>> GetViewBidding(int id, string category = "", int user = 1)// user = 1 employer, user = 2 worker, id = taskdet
+        public async Task<List<BidModel>> GetViewBidding(int id, string category = "", int user = 1, decimal minimum = 0, decimal maximum = 0)// user = 1 employer, user = 2 worker, id = taskdet
         {
             try
             {
-                string url = "api/Bid/ViewBidding?id=" + id.ToString() + "&user=" + user.ToString() + "&category" + category;
+                string url = "api/Bid/ViewBidding?id=" + id.ToString() + "&user=" + user.ToString() + "&category" + category + "&minimum=" + minimum + "&maximum=" + maximum;
                 var data = await GetAsync<List<BidModel>>(url, "getviewbidding");
                 return data;
             }
@@ -123,7 +123,7 @@ namespace iAssist_Xamarin.Services
             }
         }
 
-        public async Task<bool> PostCreateBidToTheTask(decimal bidAmount, string bidDescription, int id)
+        public async Task<bool> PostCreateBidToTheTask(decimal bidAmount, string bidDescription, int id, DateTime selectedDate)
         {
             try
             {
@@ -134,9 +134,11 @@ namespace iAssist_Xamarin.Services
 
                 BidModel input = new BidModel
                 {
+                    BidTimeExp = selectedDate,
                     TaskdetId = id,
                     Bid_Amount = bidAmount,
                     Bid_Description = bidDescription
+                    
                 };
 
                 var json = JsonConvert.SerializeObject(input);

@@ -76,6 +76,11 @@
                                         Text="{Binding ServicesCombined}"
                                         VerticalOptions="Center" />
                                     
+                                    <Button Text="Add another Bid"
+                                            Style="{StaticResource PriotityButtonStyle}"
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:ViewBidRequestViewModel}}, Path=BidTaskCommand}"
+                                        CommandParameter="{Binding .}"/>
+                                    
                                     <Button Text="View Bid Details"
                                             Style="{StaticResource ButtonStyle}"
                                         Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:ViewBidRequestViewModel}},Path=BidDetailsCommand}"

@@ -14,7 +14,7 @@ namespace iAssist_Xamarin.Services
 {
     public class LocationServices : GetWithCachingServices
     {
-        private readonly string ApiKey = "AIzaSyCCnmMReV03W96lvqJVwbG7nFOTkuUDaX8";
+        private readonly string ApiKey = "AIzaSyCnJbsD4WryXK2FHWETxhPml1pzNQ5KWhI";
         private readonly string MapAutocompleteUrl;
         private readonly string MapDetailsUrl;
 

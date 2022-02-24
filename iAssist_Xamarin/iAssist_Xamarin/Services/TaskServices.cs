@@ -62,8 +62,9 @@ namespace iAssist_Xamarin.Services
         {
             try
             {
-                string url = "api/Task/CreateTaskIndex?JobId=" + input;
-                return await GetAsync<TaskDetailsModel> (url, "getjoblist");
+                string url = "api/Task/GetCreateTaskIndex?JobId=" + input;
+                var data = await GetAsync<TaskDetailsModel>(url, "getjoblist");
+                return data;
             }
             catch (Exception ex)
             {
@@ -75,7 +76,7 @@ namespace iAssist_Xamarin.Services
 
 
         public async Task<bool> PostCreateTask(
-            string taskTitle, string taskDescription, DateTime taskdet_sched, string address, string latitude, string longitude, string image, IEnumerable<string> selectServices, TaskDetailsModel input)
+            string taskTitle, string taskDescription, DateTime taskdet_sched, DateTime taskdet_time, string budget, string address, string latitude, string longitude, string image, IEnumerable<string> selectServices, TaskDetailsModel input)
         {
             try
             {
@@ -87,11 +88,17 @@ namespace iAssist_Xamarin.Services
                 input.TaskTitle = taskTitle;
                 input.TaskDesc = taskDescription;
                 input.taskdet_sched = taskdet_sched;
-                input.Address = address;
+                input.taskdet_time = taskdet_time;
                 input.Latitude = latitude;
                 input.Longitude = longitude;
                 input.TaskImage = image;
                 input.SelectedSkills = selectServices;
+                input.Address = address;
+
+                if (string.IsNullOrWhiteSpace(budget))
+                    input.Budget = 0;
+                else
+                    input.Budget = decimal.Parse(budget);
 
                 var json = JsonConvert.SerializeObject(input);
 
@@ -101,7 +108,7 @@ namespace iAssist_Xamarin.Services
                 httpContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
 
                 var response = await client.PostAsync(
-                    Constants.BaseApiAddress + "api/Task/CreateTaskIndex", httpContent);
+                    Constants.BaseApiAddress + "api/Task/PostCreateTaskIndex", httpContent);
 
                 string content = await response.Content.ReadAsStringAsync();
                 SetMessage(content);
@@ -154,7 +161,7 @@ namespace iAssist_Xamarin.Services
         }
 
         public async Task<bool> PostEditTask(int taskId,
-            string taskTitle, string taskDescription, DateTime taskdet_sched, string address, string latitude, string longitude, string profilePicture, IEnumerable<string> selectServices, TaskDetailsModel input)
+            string taskTitle, string taskDescription, DateTime taskdet_sched, DateTime taskdet_time, string budget, string address, string latitude, string longitude, string profilePicture, IEnumerable<string> selectServices, TaskDetailsModel input)
         {
             try
             {
@@ -167,11 +174,17 @@ namespace iAssist_Xamarin.Services
                 input.TaskTitle = taskTitle;
                 input.TaskDesc = taskDescription;
                 input.taskdet_sched = taskdet_sched;
+                input.taskdet_time = taskdet_time;
                 input.Address = address;
                 input.Latitude = latitude;
                 input.Longitude = longitude;
                 input.TaskImage = profilePicture;
                 input.SelectedSkills = selectServices;
+
+                if (string.IsNullOrWhiteSpace(budget))
+                    input.Budget = 0;
+                else
+                    input.Budget = decimal.Parse(budget);
 
                 var json = JsonConvert.SerializeObject(input);
 

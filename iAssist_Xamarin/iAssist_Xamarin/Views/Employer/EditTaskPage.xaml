@@ -38,6 +38,17 @@
                     MinimumDate="{Binding CurrDate}"
                     Date="{Binding SelectedDate}" />
 
+            <TimePicker
+                Time="{Binding SelectedTime}"
+                Format="T">
+            </TimePicker>
+
+            <Label 
+                Style="{StaticResource LabelMedium}">Budget</Label>
+            <Entry 
+                Keyboard="Numeric"
+                Text="{Binding TaskBudget}"/>
+            
             <Label Style="{StaticResource LabelLarge}">Address:</Label>
             <input:AutoCompleteEntry
                     Text="{Binding Address, Mode=TwoWay}"

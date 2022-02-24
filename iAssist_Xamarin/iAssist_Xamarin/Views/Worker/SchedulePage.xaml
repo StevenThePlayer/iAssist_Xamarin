@@ -58,13 +58,15 @@
                                             VerticalOptions="Center" />
                                     <Label
                                             Style="{StaticResource LabelMedium}"
-                                            Text="Task Date"
+                                            Text="Task Schedule"
                                             VerticalOptions="Center" />
                                     <Label
                                             Style="{StaticResource LabelLarge}"
                                             Padding="20,0,0,0"
                                             Text="{Binding Start}"
-                                            VerticalOptions="Center" /><!--
+                                            VerticalOptions="Center" />
+
+                                    <!--
                                     <Label
                                             Style="{StaticResource LabelLarge}"
                                             Text="Task End Date"

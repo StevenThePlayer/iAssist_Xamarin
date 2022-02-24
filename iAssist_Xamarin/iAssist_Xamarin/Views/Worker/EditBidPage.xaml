@@ -32,6 +32,10 @@
                     Text="{Binding BidDescription}"
                     HeightRequest="100"/>
 
+                <DatePicker
+                    MinimumDate="{Binding CurrDate}"
+                    Date="{Binding SelectedDate}" />
+
                 <Label 
                     Style="{StaticResource LabelMedium}"
                     Text="{Binding Message}" TextColor="Red"/>

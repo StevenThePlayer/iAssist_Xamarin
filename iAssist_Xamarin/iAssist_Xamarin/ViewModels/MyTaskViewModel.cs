@@ -29,12 +29,14 @@ namespace iAssist_Xamarin.ViewModels
         public AsyncCommand<MyTaskModel> MarkCompletedCommand { get; }
         public AsyncCommand<MyTaskModel> RateWorkerCommand { get; }
         public AsyncCommand<MyTaskModel> DoNotRateWorkerCommand { get; }
+        public AsyncCommand<MyTaskModel> ReportWorkerCommand { get; }
+
 
 
         public MyTaskViewModel()
         {
 
-            Title = "My Task";
+               Title = "My Task";
 
             taskServices = new TaskServices();
             Category = new ObservableCollection<string>();
@@ -50,13 +52,14 @@ namespace iAssist_Xamarin.ViewModels
             MarkCompletedCommand = new AsyncCommand<MyTaskModel>(OnMarkComplete);
             RateWorkerCommand = new AsyncCommand<MyTaskModel>(OnRateWorker);
             DoNotRateWorkerCommand = new AsyncCommand<MyTaskModel>(OnNotRateWorker);
+            ReportWorkerCommand = new AsyncCommand<MyTaskModel>(OnReportWorker);
             SelectedCategory = "All";
         }
 
         public override void LoadGroupAdapter()
         {
             var list = LoadGroup();
-            if(TaskListGroups != null)
+            if (TaskListGroups != null)
             {
                 TaskListGroups.Clear();
             }
@@ -80,6 +83,19 @@ namespace iAssist_Xamarin.ViewModels
             SetTaskData(task);
 
             DisplaySelect("Post Task?", $"Post Task: {task.taskdet_name}", $"Post Task Successful", $"Post Task Failed", taskServices.PostTask, task.Id);
+        }
+        
+       async Task OnReportWorker(MyTaskModel task)
+        {
+            if (task == null)
+                return;
+
+            if (task.workerid == null)
+                return;
+
+            DataKeepServices.SetWorkerId((int)task.workerid);
+
+            await Shell.Current.GoToAsync($"{nameof(ComplaintPage)}");
         }
 
         async Task OnFindWorker(MyTaskModel task)

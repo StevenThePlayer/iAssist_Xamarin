@@ -24,6 +24,10 @@ namespace iAssist_Xamarin.Models
         public string Longitude { get; set; }
         public object ImageFile { get; set; }
         public int? workerid { get; set; }
+
+        public DateTime taskdet_time { get; set; }
+        public decimal? Budget { get; set; }
+        //public int check { get; set; }
     }
 
     public class JobListModel
@@ -57,8 +61,10 @@ namespace iAssist_Xamarin.Models
         public string taskdet_name { get; set; }
         public string taskdet_desc { get; set; }
         public DateTime taskdet_sched { get; set; }
+        public DateTime taskdet_time { get; set; }
         public DateTime taskdet_Created_at { get; set; }
         public DateTime taskdet_Updated_at { get; set; }
+        public decimal? Budget { get; set; }
         public string TaskImage { get; set; }
         public string Loc_Address { get; set; }
         //public DbGeography Geolocation { get; set; }
@@ -67,6 +73,7 @@ namespace iAssist_Xamarin.Models
         public string UserId { get; set; }
         public string Username { get; set; }
         public int? workerid { get; set; }
+        public string workerphone { get; set; }
         public int? bid { get; set; }
         public int? taskedstatus { get; set; }
         public decimal? taskedTaskPayable { get; set; }
@@ -75,6 +82,7 @@ namespace iAssist_Xamarin.Models
         public int? taskedid { get; set; }
         public string Tasktype { get; set; }
         public int? specificworkerid { get; set; }
+        //public IEnumerable<TaskFiles> taskfiles { get; set; }
     }
 
     public class SkillServiceTask
@@ -94,6 +102,8 @@ namespace iAssist_Xamarin.Models
         public string taskdet_name { get; set; }
         public string taskdet_desc { get; set; }
         public DateTime taskdet_sched { get; set; }
+        public DateTime taskdet_time { get; set; }
+        public decimal? Budget { get; set; }
         public string TaskImage { get; set; }
         public string Loc_Address { get; set; }
         public string Jobname { get; set; }
@@ -106,6 +116,8 @@ namespace iAssist_Xamarin.Models
         public decimal? taskedTaskPayable { get; set; }
         public string taskedWorkerfname { get; set; }
         public string taskedWorkerlname { get; set; }
+        public string workerFullName { get; set; }
+        public string workerContact { get; set; }
         public int? taskedid { get; set; }
         public string Tasktype { get; set; }
         public int? specificworkerid { get; set; }
@@ -119,6 +131,7 @@ namespace iAssist_Xamarin.Models
         public bool IsToRate { get; set; }
         public bool IsBidded { get; set; }
         public bool IsNotBidded { get; set; }
+        public bool IsWorkedOn { get; set; }
         public string StatusDisplay { get; set; }
     }
 
